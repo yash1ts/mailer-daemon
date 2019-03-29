@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:title="Md Fb Posts"
+        android:id="@+id/bt_nav_fb"
+        android:icon="@drawable/ic_bt_nav_fb_posts_24dp">
+    </item>
+    <item
+        android:title="Notices"
+        android:id="@+id/bt_nav_notices"
+        android:icon="@drawable/ic_bt_nav_notices_24dp">
+    </item>
+    <item android:title="Clubs"
+        android:id="@+id/bt_nav_clubs"
+        android:icon="@drawable/ic_bt_nav_clubs_24dp">
+    </item>
+
+</menu>
