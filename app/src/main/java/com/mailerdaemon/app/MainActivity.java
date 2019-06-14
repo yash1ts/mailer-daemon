@@ -1,5 +1,6 @@
 package com.mailerdaemon.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -14,6 +15,10 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+
+import com.facebook.login.LoginManager;
+import com.google.firebase.auth.FirebaseAuth;
+import com.mailerdaemon.app.FbPosts.FbPostsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -30,7 +35,8 @@ public class MainActivity extends AppCompatActivity
                     replaceFragment(new ClubsFragment());
                     return true;
                 case R.id.bt_nav_fb:
-                    replaceFragment(new FbPostsFragment());
+                    Fragment fragment=new FbPostsFragment();
+                    replaceFragment(fragment);
                     return true;
             }
             return false;
@@ -82,6 +88,10 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            FirebaseAuth firebaseAuth=FirebaseAuth.getInstance();
+            firebaseAuth.signOut();
+            LoginManager.getInstance().logOut();
+            startActivity(new Intent(this,LoginActivity.class));
             return true;
         }
 
@@ -115,12 +125,13 @@ public class MainActivity extends AppCompatActivity
     public void addFragment(Fragment fragment)
     {
         FragmentManager fragmentManager=getSupportFragmentManager();
-        fragmentManager.beginTransaction().add(R.id.fragment_container,fragment).addToBackStack(null).commit();
+        fragmentManager.beginTransaction().add(R.id.fragment_container,fragment).commit();
     }
 
     public void replaceFragment(Fragment fragment)
     {
         FragmentManager fragmentManager=getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).commit();
+        fragmentManager.beginTransaction().setCustomAnimations(android.R.anim.fade_in,android.R.anim.fade_out).replace(R.id.fragment_container,fragment).commit();
     }
+
 }
