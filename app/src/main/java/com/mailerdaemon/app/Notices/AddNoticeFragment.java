@@ -44,9 +44,8 @@ public class AddNoticeFragment extends DialogFragment implements ViewUtils.showP
   private EditText heading;
   private TextInputEditText detail;
   private ImageButton send;
-  String path;
-  String downloadUrl=null;
-  String name;
+  private String path=null;
+  private String downloadUrl=null;
   @BindView(R.id.progress_bar)
   ProgressBar progressBar;
 
@@ -94,7 +93,6 @@ public class AddNoticeFragment extends DialogFragment implements ViewUtils.showP
       public void onImagesPicked(@NonNull List<File> imageFiles, EasyImage.ImageSource source, int type) {
         imageView.setImageURI(Uri.fromFile(imageFiles.get(0)));
         path=imageFiles.get(0).getPath();
-        name=imageFiles.get(0).getName();
       }
     });
   }

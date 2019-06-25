@@ -1,14 +1,16 @@
 package com.mailerdaemon.app.Events;
 
-import com.google.firebase.firestore.CollectionReference;
+import com.mailerdaemon.app.Notices.NoticeModel;
+
+import java.util.List;
 
 import lombok.Data;
 
 @Data
-class EventModel {
+public class EventModel {
   private String name;
   private String date;
   private String day;
-  CollectionReference posts;
+  List<NoticeModel> posts;
 
 }

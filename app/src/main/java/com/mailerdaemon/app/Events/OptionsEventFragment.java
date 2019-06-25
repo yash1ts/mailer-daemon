@@ -1,4 +1,4 @@
-package com.mailerdaemon.app.Notices;
+package com.mailerdaemon.app.Events;
 
 import android.app.DownloadManager;
 import android.content.ClipData;
@@ -15,16 +15,17 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.mailerdaemon.app.Notices.NoticeModel;
 import com.mailerdaemon.app.R;
 
+import Utils.StringRes;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class OptionsFragment extends BottomSheetDialogFragment {
-  public OptionsFragment(){
+public class OptionsEventFragment extends BottomSheetDialogFragment {
 
-  }
   @BindView(R.id.option_delete)
   View delete;
   @BindView(R.id.option_Copy)
@@ -33,6 +34,7 @@ public class OptionsFragment extends BottomSheetDialogFragment {
       View download;
   String id;
   private DocumentReference reference;
+  private NoticeModel model;
 
   @Nullable
   @Override
@@ -40,6 +42,7 @@ public class OptionsFragment extends BottomSheetDialogFragment {
     View view=inflater.inflate(R.layout.fragment_options,container,false);
 
     id= getArguments().getString("id");
+    model=getArguments().getParcelable("model");
     ButterKnife.bind(this,view);
     reference=FirebaseFirestore.getInstance().document(id);
     ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -49,36 +52,28 @@ public class OptionsFragment extends BottomSheetDialogFragment {
 
 
     delete.setOnClickListener(v ->{
-        reference.delete();
+      reference.update("posts", FieldValue.arrayRemove(model));
       getDialog().dismiss();
     });
-    copy.setOnClickListener(v -> reference.get().addOnCompleteListener(task ->{
-      if(task.isSuccessful())
-      {
-        NoticeModel noticeModel=task.getResult().toObject(NoticeModel.class);
-        ClipData clip = ClipData.newPlainText("Copy", noticeModel.getHeading()+"\n"+noticeModel.getDetails());
+    copy.setOnClickListener(v -> {
+
+        ClipData clip = ClipData.newPlainText("Copy", model.getHeading()+"\n"+model.getDetails());
         clipboard.setPrimaryClip(clip);
         Toast.makeText(getContext(),"Copied",Toast.LENGTH_SHORT).show();
         getDialog().dismiss();
-      }
-    }));
+      });
     download.setOnClickListener(v->{
-      reference.get().addOnCompleteListener(task ->{
-        if(task.isSuccessful())
-        {
-          NoticeModel noticeModel=task.getResult().toObject(NoticeModel.class);
-          DownloadManager.Request request = new DownloadManager.Request(Uri.parse(noticeModel.getPhoto()));
+
+
+          DownloadManager.Request request = new DownloadManager.Request(Uri.parse(model.getPhoto()));
           request.setDescription("notice-image");
           request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-          request.setTitle(noticeModel.getHeading());
+          request.setTitle(model.getHeading());
           manager.enqueue(request);
           getDialog().dismiss();
-        }
-      });
 
 
     });
     return view;
   }
-
 }

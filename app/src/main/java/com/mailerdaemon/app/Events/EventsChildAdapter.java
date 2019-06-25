@@ -12,11 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.common.collect.Lists;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.mailerdaemon.app.Notices.NoticeModel;
-import com.mailerdaemon.app.Notices.OptionsFragment;
 import com.mailerdaemon.app.R;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
@@ -25,9 +21,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.Holder> {
-  private List<DocumentSnapshot> noticeModels=new ArrayList<>();
+  private List<NoticeModel> noticeModels=new ArrayList<>();
   private Context context;
   private FragmentManager fragment;
+  private String path;
+  private int size;
 
   public EventsChildAdapter(Context context, FragmentManager fragment){
     this.context=context;
@@ -43,11 +41,11 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
 
   @Override
   public void onBindViewHolder(@NonNull EventsChildAdapter.Holder holder, int i) {
-    NoticeModel noticeModel=noticeModels.get(i).toObject(NoticeModel.class);
+    NoticeModel noticeModel=noticeModels.get(size-1-i);
     holder.heading.setText(noticeModel.getHeading());
     holder.detail.setText(noticeModel.getDetails());
     String s=noticeModel.getPhoto();
-    holder.options.setOnClickListener(v -> getBottomSheet(noticeModels.get(i).getReference()));
+    holder.options.setOnClickListener(v -> getBottomSheet(noticeModel,path));
     if(s!=null)
     { holder.imageView.setImageURI(Uri.parse(s));
       holder.date_time.setText(noticeModel.getDate());
@@ -65,9 +63,11 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
     return noticeModels.size();
   }
 
-  public void setData(List<DocumentSnapshot> noticeModels) {
+  public void setData(List<NoticeModel> noticeModels, String path) {
     if(noticeModels!=null)
-      this.noticeModels= Lists.reverse(noticeModels);
+      this.noticeModels=(noticeModels);
+    this.path=path;
+    this.size=noticeModels.size();
   }
 
   public class Holder extends RecyclerView.ViewHolder {
@@ -89,10 +89,11 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
     }
   }
 
-  private void getBottomSheet(DocumentReference id) {
+  private void getBottomSheet(NoticeModel model,String path) {
     Bundle bundle=new Bundle();
-    bundle.putString("id",id.getPath());
-    OptionsFragment optionsFragment=new OptionsFragment();
+    bundle.putParcelable("model",model);
+    bundle.putString("id",path);
+    OptionsEventFragment optionsFragment=new OptionsEventFragment();
     optionsFragment.setArguments(bundle);
     optionsFragment.show(fragment,null);
 

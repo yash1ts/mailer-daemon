@@ -16,10 +16,10 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 public class UploadData {
-  private static String downloadUrl=null;
+  private static String downloadUrl;
 
   public static void upload(ImageUploadCallBack callBack, String path, Context context) {
-    if (path != null) {
+    if (path!=null) {
       FirebaseStorage storage = FirebaseStorage.getInstance();
       final StorageReference photosRef = storage.getReference().child("photos/");
       InputStream stream = null;
@@ -36,7 +36,7 @@ public class UploadData {
         callBack.onSuccess(downloadUrl);
       }));
     } else {
-      callBack.onSuccess(downloadUrl);
+      callBack.onSuccess(null);
     }
 
   }
