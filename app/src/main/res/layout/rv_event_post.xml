@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.card.MaterialCardView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:elevation="@dimen/cardview_default_elevation"
+  android:layout_marginStart="12dp"
+  android:layout_marginEnd="12dp"
+  android:layout_marginTop="4dp"
+  android:layout_marginBottom="4dp"
+  app:strokeColor="@android:color/darker_gray"
+  app:strokeWidth="0.5dp"
+  app:cardCornerRadius="8dp">
+
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="48dp"
+      android:textSize="@dimen/text_size_16"
+      android:paddingTop="@dimen/padding_8"
+      android:textColor="@color/colorTextBlack"
+      android:id="@+id/notice_head"
+      android:text="No Data"
+      android:layout_marginStart="8dp"
+      android:paddingStart="@dimen/padding_10"/>
+
+    <View
+        android:id="@+id/notice_options"
+        android:layout_width="40dp"
+        android:layout_height="30dp"
+        android:layout_alignEnd="@+id/view"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/ic_more_horiz_gray_24dp" />
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_marginEnd="36dp"
+      android:layout_height="wrap_content"
+      android:id="@+id/notice_detail"
+      android:layout_below="@+id/notice_head"
+      android:layout_gravity="bottom"
+      android:padding="2dp"
+      android:layout_marginStart="20dp"
+      android:textSize="@dimen/text_size_16"
+      />
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_below="@+id/notice_detail"
+      android:background="@android:color/darker_gray"
+      android:id="@+id/view"
+      />
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="time"
+      android:textSize="@dimen/text_size_16"
+      android:padding="@dimen/padding_10"
+      android:layout_below="@+id/view"
+      android:id="@+id/time2"
+      android:gravity="end"
+      android:visibility="gone"
+      android:paddingEnd="@dimen/padding_10"/>
+    <com.facebook.drawee.view.SimpleDraweeView
+      android:layout_width="match_parent"
+      android:layout_gravity="center_horizontal"
+      android:layout_height="wrap_content"
+      android:minHeight="160dp"
+      android:layout_marginTop="2dp"
+      app:placeholderImage="@drawable/placeholder_image"
+      android:layout_below="@+id/notice_detail"
+      android:id="@+id/notice_photo"
+      app:actualImageScaleType="focusCrop"
+      android:foreground="@drawable/image_mask"/>
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="time"
+      android:textSize="@dimen/text_size_16"
+      android:padding="@dimen/padding_10"
+      android:layout_alignEnd="@+id/notice_photo"
+      android:layout_alignBottom="@+id/notice_photo"
+      android:id="@+id/time"
+      android:textColor="@android:color/white"
+      android:paddingEnd="@dimen/padding_10"/>
+  </RelativeLayout>
+
+</android.support.design.card.MaterialCardView>
