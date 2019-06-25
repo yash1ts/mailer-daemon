@@ -16,6 +16,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.common.collect.Lists;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.mailerdaemon.app.Notices.NoticeModel;
 import com.mailerdaemon.app.R;
 
@@ -51,11 +52,11 @@ public class EventsFragment extends Fragment {
 
   private void getDatabase() {
 
-    firebaseFirestore.collection(StringRes.FB_Collec_Event).orderBy("date").get().addOnCompleteListener(task -> {
+    firebaseFirestore.collection(StringRes.FB_Collec_Event).orderBy("date", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
       if(task.isSuccessful()) {
         List<DocumentSnapshot> snap=task.getResult().getDocuments();
         Log.d("DB",task.getResult().toObjects(EventModel.class).toString());
-        adapter.setData(Lists.reverse(snap));
+        adapter.setData(snap);
         adapter.notifyDataSetChanged();
         shimmerViewContainer.stopShimmer();
         shimmerViewContainer.setVisibility(View.GONE);

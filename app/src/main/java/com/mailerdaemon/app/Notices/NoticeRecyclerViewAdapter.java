@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import Utils.StringRes;
 import retrofit2.Retrofit;
 
 public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecyclerViewAdapter.Holder> {
@@ -99,10 +100,9 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
   private void getBottomSheet(DocumentReference id) {
     Bundle bundle=new Bundle();
     bundle.putString("id", id.getPath());
-    Log.d("ADD",id.getPath());
     OptionsFragment optionsFragment=new OptionsFragment();
     optionsFragment.setArguments(bundle);
-    optionsFragment.show(fragment,null);
+    optionsFragment.show(fragment, StringRes.FB_Collec_Notice);
 
   }
 

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.mailerdaemon.app.Notices.NoticeModel;
 import com.mailerdaemon.app.R;
@@ -28,7 +29,6 @@ import java.util.Date;
 import java.util.List;
 
 import Utils.ImageUploadCallBack;
-import Utils.StringRes;
 import Utils.UploadData;
 import Utils.ViewUtils;
 import butterknife.BindView;
@@ -46,9 +46,8 @@ public class AddEventPostFragment extends DialogFragment implements ViewUtils.sh
   private EditText heading;
   private TextInputEditText detail;
   private ImageButton send;
-  String path;
-  String downloadUrl;
-  String name;
+  private String path=null;
+  private String downloadUrl=null;
   @BindView(R.id.progress_bar)
   ProgressBar progressBar;
 
@@ -81,14 +80,13 @@ public class AddEventPostFragment extends DialogFragment implements ViewUtils.sh
   private void setDatabase() {
     Date date=new Date();
     DateFormat dateFormat=new SimpleDateFormat();
-    String name=this.getArguments().getString("name");
+    String id=this.getArguments().getString("id");
     NoticeModel noticeModel=new NoticeModel();
     noticeModel.setDate(dateFormat.format(date));
     noticeModel.setDetails(detail.getText().toString());
     noticeModel.setHeading(heading.getText().toString());
     noticeModel.setPhoto(downloadUrl);
-    FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Notice).document().set(noticeModel);
-    FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Event).document(name).collection("posts").document().set(noticeModel);
+    FirebaseFirestore.getInstance().document(id).update("posts", FieldValue.arrayUnion(noticeModel));
     Toast.makeText(getContext(),"Done",Toast.LENGTH_SHORT).show();
   }
 
@@ -100,7 +98,6 @@ public class AddEventPostFragment extends DialogFragment implements ViewUtils.sh
       public void onImagesPicked(@NonNull List<File> imageFiles, EasyImage.ImageSource source, int type) {
         imageView.setImageURI(Uri.fromFile(imageFiles.get(0)));
         path=imageFiles.get(0).getPath();
-        name=imageFiles.get(0).getName();
       }
     });
   }

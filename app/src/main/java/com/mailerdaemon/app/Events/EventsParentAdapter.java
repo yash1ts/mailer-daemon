@@ -46,28 +46,16 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
     holder.date.setText(eventModel.getDay()+"\n  "+eventModel.getDate());
     RecyclerView recyclerView=holder.recyclerView;
     holder.recyclerView.setRecycledViewPool(viewPool);
-    String id=documentReferences.get(i).getId();
-    holder.deleteEvent.setOnClickListener(v ->FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Event).document(id).delete());
+    String id=documentReferences.get(i).getReference().getPath();
+    holder.deleteEvent.setOnClickListener(v ->FirebaseFirestore.getInstance().document(id).delete());
     holder.addPost.setOnClickListener(v -> openDialog(id));
-    if(lists.isEmpty()) {
-      FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Event).document(id).collection("posts").get().addOnCompleteListener(task -> {
-        if (task.isSuccessful()) {
-          holder.adapter.setData(task.getResult().getDocuments());
-          recyclerView.setAdapter(holder.adapter);
-          lists.add(task.getResult().getDocuments());
-        } else {
-        }
-      });
-    }else{
-      holder.adapter.setData(lists.get(i));
-      recyclerView.setAdapter(holder.adapter);
-    }
-
+    holder.adapter.setData(eventModel.posts,id);
+    recyclerView.setAdapter(holder.adapter);
   }
 
-  private void openDialog(String name) {
+  private void openDialog(String id) {
     Bundle bundle=new Bundle();
-    bundle.putString("name",name);
+    bundle.putString("id",id);
     AddEventPostFragment dialog=new AddEventPostFragment();
     dialog.setArguments(bundle);
     dialog.show(fragment.getChildFragmentManager(),null);
