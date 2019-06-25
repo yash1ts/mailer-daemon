@@ -3,6 +3,7 @@ package Utils;
 import android.content.Context;
 import android.net.Uri;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.v4.content.ContextCompat;
 
 import com.mailerdaemon.app.R;
 
@@ -13,7 +14,7 @@ public class ChromeTab {
   }
   public void openTab(String url){
     CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-    builder.setToolbarColor(context.getResources().getColor(R.color.colorAccent));
+    builder.setToolbarColor(ContextCompat.getColor(context,R.color.colorAccent));
     CustomTabsIntent customTabsIntent = builder.build();
     customTabsIntent.launchUrl(context, Uri.parse(url));
   }

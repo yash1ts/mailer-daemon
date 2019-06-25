@@ -43,10 +43,11 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
   public void onBindViewHolder(@NonNull EventsParentAdapter.Holder holder, int i) {
     EventModel eventModel=documentReferences.get(i).toObject(EventModel.class);
     holder.name.setText(eventModel.getName());
-    holder.date.setText(eventModel.getDate()+"\n  "+eventModel.getDay());
+    holder.date.setText(eventModel.getDay()+"\n  "+eventModel.getDate());
     RecyclerView recyclerView=holder.recyclerView;
     holder.recyclerView.setRecycledViewPool(viewPool);
     String id=documentReferences.get(i).getId();
+    holder.deleteEvent.setOnClickListener(v ->FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Event).document(id).delete());
     holder.addPost.setOnClickListener(v -> openDialog(id));
     if(lists.isEmpty()) {
       FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Event).document(id).collection("posts").get().addOnCompleteListener(task -> {
@@ -86,12 +87,14 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
     TextView date;
     RecyclerView recyclerView;
     EventsChildAdapter adapter=new EventsChildAdapter(context,fragment.getChildFragmentManager());
-
     View addPost;
+    View deleteEvent;
+
     public Holder(@NonNull View itemView) {
       super(itemView);
       name=itemView.findViewById(R.id.name);
       date=itemView.findViewById(R.id.date_day);
+      deleteEvent=itemView.findViewById(R.id.remove_event);
       recyclerView=itemView.findViewById(R.id.rv_event_child);
       addPost=itemView.findViewById(R.id.add_event_post);
       recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(),LinearLayoutManager.VERTICAL,false));

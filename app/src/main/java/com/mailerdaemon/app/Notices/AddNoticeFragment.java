@@ -26,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 import Utils.ImageUploadCallBack;
+import Utils.StringRes;
 import Utils.UploadData;
 import Utils.ViewUtils;
 import butterknife.BindView;
@@ -76,8 +77,12 @@ public class AddNoticeFragment extends DialogFragment implements ViewUtils.showP
   private void setDatabase() {
     Date date=new Date();
     DateFormat dateFormat=new SimpleDateFormat();
-    NoticeModel noticeModel=new NoticeModel(heading.getText().toString(),detail.getText().toString(),downloadUrl,dateFormat.format(date));
-    FirebaseFirestore.getInstance().collection("Notices").document().set(noticeModel);
+    NoticeModel noticeModel=new NoticeModel();
+    noticeModel.setDate(dateFormat.format(date));
+    noticeModel.setDetails(detail.getText().toString());
+    noticeModel.setHeading(heading.getText().toString());
+    noticeModel.setPhoto(downloadUrl);
+    FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Notice).document().set(noticeModel);
     changeProgressBar();
   }
 

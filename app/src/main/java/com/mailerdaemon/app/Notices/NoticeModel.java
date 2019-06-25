@@ -9,12 +9,6 @@ public class NoticeModel{
   private String photo;
   private String date;
 
-  public NoticeModel(String heading,String date,String details,String photo){
-    this.photo=photo;
-    this.heading=heading;
-    this.date=date;
-    this.details=details;
-  }
   public NoticeModel(){
 
   }

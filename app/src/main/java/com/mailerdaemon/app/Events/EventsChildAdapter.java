@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.common.collect.Lists;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.mailerdaemon.app.Notices.NoticeModel;
 import com.mailerdaemon.app.Notices.OptionsFragment;
@@ -45,7 +47,7 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
     holder.heading.setText(noticeModel.getHeading());
     holder.detail.setText(noticeModel.getDetails());
     String s=noticeModel.getPhoto();
-    holder.options.setOnClickListener(v -> getBottomSheet(noticeModels.get(i).getId()));
+    holder.options.setOnClickListener(v -> getBottomSheet(noticeModels.get(i).getReference()));
     if(s!=null)
     { holder.imageView.setImageURI(Uri.parse(s));
       holder.date_time.setText(noticeModel.getDate());
@@ -65,7 +67,7 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
 
   public void setData(List<DocumentSnapshot> noticeModels) {
     if(noticeModels!=null)
-      this.noticeModels=noticeModels;
+      this.noticeModels= Lists.reverse(noticeModels);
   }
 
   public class Holder extends RecyclerView.ViewHolder {
@@ -87,9 +89,9 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
     }
   }
 
-  private void getBottomSheet(String id) {
+  private void getBottomSheet(DocumentReference id) {
     Bundle bundle=new Bundle();
-    bundle.putString("id",id);
+    bundle.putString("id",id.getPath());
     OptionsFragment optionsFragment=new OptionsFragment();
     optionsFragment.setArguments(bundle);
     optionsFragment.show(fragment,null);
