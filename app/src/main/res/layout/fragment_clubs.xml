@@ -1,94 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_height="match_parent"
+  android:layout_width="match_parent"
+   >
+<RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="clubs"
+    android:layout_marginTop="16dp"
+    android:id="@+id/group_name"/>
 
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="132dp"
-        android:columnCount="4"
+        android:layout_marginTop="16dp"
         android:padding="16dp"
+
+      android:layout_below="@+id/group_name"
+        android:columnCount="4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:minWidth="80dp"
-            android:minHeight="80dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:minWidth="80dp"
-            android:minHeight="80dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:minWidth="80dp"
-            android:minHeight="80dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:minWidth="80dp"
-            android:minHeight="80dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:minWidth="80dp"
-            android:minHeight="80dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:minWidth="80dp"
-            android:minHeight="80dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:minWidth="80dp"
-            android:minHeight="80dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:minWidth="80dp"
-            android:minHeight="80dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:minWidth="80dp"
-            android:minHeight="80dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:minWidth="80dp"
-            android:minHeight="80dp" />
-
-        <android.support.design.widget.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:minWidth="80dp"
-            android:minHeight="80dp" />
+      <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="@dimen/icon_size_med"
+        android:tag="1"
+        android:layout_height="@dimen/icon_size_med"
+        android:layout_margin="8dp"
+        android:layout_columnWeight="1"
+        android:onClick="openDetail"
+        app:roundAsCircle="true"
+        app:roundingBorderWidth="0.5dp"
+        app:roundingBorderColor="@android:color/black"
+        android:layout_rowWeight="1"
+        />
+      <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="@dimen/icon_size_med"
+        android:tag="2"
+        android:layout_height="@dimen/icon_size_med"
+        android:layout_margin="8dp"
+        android:layout_columnWeight="1"
+        android:onClick="openDetail"
+        app:roundAsCircle="true"
+        app:roundingBorderWidth="0.5dp"
+        app:roundingBorderColor="@android:color/black"
+        android:layout_rowWeight="1"
+        />
+      <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="@dimen/icon_size_med"
+        android:tag="3"
+        android:layout_height="@dimen/icon_size_med"
+        android:layout_margin="8dp"
+        android:layout_columnWeight="1"
+        android:onClick="openDetail"
+        app:roundAsCircle="true"
+        app:roundingBorderWidth="0.5dp"
+        app:roundingBorderColor="@android:color/black"
+        android:layout_rowWeight="1"
+        />
+      <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="@dimen/icon_size_med"
+        android:tag="4"
+        android:layout_height="@dimen/icon_size_med"
+        android:layout_margin="8dp"
+        android:layout_columnWeight="1"
+        android:onClick="openDetail"
+        app:roundAsCircle="true"
+        app:roundingBorderWidth="0.5dp"
+        app:roundingBorderColor="@android:color/black"
+        android:layout_rowWeight="1"
+        />
+      <com.facebook.drawee.view.SimpleDraweeView
+        android:layout_width="@dimen/icon_size_med"
+        android:tag="5"
+        android:layout_height="@dimen/icon_size_med"
+        android:layout_margin="8dp"
+        android:layout_columnWeight="1"
+        android:onClick="openDetail"
+        app:roundAsCircle="true"
+        app:roundingBorderWidth="0.5dp"
+        app:roundingBorderColor="@android:color/black"
+        android:layout_rowWeight="1"
+        />
     </GridLayout>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>
+</ScrollView>

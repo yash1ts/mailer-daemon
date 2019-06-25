@@ -6,4 +6,8 @@
 
     <color name="colorTextDarkBlack">#000000</color>
     <color name="colorTextBlack">#E6000000</color>
+    <color name="background">#dddddd</color>
+  <color name="blue_backgroud">#E7E9F5</color>
+  <color name="text_blue_black">#392C47</color>
+  <color name="icon_gray">#9B9B9B</color>
 </resources>

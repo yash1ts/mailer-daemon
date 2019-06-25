@@ -15,7 +15,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@android:color/white"
-        android:paddingHorizontal="32dp"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
         >
 
         <android.support.design.widget.TextInputLayout

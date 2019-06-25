@@ -17,7 +17,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
     <style name="BlackLable" parent="TextAppearance.AppCompat">
-        <item name="android:colorAccent">#000</item>
+        <item name="colorAccent">#000</item>
     </style>
-
+  <style name="theme" parent="Theme.MaterialComponents.Light.BottomSheetDialog">
+    <item name="android:colorBackground">@android:color/transparent</item>
+  </style>
 </resources>
