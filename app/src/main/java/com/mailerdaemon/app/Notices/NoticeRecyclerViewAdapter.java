@@ -5,11 +5,13 @@ import android.content.Context;
 import android.net.Uri;
 
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,9 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.gson.Gson;
 import com.mailerdaemon.app.R;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
@@ -25,6 +29,8 @@ import com.stfalcon.frescoimageviewer.ImageViewer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Retrofit;
 
 public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecyclerViewAdapter.Holder> {
   private List<DocumentSnapshot> noticeModels=new ArrayList<>();
@@ -49,7 +55,7 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
     holder.heading.setText(model.getHeading());
     holder.detail.setText(model.getDetails());
     String s=model.getPhoto();
-    holder.options.setOnClickListener(v -> getBottomSheet(noticeModels.get(i).getId()));
+    holder.options.setOnClickListener(v -> getBottomSheet(noticeModels.get(i).getReference()));
     if(s!=null)
     { holder.imageView.setImageURI(Uri.parse(s));
       holder.date_time.setText(model.getDate());
@@ -90,9 +96,10 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
     }
   }
 
-  private void getBottomSheet(String id) {
+  private void getBottomSheet(DocumentReference id) {
     Bundle bundle=new Bundle();
-    bundle.putString("id",id);
+    bundle.putString("id", id.getPath());
+    Log.d("ADD",id.getPath());
     OptionsFragment optionsFragment=new OptionsFragment();
     optionsFragment.setArguments(bundle);
     optionsFragment.show(fragment,null);

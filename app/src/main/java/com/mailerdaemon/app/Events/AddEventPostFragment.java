@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.mailerdaemon.app.Notices.NoticeModel;
@@ -70,6 +71,7 @@ public class AddEventPostFragment extends DialogFragment implements ViewUtils.sh
     });
 
     send.setOnClickListener(v -> {
+      changeProgressBar();
       UploadData.upload(this::onSuccess,path,getContext());
     });
 
@@ -80,8 +82,14 @@ public class AddEventPostFragment extends DialogFragment implements ViewUtils.sh
     Date date=new Date();
     DateFormat dateFormat=new SimpleDateFormat();
     String name=this.getArguments().getString("name");
-    NoticeModel models=new NoticeModel(heading.getText().toString(),detail.getText().toString(),downloadUrl,dateFormat.format(date));
-    FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Notice).document(name).collection("posts").document().set(models);
+    NoticeModel noticeModel=new NoticeModel();
+    noticeModel.setDate(dateFormat.format(date));
+    noticeModel.setDetails(detail.getText().toString());
+    noticeModel.setHeading(heading.getText().toString());
+    noticeModel.setPhoto(downloadUrl);
+    FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Notice).document().set(noticeModel);
+    FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Event).document(name).collection("posts").document().set(noticeModel);
+    Toast.makeText(getContext(),"Done",Toast.LENGTH_SHORT).show();
   }
 
   @Override

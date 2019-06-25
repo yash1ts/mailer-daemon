@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 import com.mailerdaemon.app.R;
 
 import Utils.StringRes;
@@ -39,9 +41,10 @@ public class OptionsFragment extends BottomSheetDialogFragment {
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view=inflater.inflate(R.layout.fragment_options,container,false);
-    id=getArguments().getString("id");
+
+    id= getArguments().getString("id");
     ButterKnife.bind(this,view);
-    reference=FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Notice).document(id);
+    reference=FirebaseFirestore.getInstance().document(id);
     ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 
     DownloadManager manager = (DownloadManager) getContext()

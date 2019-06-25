@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.common.collect.Lists;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.mailerdaemon.app.R;
@@ -54,7 +55,7 @@ public class NoticesFragment extends Fragment {
     firebaseFirestore.collection(StringRes.FB_Collec_Notice).orderBy("date").get().addOnCompleteListener(task -> {
       if(task.isSuccessful()) {
         noticeModels = task.getResult().getDocuments();
-        adapter.setData(noticeModels);
+        adapter.setData(Lists.reverse(noticeModels));
         adapter.notifyDataSetChanged();
         shimmerViewContainer.stopShimmer();
         shimmerViewContainer.setVisibility(View.GONE);
