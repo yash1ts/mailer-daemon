@@ -3,9 +3,9 @@ package com.mailerdaemon.app.Clubs;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.DialogFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +31,10 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class EditClubFragment extends DialogFragment implements ViewUtils.showProgressBar, ImageUploadCallBack {
 
-  private String downloadUrl;
+  private String downloadUrl=null;
   private SimpleDraweeView imageView;
   private ImageButton imageButton,send;
-  private String path,id;
+  private String path=null,id;
   @BindView(R.id.club_edit_youtube)
   EditText youtube;
   @BindView(R.id.club_edit_insta)

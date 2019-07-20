@@ -1,11 +1,14 @@
 package com.mailerdaemon.app.Clubs;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
-import android.support.v4.widget.CircularProgressDrawable;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
+
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
 import com.mailerdaemon.app.R;
@@ -46,9 +47,8 @@ public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
   ImageView web;
   @BindView(R.id.club_icon)
   SimpleDraweeView club;
-  @BindView(R.id.club_delete)
-  ImageView delete;
   private ChromeTab chromeTab;
+  private Boolean access;
 
   @Nullable
   @Override
@@ -59,6 +59,7 @@ public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
     club.getHierarchy().setProgressBarImage(new CircularProgressDrawable(getContext()));
     id = getArguments().getString("club_id");
     getDatabase();
+    access= PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getBoolean("Access",false);
     return view;
   }
 
@@ -83,20 +84,17 @@ public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
       insta.setOnClickListener(v -> chromeTab.openTab(details.getInsta()));
       youtube.setOnClickListener(v -> chromeTab.openTab(details.getYoutube()));
       web.setOnClickListener(v -> chromeTab.openTab(details.getWeb()));
-      delete.setOnClickListener(v -> {
-        FirebaseFirestore.getInstance().collection("club").document(id).delete();
-        Toast.makeText(getContext(),"Deleted, Refresh to see",Toast.LENGTH_SHORT).show();
-        getDialog().dismiss();
-      });
     }
-      create.setOnClickListener(v -> {
-        EditClubFragment clubFragment = new EditClubFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("id", id);
-        clubFragment.setArguments(bundle);
-        clubFragment.show(getChildFragmentManager(), null);
-        getDialog().dismiss();
-      });
+      if (access) {
+        create.setVisibility(View.VISIBLE);
+        create.setOnClickListener(v -> {
+          EditClubFragment clubFragment = new EditClubFragment();
+          Bundle bundle = new Bundle();
+          bundle.putString("id", id);
+          clubFragment.setArguments(bundle);
+          clubFragment.show(getChildFragmentManager(), null);
+        });
+      }
     }
 
 }

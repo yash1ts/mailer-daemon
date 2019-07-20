@@ -2,9 +2,10 @@ package com.mailerdaemon.app.Events;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,25 +18,23 @@ import com.mailerdaemon.app.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import Utils.StringRes;
-
 public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapter.Holder> {
 
-  private Context context;
   private List<DocumentSnapshot> documentReferences=new ArrayList<>();
   private RecyclerView.RecycledViewPool viewPool=new RecyclerView.RecycledViewPool();
   private List<List<DocumentSnapshot>> lists=new ArrayList<>();
-  private EventsFragment fragment;
+  private static FragmentManager childFM;
+  private Boolean access;
 
-  public EventsParentAdapter(Context context, EventsFragment eventsFragment) {
-    this.context=context;
-    this.fragment=eventsFragment;
+  public EventsParentAdapter(FragmentManager childFM, Boolean access) {
+    this.childFM=childFM;
+    this.access=access;
   }
 
   @NonNull
   @Override
   public EventsParentAdapter.Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-    View view= LayoutInflater.from(context).inflate(R.layout.rv_events,viewGroup,false);
+    View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_events,viewGroup,false);
     return new Holder(view);
   }
 
@@ -43,12 +42,16 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
   public void onBindViewHolder(@NonNull EventsParentAdapter.Holder holder, int i) {
     EventModel eventModel=documentReferences.get(i).toObject(EventModel.class);
     holder.name.setText(eventModel.getName());
-    holder.date.setText(eventModel.getDay()+"\n  "+eventModel.getDate());
+    holder.date.setText(eventModel.getDay()+"\n"+eventModel.getDate());
     RecyclerView recyclerView=holder.recyclerView;
     holder.recyclerView.setRecycledViewPool(viewPool);
     String id=documentReferences.get(i).getReference().getPath();
-    holder.deleteEvent.setOnClickListener(v ->FirebaseFirestore.getInstance().document(id).delete());
-    holder.addPost.setOnClickListener(v -> openDialog(id));
+    if(access){
+      holder.deleteEvent.setVisibility(View.VISIBLE);
+      holder.addPost.setVisibility(View.VISIBLE);
+      holder.addPost.setOnClickListener(v -> openDialog(id));
+      holder.deleteEvent.setOnClickListener(v ->FirebaseFirestore.getInstance().document(id).delete());
+    }
     holder.adapter.setData(eventModel.posts,id);
     recyclerView.setAdapter(holder.adapter);
   }
@@ -58,7 +61,7 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
     bundle.putString("id",id);
     AddEventPostFragment dialog=new AddEventPostFragment();
     dialog.setArguments(bundle);
-    dialog.show(fragment.getChildFragmentManager(),null);
+    dialog.show(childFM,null);
   }
 
   @Override
@@ -70,11 +73,11 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
     this.documentReferences=snap;
   }
 
-  public class Holder extends RecyclerView.ViewHolder {
+  public static class Holder extends RecyclerView.ViewHolder {
     TextView name;
     TextView date;
     RecyclerView recyclerView;
-    EventsChildAdapter adapter=new EventsChildAdapter(context,fragment.getChildFragmentManager());
+    EventsChildAdapter adapter=new EventsChildAdapter(childFM);
     View addPost;
     View deleteEvent;
 
@@ -85,7 +88,7 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
       deleteEvent=itemView.findViewById(R.id.remove_event);
       recyclerView=itemView.findViewById(R.id.rv_event_child);
       addPost=itemView.findViewById(R.id.add_event_post);
-      recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(),LinearLayoutManager.VERTICAL,false));
+      recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext(),RecyclerView.VERTICAL,false));
     }
   }
 }

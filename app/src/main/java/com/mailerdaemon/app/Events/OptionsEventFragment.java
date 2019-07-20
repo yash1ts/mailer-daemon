@@ -6,9 +6,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,8 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.mailerdaemon.app.Notices.NoticeModel;
 import com.mailerdaemon.app.R;
+
+import java.security.PrivateKey;
 
 import Utils.StringRes;
 import butterknife.BindView;
@@ -35,6 +39,7 @@ public class OptionsEventFragment extends BottomSheetDialogFragment {
   String id;
   private DocumentReference reference;
   private NoticeModel model;
+  private Boolean access;
 
   @Nullable
   @Override
@@ -49,12 +54,17 @@ public class OptionsEventFragment extends BottomSheetDialogFragment {
 
     DownloadManager manager = (DownloadManager) getContext()
         .getSystemService(Context.DOWNLOAD_SERVICE);
+    access= PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getBoolean("Access",false);
 
+    if(access){
+        delete.setVisibility(View.VISIBLE);
+        delete.setOnClickListener(v ->{
+            reference.update("posts", FieldValue.arrayRemove(model));
+            Toast.makeText(getContext(), StringRes.Done_Refresh,Toast.LENGTH_SHORT);
+            getDialog().dismiss();
+        });
+    }
 
-    delete.setOnClickListener(v ->{
-      reference.update("posts", FieldValue.arrayRemove(model));
-      getDialog().dismiss();
-    });
     copy.setOnClickListener(v -> {
 
         ClipData clip = ClipData.newPlainText("Copy", model.getHeading()+"\n"+model.getDetails());

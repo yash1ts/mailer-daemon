@@ -1,0 +1,5 @@
+{"contact":[
+  {"name": "Prof. Rajiv Shekhar", "image": "https://www.iitism.ac.in/assets/img/admin/dt.jpg", "dept": "Director", "email": "director@iitism.ac.in", "phone": "+91-326-223-5201 ", "url": "https://www.iitism.ac.in/admin/director.php"},
+  {"name": "Prof. D.D. Misra", "image": "https://www.iitism.ac.in/assets/img/admin/cman.jpg", "dept": "Chairman", "email": "chairman@iitism.ac.in", "phone": "", "url": "https://www.iitism.ac.in/admin/chairman.php"},
+  {"name": "Prof. J.K. Pattanayak", "image": "https://www.iitism.ac.in/assets/img/admin/dinfra.jpg", "dept": "Deputy Director", "email": "dean_infra@iitism.ac.in", "phone": "+91-326-223-5437", "url": "https://www.iitism.ac.in/admin/dy_director.php"}
+]}

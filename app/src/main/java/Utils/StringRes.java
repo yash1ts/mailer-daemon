@@ -9,4 +9,7 @@ public class StringRes {
   public static String FB_PAGE="https://www.facebook.com/MDiitism";
   public static int No_Club=5;
   public static String No_Internet="Cannot Get Database";
+  public static String Done_Refresh="Done, Refresh to see change";
+  public static String FB_Lost_Found="lost_n_found";
+  public static String ADMIN_ID="tHlxZ9N6ZpNbDDjCNLQa8ISC5nE2";
 }

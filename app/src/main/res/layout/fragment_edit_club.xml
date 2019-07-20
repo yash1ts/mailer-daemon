@@ -19,14 +19,10 @@
         android:id="@+id/progress_bar"
         android:visibility="gone"
         android:layout_centerInParent="true"/>
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/lay">
         <EditText
           android:id="@+id/club_edit_name"
-          android:layout_width="300dp"
+          android:layout_width="match_parent"
+          android:layout_marginEnd="84dp"
           android:layout_height="wrap_content"
           android:layout_marginTop="16dp"
           android:padding="@dimen/padding_8"
@@ -34,21 +30,23 @@
           android:inputType="textPersonName"
           android:textColor="@color/text_blue_black"
           />
+
         <com.facebook.drawee.view.SimpleDraweeView
-          app:roundAsCircle="true"
           android:id="@+id/image"
           android:layout_width="@dimen/icon_size_med"
+          android:layout_margin="8dp"
+          android:layout_alignParentEnd="true"
+          android:layout_alignParentTop="true"
           android:layout_height="@dimen/icon_size_med"
-          android:layout_gravity="end"
+          android:background="@drawable/circular_drawable"
           android:elevation="4dp"
-          android:background="@drawable/circular_drawable" />
-      </LinearLayout>
+          app:roundAsCircle="true" />
 
       <LinearLayout
         android:id="@+id/lay_icons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/lay"
+        android:layout_below="@+id/image"
         android:orientation="vertical">
 
         <EditText

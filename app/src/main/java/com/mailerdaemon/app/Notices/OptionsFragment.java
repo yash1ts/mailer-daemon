@@ -6,9 +6,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.BottomSheetDialogFragment;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,9 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.mailerdaemon.app.R;
 
+import java.security.PrivateKey;
+
+import Utils.StringRes;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -33,6 +38,7 @@ public class OptionsFragment extends BottomSheetDialogFragment {
       View download;
   String id;
   private DocumentReference reference;
+  private Boolean access;
 
   @Nullable
   @Override
@@ -46,12 +52,16 @@ public class OptionsFragment extends BottomSheetDialogFragment {
 
     DownloadManager manager = (DownloadManager) getContext()
         .getSystemService(Context.DOWNLOAD_SERVICE);
+    access= PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getBoolean("Access",false);
 
-
-    delete.setOnClickListener(v ->{
+    if(access) {
+      delete.setVisibility(View.VISIBLE);
+      delete.setOnClickListener(v -> {
         reference.delete();
-      getDialog().dismiss();
-    });
+        Toast.makeText(getContext(), StringRes.Done_Refresh, Toast.LENGTH_SHORT);
+        getDialog().dismiss();
+      });
+    }
     copy.setOnClickListener(v -> reference.get().addOnCompleteListener(task ->{
       if(task.isSuccessful())
       {

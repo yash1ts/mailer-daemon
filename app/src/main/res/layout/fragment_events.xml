@@ -6,12 +6,13 @@
   >
   <include layout="@layout/shimmer_view"/>
 
-  <android.support.v7.widget.RecyclerView
+  <androidx.recyclerview.widget.RecyclerView
+    android:layout_below="@+id/shimmer_view_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rv_events"
     android:nestedScrollingEnabled="false"
     android:layout_marginBottom="100dp">
-  </android.support.v7.widget.RecyclerView>
+  </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>
