@@ -1,27 +1,30 @@
 package com.mailerdaemon.app.Notices;
 
-import android.content.Context;
 
 import android.net.Uri;
 
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.annotation.NonNull;
 
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
 
-import android.util.Log;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.gson.Gson;
 import com.mailerdaemon.app.R;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
@@ -31,22 +34,23 @@ import java.util.Arrays;
 import java.util.List;
 
 import Utils.StringRes;
-import retrofit2.Retrofit;
 
 public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecyclerViewAdapter.Holder> {
   private List<DocumentSnapshot> noticeModels=new ArrayList<>();
-  private Context context;
   private FragmentManager fragment;
+  private static int px;
+  int lastPosition=-1;
 
-  public NoticeRecyclerViewAdapter(Context context, FragmentManager fragment){
-    this.context=context;
+  public NoticeRecyclerViewAdapter(int px ,FragmentManager fragment){
     this.fragment=fragment;
+    this.px=px;
+
   }
 
   @NonNull
   @Override
   public Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-    View view=LayoutInflater.from(context).inflate(R.layout.rv_notices,viewGroup,false);
+    View view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_notices,viewGroup,false);
     return new Holder(view);
   }
 
@@ -60,12 +64,21 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
     if(s!=null)
     { holder.imageView.setImageURI(Uri.parse(s));
       holder.date_time.setText(model.getDate());
-      holder.imageView.setOnClickListener(v -> openImage(s));
+      holder.imageView.setOnClickListener(v -> new ImageViewer.Builder(holder.imageView.getContext(),Arrays.asList(s)).show());
     }else {
       holder.imageView.setVisibility(View.GONE);
       holder.date_time.setVisibility(View.GONE);
       holder.time2.setVisibility(View.VISIBLE);
       holder.time2.setText(model.getDate());
+    }
+    setAnimation(holder.container,i);
+  }
+  private void setAnimation(View viewToAnimate, int position) {
+    // If the bound view wasn't previously displayed on screen, it's animated
+    if (position > lastPosition) {
+      Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(), R.anim.push_left_in);
+      viewToAnimate.startAnimation(animation);
+      lastPosition = position;
     }
   }
 
@@ -78,13 +91,14 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
     this.noticeModels=noticeModels;
   }
 
-  public class Holder extends RecyclerView.ViewHolder {
+  public static class Holder extends RecyclerView.ViewHolder {
     TextView heading;
     TextView detail;
     SimpleDraweeView imageView;
     TextView date_time;
     TextView time2;
     View options;
+    CardView container;
 
     public Holder(@NonNull View itemView) {
       super(itemView);
@@ -93,7 +107,11 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
       heading =itemView.findViewById(R.id.notice_head);
       detail=itemView.findViewById(R.id.notice_detail);
       imageView=itemView.findViewById(R.id.notice_photo);
+      CircularProgressDrawable drawable=new CircularProgressDrawable(imageView.getContext());
+      drawable.setCenterRadius(px);
+      imageView.getHierarchy().setProgressBarImage(drawable);
       date_time=itemView.findViewById(R.id.time);
+      container=itemView.findViewById(R.id.container);
     }
   }
 
@@ -104,10 +122,6 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
     optionsFragment.setArguments(bundle);
     optionsFragment.show(fragment, StringRes.FB_Collec_Notice);
 
-  }
-
-  private void openImage(String s) {
-    new ImageViewer.Builder(context,Arrays.asList(s)).show();
   }
 
 }

@@ -3,9 +3,9 @@ package com.mailerdaemon.app.Events;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,20 +22,18 @@ import java.util.List;
 
 public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.Holder> {
   private List<NoticeModel> noticeModels=new ArrayList<>();
-  private Context context;
   private FragmentManager fragment;
   private String path;
   private int size;
 
-  public EventsChildAdapter(Context context, FragmentManager fragment){
-    this.context=context;
+  public EventsChildAdapter(FragmentManager fragment){
     this.fragment=fragment;
   }
 
   @NonNull
   @Override
   public EventsChildAdapter.Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-    View view=LayoutInflater.from(context).inflate(R.layout.rv_event_post,viewGroup,false);
+    View view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_event_post,viewGroup,false);
     return new Holder(view);
   }
 
@@ -49,7 +47,7 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
     if(s!=null)
     { holder.imageView.setImageURI(Uri.parse(s));
       holder.date_time.setText(noticeModel.getDate());
-      holder.imageView.setOnClickListener(v -> openImage(s));
+      holder.imageView.setOnClickListener(v -> openImage(s,holder.imageView.getContext()));
     }else {
       holder.imageView.setVisibility(View.GONE);
       holder.date_time.setVisibility(View.GONE);
@@ -65,12 +63,12 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
 
   public void setData(List<NoticeModel> noticeModels, String path) {
     if(noticeModels!=null)
-      this.noticeModels=(noticeModels);
+    {this.noticeModels=(noticeModels);
     this.path=path;
-    this.size=noticeModels.size();
+    this.size=noticeModels.size();}
   }
 
-  public class Holder extends RecyclerView.ViewHolder {
+  public static class Holder extends RecyclerView.ViewHolder {
     TextView heading;
     TextView detail;
     SimpleDraweeView imageView;
@@ -99,7 +97,7 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
 
   }
 
-  private void openImage(String s) {
+  private void openImage(String s,Context context) {
     new ImageViewer.Builder(context, Arrays.asList(s)).show();
   }
 

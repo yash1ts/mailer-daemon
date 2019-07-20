@@ -11,6 +11,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
+    android:visibility="gone"
+    android:elevation="16dp"
     android:orientation="vertical"
     shimmer:duration="800"
     shimmer:layout_constraintStart_toStartOf="parent"

@@ -18,7 +18,8 @@
         android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:background="@drawable/white_box"
-        android:text="MON\n  25"
+        android:text="MON\n25"
+        android:textAlignment="center"
         android:id="@+id/date_day"
         android:elevation="4dp"
         android:padding="4dp"
@@ -48,6 +49,7 @@
         android:id="@+id/add_event_post"
         android:layout_gravity="end"
         android:layout_height="24dp"
+        android:visibility="gone"
         android:background="@drawable/ic_add_box_white_24dp"/>
 
       <View
@@ -56,6 +58,7 @@
         android:layout_height="24dp"
         android:layout_gravity="end"
         android:layout_marginTop="6dp"
+        android:visibility="gone"
         android:layout_marginEnd="32dp"
         android:elevation="4dp"
         android:background="@drawable/ic_remove_circle_white_24dp" />
@@ -64,12 +67,12 @@
   </LinearLayout>
 
 
-  <android.support.v7.widget.RecyclerView
+  <androidx.recyclerview.widget.RecyclerView
     android:layout_width="match_parent"
     android:layout_marginStart="52dp"
     android:layout_marginEnd="16dp"
     android:id="@+id/rv_event_child"
     android:layout_height="wrap_content">
-  </android.support.v7.widget.RecyclerView>
+  </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

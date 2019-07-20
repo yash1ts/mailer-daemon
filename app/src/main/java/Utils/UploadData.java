@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Random;
 
 public class UploadData {
   private static String downloadUrl;
@@ -21,7 +22,7 @@ public class UploadData {
   public static void upload(ImageUploadCallBack callBack, String path, Context context) {
     if (path!=null) {
       FirebaseStorage storage = FirebaseStorage.getInstance();
-      final StorageReference photosRef = storage.getReference().child("photos/");
+      final StorageReference photosRef = storage.getReference().child("photos/"+ new Random().nextInt());
       InputStream stream = null;
       try {
         stream = new FileInputStream(new File(path));
@@ -31,11 +32,12 @@ public class UploadData {
       }
 
       photosRef.putStream(stream).addOnSuccessListener(taskSnapshot -> photosRef.getDownloadUrl().addOnSuccessListener(uri -> {
-        Toast.makeText(context, "Done", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Done, Refresh to see change", Toast.LENGTH_LONG).show();
         downloadUrl = uri.toString();
         callBack.onSuccess(downloadUrl);
       }));
     } else {
+      Toast.makeText(context, "Done, Refresh to see change", Toast.LENGTH_LONG).show();
       callBack.onSuccess(null);
     }
 

@@ -1,36 +1,39 @@
 package com.mailerdaemon.app.Events;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.ArrayRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.facebook.shimmer.ShimmerFrameLayout;
-import com.google.common.collect.Lists;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
-import com.mailerdaemon.app.Notices.NoticeModel;
+import com.google.firebase.firestore.Source;
 import com.mailerdaemon.app.R;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.List;
 
+import Utils.AccessDatabse;
 import Utils.StringRes;
 
-public class EventsFragment extends Fragment {
+public class EventsFragment extends Fragment implements AccessDatabse {
   private ShimmerFrameLayout shimmerViewContainer;
   private RecyclerView recyclerView;
   private EventsParentAdapter adapter;
   private FirebaseFirestore firebaseFirestore;
+  private List<DocumentSnapshot> snap;
 
   @Nullable
   @Override
@@ -40,38 +43,54 @@ public class EventsFragment extends Fragment {
     shimmerViewContainer.startShimmer();
 
     recyclerView=view.findViewById(R.id.rv_events);
-    adapter=new EventsParentAdapter(getContext(),this);
+    adapter=new EventsParentAdapter(getChildFragmentManager(),PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getBoolean("Access",false));
     firebaseFirestore=FirebaseFirestore.getInstance();
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(adapter);
 
-    getDatabase();
+    if(snap==null)
+    {shimmerViewContainer.setVisibility(View.VISIBLE);
+    getDatabase();}
+    else {
+      adapter.setData(snap);
+      adapter.notifyDataSetChanged();
+    }
 
     return view;
   }
+  @Override
+  public void getDatabase() {
 
-  private void getDatabase() {
-
-    firebaseFirestore.collection(StringRes.FB_Collec_Event).orderBy("date", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
+    firebaseFirestore.collection(StringRes.FB_Collec_Event).orderBy("date", Query.Direction.DESCENDING).get(Source.SERVER).addOnCompleteListener(task -> {
       if(task.isSuccessful()) {
-        List<DocumentSnapshot> snap=task.getResult().getDocuments();
+        snap=task.getResult().getDocuments();
         Log.d("DB",task.getResult().toObjects(EventModel.class).toString());
+        if(snap!=null)
         adapter.setData(snap);
         adapter.notifyDataSetChanged();
         shimmerViewContainer.stopShimmer();
         shimmerViewContainer.setVisibility(View.GONE);
       }else{
+        Toast.makeText(getContext(),StringRes.No_Internet,Toast.LENGTH_LONG).show();
+        firebaseFirestore.collection(StringRes.FB_Collec_Event).orderBy("date", Query.Direction.DESCENDING).get(Source.CACHE).addOnCompleteListener(task2 -> {
+          if(task.isSuccessful()) {
+            snap=task2.getResult().getDocuments();
+            Log.d("DB",task.getResult().toObjects(EventModel.class).toString());
+            adapter.setData(snap);
+            adapter.notifyDataSetChanged();
+            shimmerViewContainer.stopShimmer();
+            shimmerViewContainer.setVisibility(View.GONE);
+          }else{
+            Toast.makeText(getContext(),StringRes.No_Internet,Toast.LENGTH_LONG).show();
+          }
 
+        });
       }
 
     });
   }
 
-  @Override
-  public void onResume() {
-    super.onResume();
-    getDatabase();
-  }
+
 }
 
 
