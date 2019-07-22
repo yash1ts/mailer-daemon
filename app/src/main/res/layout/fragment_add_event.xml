@@ -10,13 +10,27 @@
     android:id="@+id/progress_bar"
     android:elevation="8dp"
     android:visibility="gone"/>
+
+  <ImageButton
+    android:id="@+id/bt_close"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/ic_close_black_24dp" />
+
   <EditText
+    android:id="@+id/heading"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_below="@+id/bt_close"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
     android:hint="Name of Event"
-    android:inputType="textPersonName"
-    android:layout_margin="8dp"
-    android:id="@+id/heading"/>
+    android:inputType="textPersonName" />
   <EditText
     android:layout_width="wrap_content"
     android:hint="Date"

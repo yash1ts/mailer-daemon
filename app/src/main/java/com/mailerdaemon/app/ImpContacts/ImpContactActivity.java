@@ -2,6 +2,8 @@ package com.mailerdaemon.app.ImpContacts;
 
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -13,6 +15,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -21,9 +25,6 @@ import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import com.google.gson.Gson;
 import com.mailerdaemon.app.R;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,32 +40,19 @@ public class ImpContactActivity extends AppCompatActivity {
     @BindView(R.id.bt_senate)
     View bt_senate;
 
-    private RecyclerView recyclerView;
-    private List<Contact> contactList;
-    private ContactRecyclerAdapter adapter;
     CardView calander;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imp_contacts);
-        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
-                .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig())
-                .setResizeAndRotateEnabledForNetwork(true)
-                .setDownsampleEnabled(true)
-                .build();
-        Fresco.initialize(this, config);
         ButterKnife.bind(this);
-        contactList = new Gson().fromJson(loadJSONFromAsset("contact"), FacultyModel.class).getContact();
-        recyclerView = findViewById(R.id.contacts);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new ContactRecyclerAdapter();
-        adapter.setData(contactList);
-        recyclerView.setAdapter(adapter);
+
 
         calander=findViewById(R.id.calander);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Contacts");
 
         bt_faculty.setOnClickListener(v -> {
             String[] tabs = new String[]{"All", "All"};
@@ -105,21 +93,6 @@ public class ImpContactActivity extends AppCompatActivity {
         return true;
     }
 
-    public String loadJSONFromAsset(String type) {
-        String json = null;
-        try {
-            InputStream is = getAssets().open(type + ".json");
-            int size = is.available();
-            byte[] buffer = new byte[size];
-            is.read(buffer);
-            is.close();
-            json = new String(buffer, "UTF-8");
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            return null;
-        }
-        return json;
-    }
 
     void openWebView(String url){
         HtmlFragment fragment= new HtmlFragment();
@@ -127,6 +100,32 @@ public class ImpContactActivity extends AppCompatActivity {
         bundle.putString("url",url);
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_detail,fragment, null).addToBackStack(null).commit();
+    }
+    public void makeCall(View view){
+        String num=view.getTag().toString();
+        if(!num.trim().equals("0")){
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num.trim()));
+            startActivity(intent);}
+        else{
+            Toast.makeText(this,"Sorry number not available",Toast.LENGTH_LONG).show();
+        }
+    }
+    public void sendMail(View view){
+        String s=view.getTag().toString();
+        if(!s.trim().isEmpty()) {
+            Intent send = new Intent(Intent.ACTION_SENDTO);
+            String uriText = "mailto:" + Uri.encode(s.trim()) +
+                    "?subject=" + Uri.encode("Subject") +
+                    "&body=" + Uri.encode("the body of the message");
+            Uri uri = Uri.parse(uriText);
+
+            send.setData(uri);
+            startActivity(Intent.createChooser(send, "Send mail..."));
+        }
+        else{
+            Toast.makeText(this,"Sorry email not available",Toast.LENGTH_LONG).show();
+        }
+
     }
 
 }

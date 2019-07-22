@@ -1,9 +1,7 @@
 package com.mailerdaemon.app;
 
-import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
+
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -11,8 +9,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
+
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 
@@ -27,9 +24,6 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.View;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
-import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
 import com.mailerdaemon.app.CampusMap.MapsActivity;
@@ -44,7 +38,6 @@ import com.mailerdaemon.app.Notices.NoticesFragment;
 
 import Utils.AccessDatabse;
 import Utils.ChromeTab;
-import Utils.NonSwipableViewPager;
 import Utils.StringRes;
 
 
@@ -97,14 +90,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         customTab=new ChromeTab(this);
         current=1;
-
-        ImagePipelineConfig config = ImagePipelineConfig.newBuilder(this)
-            .setProgressiveJpegConfig(new SimpleProgressiveJpegConfig())
-            .setResizeAndRotateEnabledForNetwork(true)
-            .setDownsampleEnabled(true)
-            .build();
-        Fresco.initialize(this,config);
-
         access=PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("Access",false);
         Log.d("Access", PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("Name","gfrt"));
 
@@ -214,18 +199,16 @@ public class MainActivity extends AppCompatActivity
             final DialogFragment fragment;
             if (str.equals("event")) {
                 fragment = new AddEventFragment();
+                fragment.setTargetFragment(fragment2,123);
             } else {
                 fragment = new AddNoticeFragment();
+                fragment.setTargetFragment(fragment1,123);
             }
             fab.setOnClickListener(v -> fragment.show(getSupportFragmentManager(), null));
         }
     }
 
-  @Override
-  protected void onDestroy() {
-    super.onDestroy();
-    Fresco.shutDown();
-  }
+
 
   public void openDetail(View view){
       Bundle bundle=new Bundle();

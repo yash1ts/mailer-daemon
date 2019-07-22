@@ -90,7 +90,7 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
   private void getBottomSheet(NoticeModel model,String path) {
     Bundle bundle=new Bundle();
     bundle.putParcelable("model",model);
-    bundle.putString("id",path);
+    bundle.putString("path",path);
     OptionsEventFragment optionsFragment=new OptionsEventFragment();
     optionsFragment.setArguments(bundle);
     optionsFragment.show(fragment,null);

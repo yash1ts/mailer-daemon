@@ -20,4 +20,5 @@
   <dimen name="pop_up_width">400dp</dimen>
   <dimen name="icon_size_big">78dp</dimen>
   <dimen name="icon_size_med">72dp</dimen>
+  <dimen name="small_option_size">24dp</dimen>
 </resources>

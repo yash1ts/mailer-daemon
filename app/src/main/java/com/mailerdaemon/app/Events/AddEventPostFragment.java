@@ -79,7 +79,7 @@ public class AddEventPostFragment extends DialogFragment implements ViewUtils.sh
   private void setDatabase() {
     Date date=new Date();
     DateFormat dateFormat=new SimpleDateFormat();
-    String id=this.getArguments().getString("id");
+    String id=this.getArguments().getString("path");
     NoticeModel noticeModel=new NoticeModel();
     noticeModel.setDate(dateFormat.format(date));
     noticeModel.setDetails(detail.getText().toString());
