@@ -1,6 +1,5 @@
 package com.mailerdaemon.app.Events;
 
-import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
@@ -45,20 +44,20 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
     holder.date.setText(eventModel.getDay()+"\n"+eventModel.getDate());
     RecyclerView recyclerView=holder.recyclerView;
     holder.recyclerView.setRecycledViewPool(viewPool);
-    String id=documentReferences.get(i).getReference().getPath();
+    String path=documentReferences.get(i).getReference().getPath();
     if(access){
       holder.deleteEvent.setVisibility(View.VISIBLE);
       holder.addPost.setVisibility(View.VISIBLE);
-      holder.addPost.setOnClickListener(v -> openDialog(id));
-      holder.deleteEvent.setOnClickListener(v ->FirebaseFirestore.getInstance().document(id).delete());
+      holder.addPost.setOnClickListener(v -> openDialog(path));
+      holder.deleteEvent.setOnClickListener(v ->FirebaseFirestore.getInstance().document(path).delete());
     }
-    holder.adapter.setData(eventModel.posts,id);
+    holder.adapter.setData(eventModel.posts,path);
     recyclerView.setAdapter(holder.adapter);
   }
 
-  private void openDialog(String id) {
+  private void openDialog(String path) {
     Bundle bundle=new Bundle();
-    bundle.putString("id",id);
+    bundle.putString("path",path);
     AddEventPostFragment dialog=new AddEventPostFragment();
     dialog.setArguments(bundle);
     dialog.show(childFM,null);

@@ -1,6 +1,5 @@
 package com.mailerdaemon.app.Events;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;

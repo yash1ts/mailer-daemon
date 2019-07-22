@@ -9,7 +9,6 @@
     android:layout_height="match_parent"
     android:id="@+id/rv_contact_detail"
     >
-
   </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

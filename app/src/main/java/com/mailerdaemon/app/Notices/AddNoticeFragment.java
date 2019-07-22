@@ -1,5 +1,6 @@
 package com.mailerdaemon.app.Notices;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import Utils.AccessDatabse;
 import Utils.ImageUploadCallBack;
 import Utils.StringRes;
 import Utils.UploadData;
@@ -48,6 +50,8 @@ public class AddNoticeFragment extends DialogFragment implements ViewUtils.showP
   private String downloadUrl=null;
   @BindView(R.id.progress_bar)
   ProgressBar progressBar;
+  @BindView(R.id.bt_close)
+  ImageButton close;
 
   @Nullable
   @Override
@@ -68,6 +72,9 @@ public class AddNoticeFragment extends DialogFragment implements ViewUtils.showP
     send.setOnClickListener(v ->{
       changeProgressBar();
       UploadData.upload(this::onSuccess, path, getContext());
+    });
+    close.setOnClickListener(v->{
+      dismiss();
     });
 
     return view;
@@ -111,4 +118,12 @@ public class AddNoticeFragment extends DialogFragment implements ViewUtils.showP
     }
     else progressBar.setVisibility(View.VISIBLE);
   }
+
+  @Override
+  public void onDismiss(@NonNull DialogInterface dialog) {
+    super.onDismiss(dialog);
+    AccessDatabse method=(AccessDatabse)getTargetFragment();
+    method.getDatabase();
+  }
+
 }

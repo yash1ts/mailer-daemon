@@ -22,8 +22,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.mailerdaemon.app.Notices.NoticeModel;
 import com.mailerdaemon.app.R;
 
-import java.security.PrivateKey;
-
 import Utils.StringRes;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,7 +34,7 @@ public class OptionsEventFragment extends BottomSheetDialogFragment {
   View copy;
   @BindView(R.id.option_download)
       View download;
-  String id;
+  String path;
   private DocumentReference reference;
   private NoticeModel model;
   private Boolean access;
@@ -46,10 +44,10 @@ public class OptionsEventFragment extends BottomSheetDialogFragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view=inflater.inflate(R.layout.fragment_options,container,false);
 
-    id= getArguments().getString("id");
+    path = getArguments().getString("path");
     model=getArguments().getParcelable("model");
     ButterKnife.bind(this,view);
-    reference=FirebaseFirestore.getInstance().document(id);
+    reference=FirebaseFirestore.getInstance().document(path);
     ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 
     DownloadManager manager = (DownloadManager) getContext()
@@ -72,9 +70,10 @@ public class OptionsEventFragment extends BottomSheetDialogFragment {
         Toast.makeText(getContext(),"Copied",Toast.LENGTH_SHORT).show();
         getDialog().dismiss();
       });
+    if(model.getPhoto()==null){
+        download.setVisibility(View.GONE);
+    }else
     download.setOnClickListener(v->{
-
-
           DownloadManager.Request request = new DownloadManager.Request(Uri.parse(model.getPhoto()));
           request.setDescription("notice-image");
           request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);

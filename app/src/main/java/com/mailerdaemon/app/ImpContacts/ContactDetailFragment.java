@@ -3,6 +3,8 @@ package com.mailerdaemon.app.ImpContacts;
 import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,6 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.mailerdaemon.app.R;
@@ -25,8 +28,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
 
+import Utils.ContactFunction;
 import Utils.SearchObservabel;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -34,14 +37,13 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class ContactDetailFragment extends Fragment {
+public class ContactDetailFragment extends Fragment implements ContactFunction {
 
     private RecyclerView recyclerView;
     private List<Contact> contactList;
     private ContactRecyclerAdapter adapter;
     SearchView searchView;
 
-    @SuppressLint("CheckResult")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -49,11 +51,11 @@ public class ContactDetailFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_contact_detail,container,false);
         recyclerView=view.findViewById(R.id.rv_contact_detail);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter=new ContactRecyclerAdapter();
+        adapter=new ContactRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
+        adapter.setData(contactList);
+        adapter.notifyDataSetChanged();
         setHasOptionsMenu(true);
-        //searchView=view.findViewById(R.id.search_view);
-        //getActivity().setActionBar(view.findViewById(R.id.toolbar));
 
 
         return view;
@@ -75,7 +77,7 @@ public class ContactDetailFragment extends Fragment {
     }
 
     public String loadJSONFromAsset(String type) {
-        String json = null;
+        String json ;
         try {
             InputStream is = getActivity().getAssets().open(type+".json");
             int size = is.available();
@@ -90,6 +92,7 @@ public class ContactDetailFragment extends Fragment {
         return json;
     }
 
+    @SuppressLint("CheckResult")
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.imp_contact_search, menu);
@@ -113,4 +116,30 @@ public class ContactDetailFragment extends Fragment {
     }
 
 
+    @Override
+    public void makeCall(String num) {
+        if(!num.trim().equals("0")){
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num.trim()));
+        startActivity(intent);}
+        else{
+            Toast.makeText(getContext(),"Sorry number not available",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void sendMail(String s) {
+        if(!s.trim().isEmpty()) {
+            Intent send = new Intent(Intent.ACTION_SENDTO);
+            String uriText = "mailto:" + Uri.encode(s.trim()) +
+                    "?subject=" + Uri.encode("Subject") +
+                    "&body=" + Uri.encode("the body of the message");
+            Uri uri = Uri.parse(uriText);
+
+            send.setData(uri);
+            startActivity(Intent.createChooser(send, "Send mail..."));
+        }
+        else{
+            Toast.makeText(getContext(),"Sorry email not available",Toast.LENGTH_LONG).show();
+        }
+    }
 }

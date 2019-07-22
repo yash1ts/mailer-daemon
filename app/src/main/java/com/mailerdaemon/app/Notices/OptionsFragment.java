@@ -20,24 +20,21 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.mailerdaemon.app.R;
 
-import java.security.PrivateKey;
-
+import Utils.AccessDatabse;
 import Utils.StringRes;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class OptionsFragment extends BottomSheetDialogFragment {
-  public OptionsFragment(){
-
-  }
   @BindView(R.id.option_delete)
   View delete;
   @BindView(R.id.option_Copy)
   View copy;
   @BindView(R.id.option_download)
-      View download;
-  String id;
+  View download;
+  String path;
   private DocumentReference reference;
+  private NoticeModel model;
   private Boolean access;
 
   @Nullable
@@ -45,49 +42,46 @@ public class OptionsFragment extends BottomSheetDialogFragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view=inflater.inflate(R.layout.fragment_options,container,false);
 
-    id= getArguments().getString("id");
+    path = getArguments().getString("path");
+    model=getArguments().getParcelable("model");
     ButterKnife.bind(this,view);
-    reference=FirebaseFirestore.getInstance().document(id);
+    reference=FirebaseFirestore.getInstance().document(path);
     ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
 
     DownloadManager manager = (DownloadManager) getContext()
-        .getSystemService(Context.DOWNLOAD_SERVICE);
+            .getSystemService(Context.DOWNLOAD_SERVICE);
     access= PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getBoolean("Access",false);
 
-    if(access) {
+    if(access){
       delete.setVisibility(View.VISIBLE);
-      delete.setOnClickListener(v -> {
+      delete.setOnClickListener(v ->{
         reference.delete();
-        Toast.makeText(getContext(), StringRes.Done_Refresh, Toast.LENGTH_SHORT);
+        ((AccessDatabse)getTargetFragment()).getDatabase();
+        Toast.makeText(getContext(), StringRes.Done_Refresh,Toast.LENGTH_SHORT);
         getDialog().dismiss();
       });
     }
-    copy.setOnClickListener(v -> reference.get().addOnCompleteListener(task ->{
-      if(task.isSuccessful())
-      {
-        NoticeModel noticeModel=task.getResult().toObject(NoticeModel.class);
-        ClipData clip = ClipData.newPlainText("Copy", noticeModel.getHeading()+"\n"+noticeModel.getDetails());
-        clipboard.setPrimaryClip(clip);
-        Toast.makeText(getContext(),"Copied",Toast.LENGTH_SHORT).show();
-        getDialog().dismiss();
-      }
-    }));
-    download.setOnClickListener(v->{
-      reference.get().addOnCompleteListener(task ->{
-        if(task.isSuccessful())
-        {
-          NoticeModel noticeModel=task.getResult().toObject(NoticeModel.class);
-          DownloadManager.Request request = new DownloadManager.Request(Uri.parse(noticeModel.getPhoto()));
-          request.setDescription("notice-image");
-          request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-          request.setTitle(noticeModel.getHeading());
-          manager.enqueue(request);
-          getDialog().dismiss();
-        }
-      });
 
+    copy.setOnClickListener(v -> {
 
+      ClipData clip = ClipData.newPlainText("Copy", model.getHeading()+"\n"+model.getDetails());
+      clipboard.setPrimaryClip(clip);
+      Toast.makeText(getContext(),"Copied",Toast.LENGTH_SHORT).show();
+      getDialog().dismiss();
     });
+    if(model.getPhoto()==null){
+      download.setVisibility(View.GONE);
+    }else
+      download.setOnClickListener(v->{
+        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(model.getPhoto()));
+        request.setDescription("notice-image");
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setTitle(model.getHeading());
+        manager.enqueue(request);
+        getDialog().dismiss();
+
+
+      });
     return view;
   }
 

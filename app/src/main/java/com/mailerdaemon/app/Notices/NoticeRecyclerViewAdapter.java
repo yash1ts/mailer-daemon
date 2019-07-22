@@ -29,6 +29,11 @@ import com.mailerdaemon.app.R;
 
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
+import org.ocpsoft.prettytime.PrettyTime;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,11 +45,14 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
   private FragmentManager fragment;
   private static int px;
   int lastPosition=-1;
+  PrettyTime p;
+  DateFormat format;
 
   public NoticeRecyclerViewAdapter(int px ,FragmentManager fragment){
     this.fragment=fragment;
     this.px=px;
-
+    this.p = new PrettyTime();
+    this.format=new SimpleDateFormat();
   }
 
   @NonNull
@@ -60,16 +68,25 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
     holder.heading.setText(model.getHeading());
     holder.detail.setText(model.getDetails());
     String s=model.getPhoto();
-    holder.options.setOnClickListener(v -> getBottomSheet(noticeModels.get(i).getReference()));
+    holder.options.setOnClickListener(v -> getBottomSheet(model,noticeModels.get(i).getReference().getPath()));
     if(s!=null)
     { holder.imageView.setImageURI(Uri.parse(s));
-      holder.date_time.setText(model.getDate());
+
+      try {
+        holder.date_time.setText(p.format(format.parse(model.getDate())));
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
       holder.imageView.setOnClickListener(v -> new ImageViewer.Builder(holder.imageView.getContext(),Arrays.asList(s)).show());
     }else {
       holder.imageView.setVisibility(View.GONE);
       holder.date_time.setVisibility(View.GONE);
       holder.time2.setVisibility(View.VISIBLE);
-      holder.time2.setText(model.getDate());
+      try {
+        holder.time2.setText(p.format(format.parse(model.getDate())));
+      } catch (ParseException e) {
+        e.printStackTrace();
+      }
     }
     setAnimation(holder.container,i);
   }
@@ -115,9 +132,10 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
     }
   }
 
-  private void getBottomSheet(DocumentReference id) {
+  private void getBottomSheet(NoticeModel model,String path) {
     Bundle bundle=new Bundle();
-    bundle.putString("id", id.getPath());
+    bundle.putString("path", path);
+    bundle.putParcelable("model",model);
     OptionsFragment optionsFragment=new OptionsFragment();
     optionsFragment.setArguments(bundle);
     optionsFragment.show(fragment, StringRes.FB_Collec_Notice);

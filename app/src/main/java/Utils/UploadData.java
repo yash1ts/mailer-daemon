@@ -32,12 +32,12 @@ public class UploadData {
       }
 
       photosRef.putStream(stream).addOnSuccessListener(taskSnapshot -> photosRef.getDownloadUrl().addOnSuccessListener(uri -> {
-        Toast.makeText(context, "Done, Refresh to see change", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Done ", Toast.LENGTH_LONG).show();
         downloadUrl = uri.toString();
         callBack.onSuccess(downloadUrl);
       }));
     } else {
-      Toast.makeText(context, "Done, Refresh to see change", Toast.LENGTH_LONG).show();
+      Toast.makeText(context, "Done ", Toast.LENGTH_LONG).show();
       callBack.onSuccess(null);
     }
 

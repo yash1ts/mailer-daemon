@@ -4,9 +4,13 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -15,13 +19,15 @@ import com.mailerdaemon.app.R;
 import java.util.ArrayList;
 import java.util.List;
 
+import Utils.ContactFunction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecyclerAdapter.Holder> {
     private List<Contact> contact =new ArrayList();
-    public ContactRecyclerAdapter() {
-
+    ContactFunction fun;
+    public ContactRecyclerAdapter( ContactFunction function) {
+    this.fun=function;
     }
 
     @NonNull
@@ -33,11 +39,14 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int i) {
-        holder.name.setText(contact.get(i).getName());
-        holder.draweeView.setImageURI(contact.get(i).getImage());
-        holder.phone.setText(contact.get(i).getPhone());
-        holder.dept.setText(contact.get(i).getDept());
-        holder.email.setText(contact.get(i).getEmail());
+        Contact c=contact.get(i);
+        holder.name.setText(c.getName());
+        holder.draweeView.setImageURI(c.getImage());
+        holder.phone.setText(c.getPhone());
+        holder.dept.setText(c.getDept());
+        holder.email.setText(c.getEmail());
+        holder.call.setOnClickListener(v->fun.makeCall(c.getPhone()));
+        holder.send_mail.setOnClickListener(v->fun.sendMail(c.getEmail()));
     }
 
     @Override
@@ -45,7 +54,7 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
         return contact.size();
     }
 
-    public static class Holder extends RecyclerView.ViewHolder {
+    public class Holder extends RecyclerView.ViewHolder {
         @BindView(R.id.contact_name)
         TextView name;
         @BindView(R.id.contact_img)
@@ -56,6 +65,10 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
         TextView phone;
         @BindView(R.id.contact_email)
         TextView email;
+        @BindView(R.id.contact_call)
+        ImageView call;
+        @BindView(R.id.contact_send_mail)
+        ImageView send_mail;
 
         public Holder(@NonNull View itemView) {
             super(itemView);
