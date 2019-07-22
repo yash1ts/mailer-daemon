@@ -1,67 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:orientation="vertical"
-tools:context=".MainActivity"
-android:padding="16dp"
-    >
-<android.support.design.widget.TextInputLayout
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/login_email"
-    app:errorEnabled="true"
-    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    tools:context=".MainActivity"
+    android:fillViewport="true"
     >
-    <android.support.design.widget.TextInputEditText
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter Email"
-        android:inputType="textEmailAddress"
-        tools:ignore="HardcodedText" />
-</android.support.design.widget.TextInputLayout>
+        android:layout_gravity="center"
+        android:background="@android:color/white"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        >
 
-<android.support.design.widget.TextInputLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/login_password"
-    app:errorEnabled="true"
-    app:passwordToggleEnabled="true"
-    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-    >
-    <android.support.design.widget.TextInputEditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Password"
-        android:inputType="textPassword"
-        tools:ignore="HardcodedText" />
-</android.support.design.widget.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="188dp"
+            app:errorEnabled="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:boxStrokeColor="@android:color/black">
 
-<Button
-    android:id="@+id/login"
-    style="@style/Widget.AppCompat.Button.Colored"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Login"
-    tools:ignore="HardcodedText" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Email"
+                android:inputType="textEmailAddress"
+                tools:ignore="HardcodedText" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-<Button
-    android:id="@+id/signup"
-    style="@style/Widget.AppCompat.Button.Colored"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Sign Up"
-    tools:ignore="HardcodedText" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayout2"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorEnabled="true"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+            app:passwordToggleEnabled="true"
+            app:boxStrokeColor="@android:color/black"
+            >
 
-<Button
-    android:id="@+id/forgotpassword"
-    style="@style/Widget.AppCompat.Button.Colored"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Forgot Password"
-    tools:ignore="HardcodedText" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/login_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter Password"
+                android:inputType="textPassword"
+                tools:ignore="HardcodedText" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-</LinearLayout>
+        <Button
+            android:id="@+id/login"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/signup"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Sign Up"
+            app:layout_constraintStart_toStartOf="@+id/login"
+            app:layout_constraintTop_toBottomOf="@+id/login"
+            tools:ignore="HardcodedText"
+            />
+
+        <TextView
+            android:id="@+id/forgotpassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text="Forgot Password?"
+            android:textSize="20dp"
+            android:textColor="@color/colorTextDarkBlack"
+            app:layout_constraintStart_toStartOf="@+id/signup"
+            app:layout_constraintTop_toBottomOf="@+id/signup"
+            tools:ignore="HardcodedText" />
+
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/google_signin"
+            android:layout_width="120dp"
+            android:layout_height="52dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="40dp"
+            app:layout_constraintStart_toStartOf="@+id/forgotpassword"
+            app:layout_constraintTop_toBottomOf="@+id/forgotpassword" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/login_facebook"
+            android:layout_width="120dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+          android:layout_marginTop="2dp"
+            android:background="@drawable/facebbok_login"
+            app:layout_constraintStart_toEndOf="@+id/google_signin"
+            app:layout_constraintTop_toTopOf="@+id/google_signin" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

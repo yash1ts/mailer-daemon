@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:scrollbars="vertical">
+  <RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/cardview_light_background"
+    android:padding="@dimen/padding_10"
+    android:id="@+id/rel">
+
+    <ImageButton
+      android:id="@+id/bt_close"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignEnd="@+id/detail_lay"
+      android:layout_marginEnd="2dp"
+      android:background="@drawable/ic_close_black_24dp" />
+    <ProgressBar
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/progress_bar"
+      android:layout_centerInParent="true"
+      android:visibility="gone"
+      android:elevation="12dp"/>
+    <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="Heading"
+      android:layout_below="@+id/bt_close"
+      android:inputType="textPersonName"
+      android:id="@+id/head"/>
+    <com.google.android.material.textfield.TextInputLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+      android:layout_below="@+id/head"
+      app:hintEnabled="false"
+      android:id="@+id/detail_lay">
+      <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="Detail"
+        android:layout_marginVertical="16dp"
+        android:minHeight="100dp"
+        android:id="@+id/detail"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <ImageView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/detail_lay"
+      android:adjustViewBounds="true"
+      android:layout_margin="8dp"
+      android:layout_centerHorizontal="true"
+      android:scaleType="centerInside"
+      android:id="@+id/image"/>
+    <LinearLayout
+      android:layout_below="@+id/image"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:padding="16dp"
+      android:layoutDirection="rtl"
+      >
+      <ImageButton
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/ic_menu_send"
+        android:layout_marginEnd="16dp"
+        android:layout_gravity="bottom"
+        android:id="@+id/send"
+        style="@style/Widget.MaterialComponents.Button"/>
+      <ImageButton
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:id="@+id/bt_img"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_gravity="bottom"
+        android:background="@drawable/ic_menu_camera"
+        />
+    </LinearLayout>
+
+  </RelativeLayout>
+</ScrollView>
+
+

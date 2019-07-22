@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+    android:layout_height="match_parent"
+  >
+
+  <RelativeLayout
+    android:id="@+id/lay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="36dp"
+    android:background="@drawable/bottom_sheet"
+    android:paddingStart="16dp"
+    android:theme="@style/AppTheme">
+
+    <TextView
+      android:id="@+id/club_name"
+      style="@style/TextAppearance.AppCompat.Headline"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="108dp"
+      android:padding="@dimen/padding_8"
+      android:textColor="@color/text_blue_black"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+      android:id="@+id/lay_icons"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/club_name"
+      android:orientation="horizontal">
+
+      <ImageButton
+        android:layout_width="@dimen/default_icon_size"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"
+        android:id="@+id/club_fb"
+        android:background="@drawable/vector_drawable_icons__facebook_filled" />
+
+      <ImageView
+        android:layout_width="@dimen/default_icon_size"
+        android:layout_height="@dimen/default_icon_size"
+        android:layout_margin="8dp"
+        android:id="@+id/club_insta"
+        android:background="@drawable/vector_drawable_icons__instagram___" />
+
+      <ImageView
+        android:layout_width="@dimen/default_icon_size"
+        android:layout_height="@dimen/default_icon_size"
+        android:layout_margin="8dp"
+        android:id="@+id/club_youtube"
+        android:background="@drawable/vector_drawable__ionicons_svg_logo_youtube" />
+
+      <ImageView
+        android:layout_width="@dimen/default_icon_size"
+        android:layout_height="@dimen/default_icon_size"
+        android:layout_margin="8dp"
+        android:id="@+id/club_web"
+        android:background="@drawable/vector_drawable_www" />
+      <ImageView
+        android:layout_width="@dimen/default_icon_size"
+        android:layout_height="@dimen/default_icon_size"
+        android:layout_margin="8dp"
+        android:id="@+id/club_edit"
+        android:visibility="gone"
+        android:background="@drawable/ic_create_black_24dp" />
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/club_des"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/lay_icons"
+      android:maxLines="10"
+      android:padding="@dimen/padding_8"
+      android:textColor="@color/colorTextBlack"
+      android:textSize="@dimen/text_size_16" />
+
+    <TextView
+      android:id="@+id/tv_heading_senior_mem"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/club_des"
+      android:layout_marginTop="16dp"
+      android:text="Senior members" />
+
+    <TextView
+      android:id="@+id/club_members"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/tv_heading_senior_mem" />
+
+  </RelativeLayout>
+  <com.facebook.drawee.view.SimpleDraweeView
+    android:layout_width="@dimen/icon_size_big"
+    android:layout_height="@dimen/icon_size_big"
+    android:id="@+id/club_icon"
+    android:elevation="4dp"
+    android:layout_marginEnd="36dp"
+    app:layout_anchor="@id/lay"
+    android:scaleType="centerCrop"
+    app:layout_anchorGravity="end"
+    app:roundAsCircle="true"
+    android:background="@drawable/circular_drawable"
+    />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

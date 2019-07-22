@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:padding="16dp">
+  <ProgressBar
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true"
+    android:id="@+id/progress_bar"
+    android:elevation="8dp"
+    android:visibility="gone"/>
+
+  <ImageButton
+    android:id="@+id/bt_close"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/ic_close_black_24dp" />
+
+  <EditText
+    android:id="@+id/heading"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/bt_close"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    android:hint="Name of Event"
+    android:inputType="textPersonName" />
+  <EditText
+    android:layout_width="wrap_content"
+    android:hint="Date"
+    android:layout_margin="8dp"
+    android:inputType="date"
+    android:maxLength="2"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/heading"
+    android:id="@+id/date"/>
+  <EditText
+    android:layout_width="wrap_content"
+    android:layout_toEndOf="@+id/date"
+    android:hint="Day"
+    android:inputType="text"
+    android:maxLength="3"
+    android:layout_margin="8dp"
+    android:layout_below="@+id/heading"
+    android:layout_height="wrap_content"
+    android:id="@+id/day"/>
+  <ImageButton
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:layout_below="@+id/date"
+    android:id="@+id/send"
+    android:layout_margin="16dp"
+    android:layout_alignEnd="@+id/heading"
+    style="@style/Widget.MaterialComponents.Button"
+    android:background="@drawable/ic_menu_send"/>
+</RelativeLayout>
