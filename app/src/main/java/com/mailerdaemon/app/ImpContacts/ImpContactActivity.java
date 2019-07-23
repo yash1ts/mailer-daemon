@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,10 +27,11 @@ import com.google.gson.Gson;
 import com.mailerdaemon.app.R;
 
 
+import Utils.ContactFunction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ImpContactActivity extends AppCompatActivity {
+public class ImpContactActivity extends AppCompatActivity implements ContactFunction {
 
     @BindView(R.id.bt_faculty)
     View bt_faculty;
@@ -53,6 +55,12 @@ public class ImpContactActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Contacts");
+
+        ContactDetailFragment fragment=new ContactDetailFragment();
+        Bundle bundle=new Bundle();
+        bundle.putString("type","contact");
+        fragment.setArguments(bundle);
+        getSupportFragmentManager().beginTransaction().add(R.id.rv_contacts, fragment, null).commit();
 
         bt_faculty.setOnClickListener(v -> {
             String[] tabs = new String[]{"All", "All"};
@@ -101,31 +109,14 @@ public class ImpContactActivity extends AppCompatActivity {
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_detail,fragment, null).addToBackStack(null).commit();
     }
-    public void makeCall(View view){
-        String num=view.getTag().toString();
-        if(!num.trim().equals("0")){
-            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num.trim()));
-            startActivity(intent);}
-        else{
-            Toast.makeText(this,"Sorry number not available",Toast.LENGTH_LONG).show();
-        }
-    }
-    public void sendMail(View view){
-        String s=view.getTag().toString();
-        if(!s.trim().isEmpty()) {
-            Intent send = new Intent(Intent.ACTION_SENDTO);
-            String uriText = "mailto:" + Uri.encode(s.trim()) +
-                    "?subject=" + Uri.encode("Subject") +
-                    "&body=" + Uri.encode("the body of the message");
-            Uri uri = Uri.parse(uriText);
 
-            send.setData(uri);
-            startActivity(Intent.createChooser(send, "Send mail..."));
-        }
-        else{
-            Toast.makeText(this,"Sorry email not available",Toast.LENGTH_LONG).show();
-        }
+    @Override
+    public void makeCall(String s) {
 
     }
 
+    @Override
+    public void sendMail(String s) {
+
+    }
 }
