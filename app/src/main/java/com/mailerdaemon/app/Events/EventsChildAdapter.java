@@ -26,7 +26,7 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
   private DialogOptions options;
   private String path;
   private int size;
-  private List<String> photos;
+  private List<String> photos=new ArrayList<>();
   private ImageViewer viewer;
 
   public EventsChildAdapter(DialogOptions options,Context context){

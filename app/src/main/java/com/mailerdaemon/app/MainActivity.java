@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity
     public void setFab(String str){
         if(access) {
             fab.show();
-            final DialogFragment fragment;
+            DialogFragment fragment;
             if (str.equals("event")) {
                 fragment = new AddEventFragment();
                 fragment.setTargetFragment(fragment2,123);
@@ -208,16 +208,5 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-
-
-  public void openDetail(View view){
-      Bundle bundle=new Bundle();
-      bundle.putString("club_id",view.getTag().toString());
-      ClubDetailBottomSheet fragment=new ClubDetailBottomSheet();
-      fragment.setArguments(bundle);
-      fragment.setStyle(DialogFragment.STYLE_NORMAL,R.style.theme);
-      fragment.show(getSupportFragmentManager(),null);
-
-  }
 
 }

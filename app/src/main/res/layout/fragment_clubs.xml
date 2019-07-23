@@ -7,86 +7,41 @@
    >
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-  <TextView
-    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="clubs"
-    android:layout_marginTop="16dp"
-    android:id="@+id/group_name"/>
+  android:layout_marginTop="30dp"
+  android:layout_marginStart="16dp">
 
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:padding="16dp"
+  <TextView
+    android:background="@drawable/title_bar"
+    android:id="@+id/group_name"
+    android:layout_marginEnd="16dp"
+    android:layout_width="match_parent"
+    android:paddingStart="16dp"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:layout_marginStart="0dp"
+    android:textSize="20sp"
+    android:text="clubs" />
 
-      android:layout_below="@+id/group_name"
-        android:columnCount="4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+  <ImageButton
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_marginTop="1dp"
+    android:id="@+id/add_club"
+    android:visibility="gone"
+    android:layout_alignTop="@+id/group_name"
+    android:layout_marginStart="-48dp"
+    android:layout_toEndOf="@+id/group_name"
+    android:src="@drawable/ic_add_box_white_24dp" />
 
-      <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="@dimen/icon_size_med"
-        android:tag="1"
-        android:layout_height="@dimen/icon_size_med"
-        android:layout_margin="8dp"
-        android:layout_columnWeight="1"
-        android:onClick="openDetail"
-        app:roundAsCircle="true"
-        app:roundingBorderWidth="0.5dp"
-        app:roundingBorderColor="@android:color/black"
-        android:layout_rowWeight="1"
-        />
-      <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="@dimen/icon_size_med"
-        android:tag="2"
-        android:layout_height="@dimen/icon_size_med"
-        android:layout_margin="8dp"
-        android:layout_columnWeight="1"
-        android:onClick="openDetail"
-        app:roundAsCircle="true"
-        app:roundingBorderWidth="0.5dp"
-        app:roundingBorderColor="@android:color/black"
-        android:layout_rowWeight="1"
-        />
-      <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="@dimen/icon_size_med"
-        android:tag="3"
-        android:layout_height="@dimen/icon_size_med"
-        android:layout_margin="8dp"
-        android:layout_columnWeight="1"
-        android:onClick="openDetail"
-        app:roundAsCircle="true"
-        app:roundingBorderWidth="0.5dp"
-        app:roundingBorderColor="@android:color/black"
-        android:layout_rowWeight="1"
-        />
-      <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="@dimen/icon_size_med"
-        android:tag="4"
-        android:layout_height="@dimen/icon_size_med"
-        android:layout_margin="8dp"
-        android:layout_columnWeight="1"
-        android:onClick="openDetail"
-        app:roundAsCircle="true"
-        app:roundingBorderWidth="0.5dp"
-        app:roundingBorderColor="@android:color/black"
-        android:layout_rowWeight="1"
-        />
-      <com.facebook.drawee.view.SimpleDraweeView
-        android:layout_width="@dimen/icon_size_med"
-        android:tag="5"
-        android:layout_height="@dimen/icon_size_med"
-        android:layout_margin="8dp"
-        android:layout_columnWeight="1"
-        android:onClick="openDetail"
-        app:roundAsCircle="true"
-        app:roundingBorderWidth="0.5dp"
-        app:roundingBorderColor="@android:color/black"
-        android:layout_rowWeight="1"
-        />
-    </GridLayout>
-
+    <androidx.recyclerview.widget.RecyclerView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="20dp"
+      android:id="@+id/rv_clubs"
+      app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+      app:spanCount="4"
+      android:layout_below="@+id/group_name">
+    </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>
 </ScrollView>

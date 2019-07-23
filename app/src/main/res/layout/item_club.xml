@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:orientation="vertical"
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
+  <com.facebook.drawee.view.SimpleDraweeView
+    android:layout_width="@dimen/icon_size_med"
+    android:tag="1"
+    android:layout_height="@dimen/icon_size_med"
+    android:layout_margin="8dp"
+    app:roundAsCircle="true"
+    android:id="@+id/club_icon"
+    app:roundingBorderWidth="0.5dp"
+    app:roundingBorderColor="@android:color/black"
+    />
+</LinearLayout>
