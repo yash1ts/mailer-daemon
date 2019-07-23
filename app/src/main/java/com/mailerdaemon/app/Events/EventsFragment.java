@@ -20,14 +20,16 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Source;
+import com.mailerdaemon.app.Notices.NoticeModel;
 import com.mailerdaemon.app.R;
 
 import java.util.List;
 
 import Utils.AccessDatabse;
+import Utils.DialogOptions;
 import Utils.StringRes;
 
-public class EventsFragment extends Fragment implements AccessDatabse {
+public class EventsFragment extends Fragment implements AccessDatabse, DialogOptions {
   private ShimmerFrameLayout shimmerViewContainer;
   private RecyclerView recyclerView;
   private EventsParentAdapter adapter;
@@ -42,7 +44,8 @@ public class EventsFragment extends Fragment implements AccessDatabse {
     shimmerViewContainer.startShimmer();
 
     recyclerView=view.findViewById(R.id.rv_events);
-    adapter=new EventsParentAdapter(getChildFragmentManager(),PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getBoolean("Access",false));
+    Boolean access=PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getBoolean("Access",false);
+    adapter=new EventsParentAdapter(this,access,getContext());
     firebaseFirestore=FirebaseFirestore.getInstance();
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     recyclerView.setAdapter(adapter);
@@ -90,6 +93,24 @@ public class EventsFragment extends Fragment implements AccessDatabse {
   }
 
 
+  @Override
+  public void showOptions(NoticeModel model, String path) {
+    Bundle bundle=new Bundle();
+    bundle.putParcelable("model",model);
+    bundle.putString("path",path);
+    OptionsEventFragment optionsFragment=new OptionsEventFragment();
+    optionsFragment.setArguments(bundle);
+    optionsFragment.show(getChildFragmentManager(),null);
+  }
+
+  @Override
+  public void showDialog(String path) {
+    Bundle bundle=new Bundle();
+    bundle.putString("path",path);
+    AddEventPostFragment dialog=new AddEventPostFragment();
+    dialog.setArguments(bundle);
+    dialog.show(getChildFragmentManager(),null);
+  }
 }
 
 

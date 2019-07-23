@@ -1,14 +1,12 @@
 package com.mailerdaemon.app.Notices;
 
 
+import android.content.Context;
 import android.net.Uri;
-
-import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentManager;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,7 +21,6 @@ import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.mailerdaemon.app.R;
 
@@ -38,27 +35,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import Utils.StringRes;
+import Utils.DialogOptions;
 
 public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecyclerViewAdapter.Holder> {
   private List<DocumentSnapshot> noticeModels=new ArrayList<>();
-  private FragmentManager fragment;
+  private DialogOptions options;
   private static int px;
   int lastPosition=-1;
   PrettyTime p;
   DateFormat format;
+  static CircularProgressDrawable drawable;
+  ImageViewer.Builder imageViewer;
+  List<String> photo=new ArrayList<>();
 
-  public NoticeRecyclerViewAdapter(int px ,FragmentManager fragment){
-    this.fragment=fragment;
+  public NoticeRecyclerViewAdapter(int px , DialogOptions options, Context context){
+    this.options=options;
     this.px=px;
     this.p = new PrettyTime();
     this.format=new SimpleDateFormat();
+    this.drawable=new CircularProgressDrawable(context);
+    this.imageViewer=new ImageViewer.Builder( context,photo);
   }
 
   @NonNull
   @Override
   public Holder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
     View view=LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.rv_notices,viewGroup,false);
+
     return new Holder(view);
   }
 
@@ -68,7 +71,7 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
     holder.heading.setText(model.getHeading());
     holder.detail.setText(model.getDetails());
     String s=model.getPhoto();
-    holder.options.setOnClickListener(v -> getBottomSheet(model,noticeModels.get(i).getReference().getPath()));
+    holder.options.setOnClickListener(v -> options.showOptions(model,noticeModels.get(i).getReference().getPath()));
     if(s!=null)
     { holder.imageView.setImageURI(Uri.parse(s));
 
@@ -77,7 +80,11 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
       } catch (ParseException e) {
         e.printStackTrace();
       }
-      holder.imageView.setOnClickListener(v -> new ImageViewer.Builder(holder.imageView.getContext(),Arrays.asList(s)).show());
+      holder.imageView.setOnClickListener(v ->{
+        photo.clear();
+        photo.add(s);
+        imageViewer.show();
+      });
     }else {
       holder.imageView.setVisibility(View.GONE);
       holder.date_time.setVisibility(View.GONE);
@@ -124,22 +131,12 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
       heading =itemView.findViewById(R.id.notice_head);
       detail=itemView.findViewById(R.id.notice_detail);
       imageView=itemView.findViewById(R.id.notice_photo);
-      CircularProgressDrawable drawable=new CircularProgressDrawable(imageView.getContext());
+
       drawable.setCenterRadius(px);
       imageView.getHierarchy().setProgressBarImage(drawable);
       date_time=itemView.findViewById(R.id.time);
       container=itemView.findViewById(R.id.container);
     }
-  }
-
-  private void getBottomSheet(NoticeModel model,String path) {
-    Bundle bundle=new Bundle();
-    bundle.putString("path", path);
-    bundle.putParcelable("model",model);
-    OptionsFragment optionsFragment=new OptionsFragment();
-    optionsFragment.setArguments(bundle);
-    optionsFragment.show(fragment, StringRes.FB_Collec_Notice);
-
   }
 
 }

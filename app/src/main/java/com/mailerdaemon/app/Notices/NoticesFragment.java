@@ -23,9 +23,10 @@ import com.mailerdaemon.app.R;
 import java.util.List;
 
 import Utils.AccessDatabse;
+import Utils.DialogOptions;
 import Utils.StringRes;
 
-public class NoticesFragment extends Fragment implements AccessDatabse {
+public class NoticesFragment extends Fragment implements AccessDatabse, DialogOptions {
     public NoticesFragment(){
 
     }
@@ -42,7 +43,7 @@ public class NoticesFragment extends Fragment implements AccessDatabse {
         shimmerViewContainer = view.findViewById(R.id.shimmer_view_container);
         recyclerView = view.findViewById(R.id.rv_notices);
         int px=Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,48f,getResources().getDisplayMetrics()));
-        adapter = new NoticeRecyclerViewAdapter(px, getChildFragmentManager());
+        adapter = new NoticeRecyclerViewAdapter(px, this,getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         if (noticeModels == null){
             getDatabase();
@@ -83,4 +84,19 @@ public class NoticesFragment extends Fragment implements AccessDatabse {
       recyclerView.scrollToPosition(0);
   }
 
+    @Override
+    public void showOptions(NoticeModel model,String path) {
+        Bundle bundle=new Bundle();
+        bundle.putString("path", path);
+        bundle.putParcelable("model",model);
+        OptionsFragment optionsFragment=new OptionsFragment();
+        optionsFragment.setArguments(bundle);
+        optionsFragment.show(getChildFragmentManager(), null);
+
+    }
+
+    @Override
+    public void showDialog(String path) {
+
+    }
 }
