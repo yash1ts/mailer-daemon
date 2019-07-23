@@ -78,6 +78,7 @@ public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
     if(details!=null) {
       description.setText(details.getDescription());
       name.setText(details.getName());
+      if(details.getClub()!=null)
       club.setImageURI(Uri.parse(details.getClub()));
       members.setText(details.getMembers());
       fb.setOnClickListener(v -> chromeTab.openTab(details.getFb()));

@@ -37,7 +37,8 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.Holder> {
 
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
-    holder.icon.setImageURI(Uri.parse(iconModel.get(position).getUrl()));
+        ClubIconModel model= iconModel.get(position);
+    holder.icon.setImageURI(Uri.parse(model.getUrl()));
     holder.icon.setOnClickListener(v->{
         options.showDialog(position+1+"");
     });
