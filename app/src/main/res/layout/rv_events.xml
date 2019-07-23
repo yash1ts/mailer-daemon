@@ -42,26 +42,28 @@
         android:textColor="@android:color/white"
         android:gravity="center_vertical"
         android:textSize="20sp"/>
-      <View
-        android:layout_margin="6dp"
-        android:layout_width="24dp"
-        android:elevation="4dp"
-        android:id="@+id/add_event_post"
-        android:layout_gravity="end"
-        android:layout_height="24dp"
-        android:visibility="gone"
-        android:background="@drawable/ic_add_box_white_24dp"/>
 
       <View
-        android:id="@+id/remove_event"
+        android:id="@+id/add_event_post"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="end"
         android:layout_marginTop="6dp"
-        android:visibility="gone"
-        android:layout_marginEnd="32dp"
+        android:layout_marginEnd="38dp"
         android:elevation="4dp"
-        android:background="@drawable/ic_remove_circle_white_24dp" />
+        android:background="@drawable/ic_add_box_white_24dp"
+        />
+
+      <View
+        android:layout_margin="6dp"
+        android:layout_width="24dp"
+        android:elevation="4dp"
+        android:id="@+id/remove_event"
+        android:layout_gravity="end"
+        android:layout_height="24dp"
+        android:background="@drawable/ic_close_white_24dp"
+        />
+
     </FrameLayout>
 
   </LinearLayout>
