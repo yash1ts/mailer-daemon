@@ -66,5 +66,7 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.2'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.2'
     implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+    implementation 'org.jsoup:jsoup:1.12.1'
 }
 apply plugin: 'com.google.gms.google-services'

@@ -63,7 +63,7 @@ public class EventsFragment extends Fragment implements AccessDatabse, DialogOpt
   @Override
   public void getDatabase() {
 
-    firebaseFirestore.collection(StringRes.FB_Collec_Event).orderBy("date", Query.Direction.DESCENDING).get(Source.SERVER).addOnCompleteListener(task -> {
+    firebaseFirestore.collection(StringRes.FB_Collec_Event).orderBy("date", Query.Direction.ASCENDING).get(Source.SERVER).addOnCompleteListener(task -> {
       if(task.isSuccessful()) {
         snap=task.getResult().getDocuments();
         Log.d("DB",task.getResult().toObjects(EventModel.class).toString());
@@ -74,7 +74,7 @@ public class EventsFragment extends Fragment implements AccessDatabse, DialogOpt
         shimmerViewContainer.setVisibility(View.GONE);
       }else{
         Toast.makeText(getContext(),StringRes.No_Internet,Toast.LENGTH_LONG).show();
-        firebaseFirestore.collection(StringRes.FB_Collec_Event).orderBy("date", Query.Direction.DESCENDING).get(Source.CACHE).addOnCompleteListener(task2 -> {
+        firebaseFirestore.collection(StringRes.FB_Collec_Event).orderBy("date", Query.Direction.ASCENDING).get(Source.CACHE).addOnCompleteListener(task2 -> {
           if(task.isSuccessful()) {
             snap=task2.getResult().getDocuments();
             Log.d("DB",task.getResult().toObjects(EventModel.class).toString());
