@@ -1,29 +1,13 @@
 package com.mailerdaemon.app.ImpContacts;
 
-import android.app.SearchManager;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.Menu;
-import android.view.MenuInflater;
+
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
-import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
-import com.google.gson.Gson;
 import com.mailerdaemon.app.R;
 
 

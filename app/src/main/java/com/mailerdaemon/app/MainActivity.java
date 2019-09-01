@@ -22,12 +22,11 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.mailerdaemon.app.Attendance.AttendanceActivity;
 import com.mailerdaemon.app.CampusMap.MapsActivity;
-import com.mailerdaemon.app.Clubs.ClubDetailBottomSheet;
 import com.mailerdaemon.app.Clubs.ClubsFragment;
 import com.mailerdaemon.app.Events.AddEventFragment;
 import com.mailerdaemon.app.Events.EventsFragment;
@@ -174,6 +173,8 @@ public class MainActivity extends AppCompatActivity
             firebaseAuth.signOut();
             LoginManager.getInstance().logOut();
             startActivity(new Intent(this, LoginActivity.class));
+        }else if(id==R.id.attendance){
+            startActivity(new Intent(this, AttendanceActivity.class));
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

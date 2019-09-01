@@ -17,6 +17,7 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.common.collect.Lists;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Source;
 import com.mailerdaemon.app.R;
 
@@ -60,7 +61,7 @@ public class NoticesFragment extends Fragment implements AccessDatabse, DialogOp
   public void getDatabase() {
       shimmerViewContainer.setVisibility(View.VISIBLE);
       shimmerViewContainer.startShimmer();
-      FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Notice).orderBy("date").get(Source.SERVER).addOnCompleteListener(task -> {
+      FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Notice).orderBy("date", Query.Direction.ASCENDING).get(Source.SERVER).addOnCompleteListener(task -> {
       if(task.isSuccessful()) {
         noticeModels = task.getResult().getDocuments();
         adapter.setData(Lists.reverse(noticeModels));
@@ -70,10 +71,10 @@ public class NoticesFragment extends Fragment implements AccessDatabse, DialogOp
         shimmerViewContainer.setVisibility(View.GONE);
       }else{
           Toast.makeText(getContext(),StringRes.No_Internet,Toast.LENGTH_LONG).show();
-          FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Notice).orderBy("date").get(Source.CACHE).addOnCompleteListener(task2 -> {
+          FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Notice).orderBy("date", Query.Direction.ASCENDING).get(Source.CACHE).addOnCompleteListener(task2 -> {
               if(task.isSuccessful()) {
                   noticeModels = task2.getResult().getDocuments();
-                  adapter.setData(Lists.reverse(noticeModels));
+                  adapter.setData(noticeModels);
                   adapter.notifyDataSetChanged();
                   shimmerViewContainer.stopShimmer();
                   shimmerViewContainer.setVisibility(View.GONE);
