@@ -1,14 +1,16 @@
 package com.mailerdaemon.app.Events;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -23,13 +25,15 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
 
   private List<DocumentSnapshot> documentReferences=new ArrayList<>();
   private RecyclerView.RecycledViewPool viewPool=new RecyclerView.RecycledViewPool();
-  private static DialogOptions options;
-  EventsChildAdapter adapter;
+  private DialogOptions options;
+  private Context context;
+  private EventsChildAdapter adapter;
   private Boolean access;
 
-  public EventsParentAdapter(DialogOptions options, Boolean access, Context context) {
+  EventsParentAdapter(DialogOptions options, Boolean access, Context context) {
     this.adapter=new EventsChildAdapter(options,context);
     this.options=options;
+    this.context=context;
     this.access=access;
   }
 
@@ -43,8 +47,9 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
   @Override
   public void onBindViewHolder(@NonNull EventsParentAdapter.Holder holder, int i) {
     EventModel eventModel=documentReferences.get(i).toObject(EventModel.class);
+    assert eventModel != null;
     holder.name.setText(eventModel.getName());
-    holder.date.setText(eventModel.getDay()+"\n"+eventModel.getDate());
+    holder.date.setText(String.format("%s\n%s", eventModel.getDay(), eventModel.getDate()));
     RecyclerView recyclerView=holder.recyclerView;
     holder.recyclerView.setRecycledViewPool(viewPool);
     String path=documentReferences.get(i).getReference().getPath();
@@ -52,7 +57,16 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
       holder.deleteEvent.setVisibility(View.VISIBLE);
       holder.addPost.setVisibility(View.VISIBLE);
       holder.addPost.setOnClickListener(v -> options.showDialog(path));
-      holder.deleteEvent.setOnClickListener(v ->FirebaseFirestore.getInstance().document(path).delete());
+      holder.deleteEvent.setOnClickListener(v ->{
+        AlertDialog dialog=new AlertDialog.Builder(context).create();
+        dialog.setTitle("Delete Event ?");
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "YES", (dialog1, which) -> {
+          FirebaseFirestore.getInstance().document(path).delete();
+          documentReferences.remove(i);
+          notifyItemRemoved(i);
+        });
+        dialog.show();
+      });
     }
     adapter.setData(eventModel.posts,path);
     recyclerView.setAdapter(adapter);

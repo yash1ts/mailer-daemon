@@ -19,12 +19,11 @@ import java.util.List;
 import Utils.DialogOptions;
 
 public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.Holder> {
-    List<ClubIconModel> iconModel=new ArrayList<>();
-    static CircularProgressDrawable drawable;
+    private List<ClubIconModel> iconModel=new ArrayList<>();
+    private CircularProgressDrawable drawable;
     private DialogOptions options;
 
-    public ClubAdapter(Context context, DialogOptions options){
-    this.drawable=new CircularProgressDrawable(context);
+    ClubAdapter(Context context, DialogOptions options){
     this.options=options;
     }
 
@@ -38,10 +37,12 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.Holder> {
     @Override
     public void onBindViewHolder(@NonNull Holder holder, int position) {
         ClubIconModel model= iconModel.get(position);
-    holder.icon.setImageURI(Uri.parse(model.getUrl()));
-    holder.icon.setOnClickListener(v->{
-        options.showDialog(position+1+"");
-    });
+        //holder.icon.getHierarchy().setProgressBarImage(drawable);
+        if (model.getUrl()==null){
+            holder.icon.setImageResource(R.drawable.ic_account_circle_black_24dp);
+        }else{//holder.icon.setBackground(null);
+    holder.icon.setImageURI(Uri.parse(model.getUrl()));}
+        holder.icon.setOnClickListener(v-> options.showDialog(model.getTag()));
     }
 
     @Override
@@ -59,7 +60,6 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.Holder> {
         public Holder(@NonNull View itemView) {
             super(itemView);
             icon=itemView.findViewById(R.id.club_icon);
-            icon.getHierarchy().setProgressBarImage(drawable);
         }
     }
 }

@@ -4,19 +4,19 @@
     {"name": "Prof. A. S. Venkatesh", "image": "https://www.iitism.ac.in/assets/img/admin/hod/agl.jpg", "dept": " Applied Geology", "email": "agl@iitism.ac.in", "phone": "+91-326-223-5271", "url": ""},
     {"name": "Prof Rima Chatterjee", "image": "https://www.iitism.ac.in/assets/img/admin/hod/agp.jpg", "dept": " Applied Geophysics", "email": "agp@iitism.ac.in", "phone": "+91-326-223-5286", "url": ""},
     {"name": "Prof. G. N. Singh", "image": "https://www.iitism.ac.in/assets/img/admin/hod/math.jpg", "dept": " Applied Mathematics", "email": "am@iitism.ac.in", "phone": "+91-326-223-5230", "url": ""},
-    {"name": "Prof. Anil Kumar Nirala", "image": "https://www.iitism.ac.in/assets/img/admin/hod/physics.jpg", "dept": " Applied Physics", "email": "ap@iitism.ac.in", "phone": "+91-326-223-5282", "url": ""},
-    {"name": "Prof. I. M. Mishra", "image": "https://www.iitism.ac.in/assets/img/admin/hod/chemical.jpg", "dept": " Chemical Engineering", "email": "che@iitism.ac.in", "phone": "+91-326-223-5288", "url": ""},
+    {"name": "Prof. Shailendra Kr Sharma", "image": "https://www.iitism.ac.in/assets/img/admin/hod/physics.jpg", "dept": " Applied Physics", "email": "ap@iitism.ac.in", "phone": "+91-326-223-5282", "url": ""},
+    {"name": "Prof. Rajiv Shekhar", "image": "https://www.iitism.ac.in/assets/img/admin/dt.jpg", "dept": " Chemical Engineering", "email": "che@iitism.ac.in", "phone": "+91-326-223-5288", "url": ""},
     {"name": "Prof. S. K. Das", "image": "https://www.iitism.ac.in/assets/img/admin/hod/civil.jpg", "dept": " Civil Engineering", "email": "civ@iitism.ac.in", "phone": "+91-326-223-5289", "url": ""},
     {"name": "Prof. Haider Banka", "image": "https://www.iitism.ac.in/assets/img/admin/hod/cse.jpg", "dept": " ", "email": "cse@iitism.ac.in", "phone": "+91-326-223-5273", "url": ""},
     {"name": "Prof. Kalyan Chatterjee", "image": "https://www.iitism.ac.in/assets/img/admin/hod/ee.jpg", "dept": " Electrical Engineering", "email": "ee@iitism.ac.in", "phone": "+91-326-223-5287", "url": ""},
     {"name": "Prof. Jitendra Kumar", "image": "https://www.iitism.ac.in/assets/img/admin/hod/ece.jpg", "dept": " Electronics Engineering", "email": "ece@iitism.ac.in", "phone": "+91-326-223-5274", "url": ""},
     {"name": "Prof. Sunil Kumar Gupta", "image": "https://www.iitism.ac.in/assets/img/admin/hod/ese.jpg", "dept": " ", "email": "ese@iitism.ac.in", "phone": "+91-326-223-5285", "url": ""},
-    {"name": "Prof. Nikkam Sures", "image": "https://www.iitism.ac.in/assets/img/admin/hod/fme.jpg", "dept": " Fuel & Mineral Engineering", "email": "dean_sw@iitism.ac.in", "phone": "+91-326-223-5276", "url": ""},
+    {"name": "Prof. Sumantra Bhattachrya", "image": "https://www.iitism.ac.in/assets/img/admin/hod/fme.jpg", "dept": " Fuel & Mineral Engineering", "email": "dean_sw@iitism.ac.in", "phone": "+91-326-223-5276", "url": ""},
     {"name": "Prof. Rajni Singh", "image": "https://www.iitism.ac.in/assets/img/admin/hod/hss.jpg", "dept": " ", "email": "hss@iitism.ac.in", "phone": "+91-326-223-5277", "url": ""},
     {"name": "Prof. Saumya Singh", "image": "https://www.iitism.ac.in/assets/img/admin/hod/ms.jpg", "dept": " Management Studies", "email": "ms@iitism.ac.in", "phone": "+91-326-223-5278", "url": ""},
     {"name": "Prof Shailendra Narayan Singh", "image": "https://www.iitism.ac.in/assets/img/admin/hod/mech.jpg", "dept": " Mechanical Engineering", "email": "mech@iitism.ac.in", "phone": "+91-326-223-5260", "url": ""},
     {"name": "Prof L A Kumaraswamidhas", "image": "https://www.iitism.ac.in/assets/img/admin/hod/mme.jpg", "dept": "", "email": "mme@iitism.ac.in", "phone": "+91-326-223-5275", "url": ""},
-    {"name": "Prof. VMSR Murthy", "image": "https://www.iitism.ac.in/assets/img/admin/hod/mining.jpg", "dept": " Mining Engineering", "email": "me@iitism.ac.in", "phone": "+91-326-223-5279", "url": ""},
+    {"name": "Prof. R M Bhattachrya", "image": "https://www.iitism.ac.in/assets/img/admin/hod/mining.jpg", "dept": " Mining Engineering", "email": "me@iitism.ac.in", "phone": "+91-326-223-5279", "url": ""},
     {"name": "Prof. Ajay Mandal", "image": "https://www.iitism.ac.in/assets/img/admin/hod/pe.jpg", "dept": " Petroleum Engineering", "email": "pe@iitism.ac.in", "phone": "+91-326-223-5280", "url": ""}
   ]
 }

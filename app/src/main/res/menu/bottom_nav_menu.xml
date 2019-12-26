@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:title="Notices"
-        android:id="@+id/bt_nav_notices"
-        android:icon="@drawable/ic_bt_nav_fb_posts_24dp">
+        android:id="@+id/bt_nav_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home">
     </item>
     <item
-        android:title="Events"
-        android:id="@+id/bt_nav_events"
-        android:icon="@drawable/ic_bt_nav_notices_24dp">
+        android:id="@+id/bt_nav_attendance"
+        android:icon="@drawable/ic_done_all_black_24dp"
+        android:title="Attendance">
     </item>
     <item android:title="Clubs"
         android:id="@+id/bt_nav_clubs"

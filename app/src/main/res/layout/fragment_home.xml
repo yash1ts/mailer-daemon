@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+  <data>
+    <variable
+      name="alph"
+      type="float" />
+  </data>
+<ScrollView
+  android:id="@+id/sroll_view"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:background="@color/colorBgLightSilver"
+  android:fadingEdge="vertical"
+  android:fillViewport="true"
+  android:nestedScrollingEnabled="true"
+  android:requiresFadingEdge="vertical">
+<androidx.constraintlayout.widget.ConstraintLayout
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="vertical">
+
+  <LinearLayout
+    android:id="@+id/linearLayout2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:alpha="@{alph}"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toStartOf="@+id/linearLayout"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@+id/linearLayout">
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Notices"
+      android:textAlignment="center"
+      android:textColor="@color/colorTextBlack"
+      android:textStyle="bold"
+       />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Get latest news"
+      android:textAlignment="center"
+      android:textSize="12sp" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/linearLayout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="38dp"
+    android:alpha="@{alph}"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toEndOf="@+id/linearLayout2"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="  Events"
+      android:textAlignment="center"
+      android:textColor="@color/colorTextBlack"
+      android:textStyle="bold"
+       />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="All about ongoing\n events"
+      android:textAlignment="center"
+      android:textSize="12sp" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/linearLayout3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:alpha="@{alph}"
+    android:orientation="vertical"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toEndOf="@+id/linearLayout"
+    app:layout_constraintTop_toTopOf="@+id/linearLayout">
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="   Lost &amp; Found"
+      android:textAlignment="center"
+      android:textColor="@color/colorTextBlack"
+      android:textStyle="bold"
+       />
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Help and get help"
+      android:textAlignment="center"
+      android:textSize="12sp" />
+  </LinearLayout>
+
+  <LinearLayout
+    android:id="@+id/linearLayout4"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:background="@android:color/transparent"
+    android:orientation="horizontal"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+    <TextView
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_weight="1"
+      android:paddingStart="@dimen/padding_10"
+      android:text="Important Contacts"
+      android:textColor="@color/colorTextBlack"
+      android:textStyle="bold"/>
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/bt_contact_all"
+      style="@style/Widget.MaterialComponents.Button.TextButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="16dp"
+      android:text="See All"/>
+  </LinearLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rv_contacts"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="horizontal"
+    android:paddingStart="8dp"
+    android:requiresFadingEdge="horizontal"
+    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+    app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+  <TextView
+    android:id="@+id/textView3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:background="@android:color/transparent"
+    android:paddingStart="@dimen/padding_10"
+    android:text="Campus Map"
+    android:textColor="@color/colorTextBlack"
+    android:textStyle="bold"
+    app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+    app:layout_constraintTop_toBottomOf="@+id/rv_contacts" />
+
+  <com.google.android.material.card.MaterialCardView
+    android:id="@+id/map_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="8dp"
+    app:layout_constraintStart_toStartOf="@+id/textView3"
+    app:layout_constraintTop_toBottomOf="@+id/textView3"
+    app:strokeColor="@android:color/white"
+    app:strokeWidth="4dp"
+   >
+    <View
+      android:layout_width="wrap_content"
+      android:layout_height="180dp"
+      android:background="@drawable/map"
+      />
+  </com.google.android.material.card.MaterialCardView>
+  <LinearLayout
+    android:id="@+id/calendar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    app:layout_constraintStart_toStartOf="@+id/map_card"
+    app:layout_constraintTop_toBottomOf="@+id/map_card">
+  <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="@android:color/transparent"
+    android:text="Academic Calendar"
+    android:textColor="@color/colorTextBlack"
+    android:textStyle="bold"
+     />
+  <ImageView
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_marginStart="32dp"
+    android:src="@drawable/ic_next"
+     />
+  </LinearLayout>
+  <LinearLayout
+    android:id="@+id/mess_menu"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    app:layout_constraintStart_toStartOf="@+id/calendar"
+    app:layout_constraintTop_toBottomOf="@+id/calendar">
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:background="@android:color/transparent"
+      android:text="Mess Menu"
+      android:textColor="@color/colorTextBlack"
+      android:textStyle="bold"
+      />
+    <ImageView
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_marginStart="32dp"
+      android:src="@drawable/ic_next"
+      />
+  </LinearLayout>
+  <LinearLayout
+    android:id="@+id/holidays"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    app:layout_constraintStart_toStartOf="@+id/mess_menu"
+    app:layout_constraintTop_toBottomOf="@+id/mess_menu">
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_vertical"
+      android:background="@android:color/transparent"
+      android:text="Holidays"
+      android:textColor="@color/colorTextBlack"
+      android:textStyle="bold"
+      />
+    <ImageView
+      android:layout_width="24dp"
+      android:layout_height="24dp"
+      android:layout_marginStart="32dp"
+      android:src="@drawable/ic_next"
+      />
+  </LinearLayout>
+  <TextView
+    android:id="@+id/textView4"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:background="@android:color/transparent"
+    android:paddingStart="@dimen/padding_10"
+    android:text="Experience IIT ISM"
+    android:textColor="@color/colorTextBlack"
+    android:textStyle="bold"
+    app:layout_constraintStart_toStartOf="@+id/holidays"
+    app:layout_constraintTop_toBottomOf="@+id/holidays" />
+
+  <com.google.android.material.card.MaterialCardView
+    android:id="@+id/exp_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="?android:attr/selectableItemBackground"
+    app:cardCornerRadius="8dp"
+    app:layout_constraintStart_toStartOf="@+id/textView4"
+    app:layout_constraintTop_toBottomOf="@+id/textView4"
+    app:strokeColor="@android:color/white"
+    app:strokeWidth="4dp"
+    >
+    <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="250dp"
+      android:scaleType="fitXY"
+      android:src="@drawable/exp_img"
+      />
+  </com.google.android.material.card.MaterialCardView>
+
+  <View
+    android:id="@+id/view2"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    app:layout_constraintStart_toStartOf="@+id/exp_card"
+    app:layout_constraintTop_toBottomOf="@+id/exp_card">
+
+  </View>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
+</layout>

@@ -15,6 +15,7 @@
     android:elevation="16dp"
     android:orientation="vertical"
     shimmer:duration="800"
+    shimmer:shimmer_shape="radial"
     shimmer:layout_constraintStart_toStartOf="parent"
     shimmer:layout_constraintTop_toTopOf="parent"
 >
