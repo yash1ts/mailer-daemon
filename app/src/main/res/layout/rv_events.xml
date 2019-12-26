@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
   android:orientation="vertical">
 
   <LinearLayout
@@ -21,27 +21,40 @@
         android:text="MON\n25"
         android:textAlignment="center"
         android:id="@+id/date_day"
-        android:elevation="4dp"
+        android:elevation="2dp"
         android:padding="4dp"
-        android:textSize="12dp"/>
-    <FrameLayout
+        android:textSize="12sp"/>
+    <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="36dp"
+      android:layout_height="match_parent"
       android:layout_gravity="center"
-      android:layout_marginEnd="24dp"
+      android:paddingStart="4dp"
+      android:paddingEnd="24dp"
       >
-      <TextView
+      <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_gravity="center"
         android:layout_height="36dp"
-        android:text="Title"
-        android:id="@+id/name"
-        android:paddingStart="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:elevation="4dp"
-        android:background="@drawable/title_bar"
-        android:textColor="@android:color/white"
-        android:gravity="center_vertical"
-        android:textSize="20sp"/>
+        android:paddingStart="24dp"
+        android:paddingEnd="4dp"
+        app:cardBackgroundColor="@color/colorAccent"
+        app:cardCornerRadius="12dp">
+
+        <TextView
+          android:id="@+id/name"
+          android:layout_width="match_parent"
+          android:layout_height="36dp"
+          android:layout_gravity="center"
+          android:elevation="4dp"
+          android:gravity="center_vertical"
+          android:paddingStart="24dp"
+          android:textColor="@android:color/white"
+          android:textSize="20sp"
+          android:textStyle="bold" />
+      </androidx.cardview.widget.CardView>
 
       <View
         android:id="@+id/add_event_post"
@@ -49,8 +62,11 @@
         android:layout_height="24dp"
         android:layout_gravity="end"
         android:layout_marginTop="6dp"
-        android:layout_marginEnd="38dp"
+        android:layout_alignParentEnd="true"
         android:elevation="4dp"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="48dp"
+        android:visibility="gone"
         android:background="@drawable/ic_add_box_white_24dp"
         />
 
@@ -58,13 +74,16 @@
         android:layout_margin="6dp"
         android:layout_width="24dp"
         android:elevation="4dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
         android:id="@+id/remove_event"
         android:layout_gravity="end"
         android:layout_height="24dp"
         android:background="@drawable/ic_close_white_24dp"
         />
 
-    </FrameLayout>
+    </RelativeLayout>
 
   </LinearLayout>
 

@@ -1,30 +1,36 @@
 package com.mailerdaemon.app.Clubs;
 
-import android.content.Context;
+import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
-
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
+
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Source;
+import com.google.gson.GsonBuilder;
 import com.mailerdaemon.app.R;
+
+import java.util.Objects;
 
 import Utils.ChromeTab;
 import Utils.StringRes;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import vcm.github.webkit.proview.ProWebView;
 
 public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
 
@@ -47,34 +53,51 @@ public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
   ImageView web;
   @BindView(R.id.club_icon)
   SimpleDraweeView club;
+
+  @BindView(R.id.shimmer_view_container)
+  LinearLayout linearLayout;
+
   private ChromeTab chromeTab;
   private Boolean access;
+  @BindView(R.id.web)
+  ProWebView webView;
+  private ClubDetailModel model;
 
+  @SuppressLint("ClickableViewAccessibility")
   @Nullable
   @Override
+
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view = inflater.inflate(R.layout.fragment_club_detail, container, false);
     ButterKnife.bind(this, view);
     chromeTab=new ChromeTab(getContext());
-    club.getHierarchy().setProgressBarImage(new CircularProgressDrawable(getContext()));
+    webView.setHorizontalScrollBarEnabled(true);
+    club.getHierarchy().setProgressBarImage(new CircularProgressDrawable(Objects.requireNonNull(getContext())));
+    assert getArguments() != null;
     id = getArguments().getString("club_id");
     getDatabase();
-    access= PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getBoolean("Access",false);
+
+    access= PreferenceManager.getDefaultSharedPreferences(Objects.requireNonNull(getActivity()).getApplicationContext()).getBoolean("Access",false);
+
     return view;
   }
+
 
   private void getDatabase() {
     FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Club).document(id).get().addOnCompleteListener(task -> {
       if (task.isSuccessful()) {
-        setView(task.getResult().toObject(ClubDetailModel.class));
+        model= Objects.requireNonNull(task.getResult()).toObject(ClubDetailModel.class);
+        setView(model);
       }else
       {
         Toast.makeText(getContext(), StringRes.No_Internet,Toast.LENGTH_LONG).show();
-        FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Club).document(id).get(Source.CACHE).addOnSuccessListener(documentSnapshot -> setView(task.getResult().toObject(ClubDetailModel.class)));
+        FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Club).document(id).get(Source.CACHE).addOnSuccessListener(documentSnapshot -> setView(Objects.requireNonNull(task.getResult()).toObject(ClubDetailModel.class)));
       }
     });
+
   }
-    private void setView (ClubDetailModel details){
+
+  private void setView (ClubDetailModel details){
     if(details!=null) {
       description.setText(details.getDescription());
       name.setText(details.getName());
@@ -82,9 +105,16 @@ public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
       club.setImageURI(Uri.parse(details.getClub()));
       members.setText(details.getMembers());
       fb.setOnClickListener(v -> chromeTab.openTab(details.getFb()));
-      insta.setOnClickListener(v -> chromeTab.openTab(details.getInsta()));
-      youtube.setOnClickListener(v -> chromeTab.openTab(details.getYoutube()));
-      web.setOnClickListener(v -> chromeTab.openTab(details.getWeb()));
+      if(!details.getInsta().isEmpty())
+      {insta.setVisibility(View.VISIBLE);
+      insta.setOnClickListener(v -> chromeTab.openTab(details.getInsta()));}
+      if(!details.getYoutube().isEmpty())
+      { youtube.setVisibility(View.VISIBLE);
+      youtube.setOnClickListener(v -> chromeTab.openTab(details.getYoutube()));}
+      if(!details.getWeb().isEmpty())
+      { web.setVisibility(View.VISIBLE);
+      web.setOnClickListener(v -> chromeTab.openTab(details.getWeb()));}
+      setposts(details.getFb());
     }
       if (access) {
         create.setVisibility(View.VISIBLE);
@@ -92,10 +122,48 @@ public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
           EditClubFragment clubFragment = new EditClubFragment();
           Bundle bundle = new Bundle();
           bundle.putString("id", id);
+          bundle.putString("data",new GsonBuilder().create().toJson(model));
           clubFragment.setArguments(bundle);
           clubFragment.show(getChildFragmentManager(), null);
         });
       }
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private void setposts(String page){
+    if(page.isEmpty())
+      return;
+      //webView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+//        @Override
+//        public void onGlobalLayout() {
+          String site=page;
+          site=site.substring(25);
+//          int x=webView.getMeasuredWidth()-657;
+//          int y=webView.getMeasuredHeight();
+          //webView.getViewTreeObserver().removeOnGlobalLayoutListener(this::onGlobalLayout);
+
+          String s="<!DOCTYPE html>\n" +
+                  "<html>\n" +
+                  "<head>\n" +
+                  "\t<title></title>\n" +
+                  "</head>\n" +
+                  "<body style=\"height: 1000px;text-align: center\">\n" +
+                  "\t<div id='yeep' style='width: 100%;height:100%;text-align: center' >\n" +
+                  "\t</div>\n" +
+                  "</body>\n" +
+                  "\n" +
+                  "<script type=\"text/javascript\">\n" +
+                  "\tvar s = document.getElementById(\"yeep\");\n" +
+                  "\ts.innerHTML+=\"<iframe src='https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F"+site+"&tabs=timeline&width=\"+screen.width+\"&height=\"+screen.height+\"&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId=384900825472866'  style='border:none;height:100%;width: 100%; ' scrolling='no' frameborder='0' allowTransparency='true' allow='encrypted-media'></iframe>\";\n" +
+                  "\t//document.write(s.innerHTML);\n" +
+                  "</script>\n" +
+                  "</html>\n";
+          //String s="<iframe src=\"https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F"+site+"&tabs=timeline&width="+x+"&height="+y+"&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId=384900825472866\" width=\"100%\" height=\"100%\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allow=\"encrypted-media\"></iframe>";
+          webView.loadHtml(s);
+        //}
+      //});
+
+      webView.setOnTouchListener((v, event) -> event.getAction() == MotionEvent.ACTION_BUTTON_PRESS);
     }
 
 }

@@ -1,33 +1,41 @@
 package com.mailerdaemon.app.Clubs;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageButton;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.preference.PreferenceManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageButton;
-
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.gson.GsonBuilder;
 import com.mailerdaemon.app.Notices.NoticeModel;
 import com.mailerdaemon.app.R;
 
 import java.util.List;
+import java.util.Objects;
 
 import Utils.AccessDatabse;
 import Utils.DialogOptions;
 import Utils.StringRes;
+
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class ClubsFragment extends Fragment implements AccessDatabse, DialogOptions {
     private List<ClubIconModel> iconModel;
     private RecyclerView recyclerView;
     private ClubAdapter adapter;
     private ImageButton add_club;
+    private SharedPreferences.Editor editor;
 
     @Nullable
     @Override
@@ -36,6 +44,7 @@ public class ClubsFragment extends Fragment implements AccessDatabse, DialogOpti
         adapter=new ClubAdapter(getContext(),this);
         recyclerView=view.findViewById(R.id.rv_clubs);
         recyclerView.setAdapter(adapter);
+        editor= Objects.requireNonNull(getActivity()).getSharedPreferences("MAIN",Context.MODE_PRIVATE).edit();
         add_club= view.findViewById(R.id.add_club);
       if(iconModel==null) {
           getDatabase();
@@ -43,7 +52,7 @@ public class ClubsFragment extends Fragment implements AccessDatabse, DialogOpti
           adapter.setData(iconModel);
           adapter.notifyDataSetChanged();
       }
-        Boolean access= PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getBoolean("Access",false);
+        boolean access= getDefaultSharedPreferences(getActivity().getApplicationContext()).getBoolean("Access",false);
         if(access) {
           add_club.setVisibility(View.VISIBLE);
           add_club.setOnClickListener(v -> {
@@ -61,10 +70,33 @@ public class ClubsFragment extends Fragment implements AccessDatabse, DialogOpti
 
     @Override
     public void getDatabase() {
-        FirebaseFirestore.getInstance().collection(StringRes.FB_Club_Icons).get().addOnSuccessListener(queryDocumentSnapshots -> {
+        String string=getDefaultSharedPreferences(getActivity()).getString("club","");
+        assert string != null;
+        if(string.equals(""))
+        FirebaseFirestore.getInstance().collection(StringRes.FB_Club_Icons).orderBy("tag", Query.Direction.ASCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
             iconModel=queryDocumentSnapshots.toObjects(ClubIconModel.class);
+            Log.d("ICON",iconModel.toString());
+            ClubListModel model=new ClubListModel();
+            model.setModelList(iconModel);
             adapter.setData(iconModel);
             adapter.notifyDataSetChanged();
+            if(editor!=null)
+            editor.putString("club",new GsonBuilder().create().toJson(model)).apply();
+        });
+        else {
+            ClubListModel model = new GsonBuilder().create().fromJson(string, ClubListModel.class);
+            iconModel=model.getModelList();
+            adapter.setData(iconModel);
+            adapter.notifyDataSetChanged();
+        }
+        FirebaseFirestore.getInstance().collection(StringRes.FB_Club_Icons).orderBy("tag", Query.Direction.ASCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            iconModel = queryDocumentSnapshots.toObjects(ClubIconModel.class);
+            ClubListModel model = new ClubListModel();
+            model.setModelList(iconModel);
+                adapter.setData(iconModel);
+                adapter.notifyDataSetChanged();
+            if (editor!=null)
+                editor.putString("club",new GsonBuilder().create().toJson(model)).apply();
         });
     }
 
@@ -79,7 +111,8 @@ public class ClubsFragment extends Fragment implements AccessDatabse, DialogOpti
         bundle.putString("club_id",path);
         ClubDetailBottomSheet fragment=new ClubDetailBottomSheet();
         fragment.setArguments(bundle);
-        fragment.setStyle(DialogFragment.STYLE_NORMAL,R.style.theme);
+        fragment.setStyle(DialogFragment.STYLE_NORMAL,R.style.bottomSheetTransparent);
+
         fragment.show(getChildFragmentManager(),null);
     }
 }

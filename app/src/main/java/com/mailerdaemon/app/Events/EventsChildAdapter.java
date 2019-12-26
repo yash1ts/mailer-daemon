@@ -2,13 +2,13 @@ package com.mailerdaemon.app.Events;
 
 import android.content.Context;
 import android.net.Uri;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.mailerdaemon.app.Notices.NoticeModel;
@@ -16,7 +16,6 @@ import com.mailerdaemon.app.R;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import Utils.DialogOptions;
@@ -29,7 +28,7 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
   private List<String> photos=new ArrayList<>();
   private ImageViewer viewer;
 
-  public EventsChildAdapter(DialogOptions options,Context context){
+  EventsChildAdapter(DialogOptions options, Context context){
     this.viewer= new ImageViewer.Builder(context, photos).show();
     this.options=options;
   }
@@ -43,9 +42,14 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
 
   @Override
   public void onBindViewHolder(@NonNull EventsChildAdapter.Holder holder, int i) {
-    NoticeModel noticeModel=noticeModels.get(size-1-i);
+    NoticeModel noticeModel=noticeModels.get(i);
     holder.heading.setText(noticeModel.getHeading());
-    holder.detail.setText(noticeModel.getDetails());
+    String detail=noticeModel.getDetails();
+    if(detail.length()>200){
+      detail=detail.substring(0,200)+"...";
+      holder.detail.setOnClickListener(v-> holder.detail.setText(noticeModel.getDetails()));
+    }
+    holder.detail.setText(detail);
     String s=noticeModel.getPhoto();
     holder.options.setOnClickListener(v -> options.showOptions(noticeModel,path));
     if(s!=null)

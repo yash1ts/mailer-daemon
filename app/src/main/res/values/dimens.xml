@@ -15,10 +15,11 @@
   <dimen name="placeholderTextHeight">8dp</dimen>
   <dimen name="padding_10">10dp</dimen>
   <dimen name="padding_8">8dp</dimen>
-  <dimen name="default_icon_size">48dp</dimen>
+  <dimen name="default_icon_size">44dp</dimen>
   <dimen name="pop_up_height">600dp</dimen>
   <dimen name="pop_up_width">400dp</dimen>
-  <dimen name="icon_size_big">78dp</dimen>
-  <dimen name="icon_size_med">72dp</dimen>
+  <dimen name="icon_size_big">72dp</dimen>
+  <dimen name="icon_size_med">66dp</dimen>
   <dimen name="small_option_size">24dp</dimen>
+  <dimen name="ic_size_small">48dp</dimen>
 </resources>

@@ -1,11 +1,9 @@
 package com.mailerdaemon.app.Clubs;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +11,20 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
+
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.GsonBuilder;
 import com.mailerdaemon.app.R;
 
 import java.io.File;
 import java.util.List;
+import java.util.Objects;
 
+import Utils.AccessDatabse;
 import Utils.ImageUploadCallBack;
 import Utils.StringRes;
 import Utils.UploadData;
@@ -31,7 +36,8 @@ import pl.aprilapps.easyphotopicker.EasyImage;
 
 public class EditClubFragment extends DialogFragment implements ViewUtils.showProgressBar, ImageUploadCallBack {
 
-  private String downloadUrl=null;
+  private String downloadUrl;
+  private String previous_Url;
   private SimpleDraweeView imageView;
   private ImageButton imageButton,send;
   private String path=null,id;
@@ -60,23 +66,38 @@ public class EditClubFragment extends DialogFragment implements ViewUtils.showPr
     imageView=view.findViewById(R.id.image);
     send=view.findViewById(R.id.send);
     ButterKnife.bind(this,view);
+    assert getArguments() != null;
     id=getArguments().getString("id");
-
-  imageButton.setOnClickListener(v -> {
-    EasyImage.openChooserWithGallery(this,"Pick image", EasyImage.RequestCodes.PICK_PICTURE_FROM_GALLERY);
-    EasyImage.configuration(getContext()).allowsMultiplePickingInGallery();
-  });
+    String s=getArguments().getString("data","");
+    ClubDetailModel model= new GsonBuilder().create().fromJson(s,ClubDetailModel.class);
+    if(!s.equals("")){
+    club_name.setText(model.getName());
+    description.setText(model.getDescription());
+    members.setText(model.getMembers());
+    previous_Url=model.getClub();
+    if (model.getClub()!=null)
+    imageView.setImageURI(Uri.parse(model.getClub()));
+    fb.setText(model.getFb());
+    insta.setText(model.getInsta());
+    youtube.setText(model.getYoutube());
+    web.setText(model.getWeb());}
+    imageButton.setOnClickListener(v -> {
+      EasyImage.openChooserWithGallery(this,"Pick image", EasyImage.RequestCodes.PICK_PICTURE_FROM_GALLERY);
+      EasyImage.configuration(Objects.requireNonNull(getContext())).allowsMultiplePickingInGallery();
+    });
 
     send.setOnClickListener(v -> {
       changeProgressBar();
       UploadData.upload(this, path,getContext());
     });
     return view;
-}
+  }
 
   private void setDatabase() {
     ClubDetailModel clubDetailModel=new ClubDetailModel();
+    if(downloadUrl!=null)
     clubDetailModel.setClub(downloadUrl);
+    else clubDetailModel.setClub(previous_Url);
     clubDetailModel.setDescription(description.getText().toString());
     clubDetailModel.setFb(fb.getText().toString());
     clubDetailModel.setInsta(insta.getText().toString());
@@ -87,9 +108,11 @@ public class EditClubFragment extends DialogFragment implements ViewUtils.showPr
     FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Club).document(id).set(clubDetailModel);
     ClubIconModel clubIconModel=new ClubIconModel();
     clubIconModel.setTag(id);
+    if(downloadUrl!=null)
     clubIconModel.setUrl(downloadUrl);
+    else clubIconModel.setUrl(previous_Url);
     FirebaseFirestore.getInstance().collection(StringRes.FB_Club_Icons).document(id).set(clubIconModel);
-    getDialog().dismiss();
+    Objects.requireNonNull(getDialog()).dismiss();
   }
 
   @Override
@@ -118,5 +141,15 @@ public class EditClubFragment extends DialogFragment implements ViewUtils.showPr
     changeProgressBar();
     this.downloadUrl=downloadUrl;
     setDatabase();
+  }
+
+  @Override
+  public void onDismiss(@NonNull DialogInterface dialog) {
+    super.onDismiss(dialog);
+    assert getParentFragment() != null;
+    if(getParentFragment().getClass().equals(ClubsFragment.class)){
+      AccessDatabse databse=(AccessDatabse)getParentFragment();
+      databse.getDatabase();
+    }
   }
 }

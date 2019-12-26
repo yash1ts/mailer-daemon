@@ -2,9 +2,7 @@ package com.mailerdaemon.app.CampusMap;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.graphics.Point;
 import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -30,26 +27,22 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CustomCap;
 import com.google.android.gms.maps.model.JointType;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.PointOfInterest;
-import com.google.android.gms.maps.model.Polygon;
-import com.google.android.gms.maps.model.PolygonOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.maps.model.RoundCap;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.maps.android.PolyUtil;
 import com.mailerdaemon.app.R;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.lang.ref.WeakReference;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MapsActivity extends AppCompatActivity implements OnMapReadyCallback {
 
@@ -59,16 +52,17 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     Marker mCurrLocationMarker;
     FusedLocationProviderClient mFusedLocationClient;
     LocationCallback mLocationCallback;
-    WeakReference<Activity> ref=new WeakReference<Activity>(this);
+    WeakReference<Activity> ref= new WeakReference<>(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Campus Map");
@@ -140,50 +134,49 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         stylePolyline(polyline1);
 
+        int width1 = getResources().getDisplayMetrics().widthPixels;
+        int height = getResources().getDisplayMetrics().heightPixels;
+        int padding = (int) (width1 * 0.12); // offset from edges of the map 12% of screen
         mMap.moveCamera(CameraUpdateFactory.newLatLng(ism));
-        CameraUpdate update=CameraUpdateFactory.newLatLngBounds(new LatLngBounds(new LatLng(23.809756, 86.433533),new LatLng(23.820778, 86.449679)),0);
+        CameraUpdate update=CameraUpdateFactory.newLatLngBounds(new LatLngBounds(new LatLng(23.809756, 86.433533),new LatLng(23.820778, 86.449679)),width1,height,padding);
         mMap.moveCamera(update);
 
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(60000); // two minute interval
         mLocationRequest.setFastestInterval(60000);
-        mLocationRequest.setSmallestDisplacement(1);
+        mLocationRequest.setSmallestDisplacement(10);
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
         mLocationCallback = new LocationCallback() {
             @Override
             public void onLocationResult(LocationResult locationResult) {
-                List<Location> locationList = locationResult.getLocations();
+                List<Location> locationList=new ArrayList<>();
+                if(locationResult!=null)
+                 locationList = locationResult.getLocations();
                 if (locationList.size() > 0) {
                     //The last location in the list is the newest
                     Location location = locationList.get(locationList.size() - 1);
-                    Log.i("MapsActivity", "Location: " + location.getLatitude() + " " + location.getLongitude());
+                    Log.d("MapsActivity", "Location: " + location.getLatitude() + " " + location.getLongitude());
                     mLastLocation = location;
-                    boolean inside = PolyUtil.containsLocation(mLastLocation.getLongitude(),mLastLocation.getLatitude(), Arrays.asList(new LatLng(23.821271, 86.435213),
-                            new LatLng(23.819827, 86.434614),
-                            new LatLng(23.818309, 86.436635),
-                            new LatLng(23.817824, 86.436289),
-                            new LatLng(23.815959, 86.439142),
-                            new LatLng(23.811823, 86.436986),
-                            new LatLng(23.810356, 86.437202),
-                            new LatLng(23.809208, 86.441401),
-                            new LatLng(23.808920, 86.442469),
-                            new LatLng(23.811918, 86.444478),
-                            new LatLng(23.811966, 86.447407),
-                            new LatLng(23.814787, 86.447845),
-                            new LatLng(23.816345, 86.442538),
-                            new LatLng(23.817181, 86.442852),
-                            new LatLng(23.818064, 86.440134),
-                            new LatLng(23.819137, 86.440809),
-                            new LatLng(23.819931, 86.439832),
-                            new LatLng(23.818626, 86.438828),
-                            new LatLng(23.821271, 86.435213)), true);
-                    if(inside==false){
-                        mFusedLocationClient.removeLocationUpdates(mLocationCallback);
-                        Toast.makeText(ref.get(),"You Are not in Location",Toast.LENGTH_LONG).show();
-                    }
-                    else {
-
+//                    boolean inside = PolyUtil.containsLocation(mLastLocation.getLongitude(),mLastLocation.getLatitude(), Arrays.asList(new LatLng(23.821271, 86.435213),
+//                            new LatLng(23.819827, 86.434614),
+//                            new LatLng(23.818309, 86.436635),
+//                            new LatLng(23.817824, 86.436289),
+//                            new LatLng(23.815959, 86.439142),
+//                            new LatLng(23.811823, 86.436986),
+//                            new LatLng(23.810356, 86.437202),
+//                            new LatLng(23.809208, 86.441401),
+//                            new LatLng(23.808920, 86.442469),
+//                            new LatLng(23.811918, 86.444478),
+//                            new LatLng(23.811966, 86.447407),
+//                            new LatLng(23.814787, 86.447845),
+//                            new LatLng(23.816345, 86.442538),
+//                            new LatLng(23.817181, 86.442852),
+//                            new LatLng(23.818064, 86.440134),
+//                            new LatLng(23.819137, 86.440809),
+//                            new LatLng(23.819931, 86.439832),
+//                            new LatLng(23.818626, 86.438828),
+//                            new LatLng(23.821271, 86.435213)), true);
                     if (mCurrLocationMarker != null) {
                         mCurrLocationMarker.remove();
                     }
@@ -197,9 +190,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     mCurrLocationMarker = mMap.addMarker(markerOptions);
 
                     //move map camera
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+                    //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
                 }}
-            }
+
         };
 
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -236,14 +229,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 new AlertDialog.Builder(this)
                         .setTitle("Location Permission Needed")
                         .setMessage("This app needs the Location permission, please accept to use location functionality")
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                //Prompt the user once explanation has been shown
-                                ActivityCompat.requestPermissions(MapsActivity.this,
-                                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                                        MY_PERMISSIONS_REQUEST_LOCATION );
-                            }
+                        .setPositiveButton("OK", (dialogInterface, i) -> {
+                            //Prompt the user once explanation has been shown
+                            ActivityCompat.requestPermissions(MapsActivity.this,
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                                    MY_PERMISSIONS_REQUEST_LOCATION );
                         })
                         .create()
                         .show();
@@ -259,30 +249,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
     @Override
     public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
-        switch (requestCode) {
-            case MY_PERMISSIONS_REQUEST_LOCATION: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                                           @NotNull String[] permissions, @NotNull int[] grantResults) {
+        if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) {// If request is cancelled, the result arrays are empty.
+            if (grantResults.length > 0
+                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! Do the
-                    // location-related task you need to do.
-                    if (ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)
-                            == PackageManager.PERMISSION_GRANTED) {
+                // permission was granted, yay! Do the
+                // location-related task you need to do.
+                if (ContextCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_FINE_LOCATION)
+                        == PackageManager.PERMISSION_GRANTED) {
 
-                        mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
-                        mMap.setMyLocationEnabled(true);
-                    }
-
-                } else {
-
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
+                    mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper());
+                    mMap.setMyLocationEnabled(true);
                 }
-                return;
+
+            } else {
+
+                // permission denied, boo! Disable the
+                // functionality that depends on this permission.
+                Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show();
             }
 
             // other 'case' lines to check for other
@@ -302,11 +288,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static final int POLYLINE_STROKE_WIDTH_PX = 2;
 
     private void stylePolyline(Polyline polyline) {
-        String type = "";
-        // Get the data object stored with the polyline.
-        if (polyline.getTag() != null) {
-            type = polyline.getTag().toString();
-        }
+//        String type = "";
+//        // Get the data object stored with the polyline.
+//        if (polyline.getTag() != null) {
+//            type = polyline.getTag().toString();
+//        }
 
        /* switch (type) {
             // If no type is given, allow the API to use the default.

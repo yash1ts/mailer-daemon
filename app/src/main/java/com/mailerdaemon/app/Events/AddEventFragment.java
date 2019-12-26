@@ -2,16 +2,16 @@ package com.mailerdaemon.app.Events;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.mailerdaemon.app.R;
@@ -28,7 +28,7 @@ public class AddEventFragment extends DialogFragment implements ViewUtils.showPr
   private EditText heading;
   private ImageButton send;
   private EditText date;
-  EditText day;
+  private EditText day;
   @BindView(R.id.progress_bar)
   ProgressBar progressBar;
   @BindView(R.id.bt_close)
@@ -61,12 +61,14 @@ public class AddEventFragment extends DialogFragment implements ViewUtils.showPr
     model.setName(heading.getText().toString());
     FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Event).document().set(model);
     changeProgressBar();
+    dismiss();
   }
 
   @Override
   public void onDismiss(@NonNull DialogInterface dialog) {
     super.onDismiss(dialog);
-    AccessDatabse method=(AccessDatabse)getTargetFragment();
+    AccessDatabse method=(AccessDatabse)getActivity();
+    assert method != null;
     method.getDatabase();
   }
 
