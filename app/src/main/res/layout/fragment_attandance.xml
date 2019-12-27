@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/scroll"
+  android:layout_width="match_parent"
+  android:fillViewport="true"
+  android:requiresFadingEdge="vertical"
+  android:layout_height="match_parent">
+<LinearLayout
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_marginTop="28dp"
+  android:animateLayoutChanges="true"
+  android:orientation="vertical">
+  <androidx.cardview.widget.CardView
+    android:id="@+id/card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="8dp"
+    app:contentPadding="8dp">
+  <RelativeLayout
+    android:layout_marginStart="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <TextView
+      android:layout_marginStart="4dp"
+      android:textSize="24sp"
+      android:id="@+id/att_date"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentStart="true"
+      android:layout_alignParentTop="true"
+      android:text="30" />
+
+    <TextView
+      android:id="@+id/att_month"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignTop="@+id/att_date"
+      android:layout_marginStart="12dp"
+      android:layout_toEndOf="@+id/att_date"
+      android:text="July" />
+
+    <TextView
+      android:id="@+id/att_year"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/att_month"
+      android:layout_alignStart="@+id/att_month"
+      android:text="2019" />
+    <LinearLayout
+      android:id="@+id/att_lay_notification"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/noti_switch"
+      android:layout_alignStart="@+id/noti_switch"
+      android:background="?attr/selectableItemBackground"
+      android:clickable="true"
+      android:focusable="true"
+      android:orientation="vertical">
+    <TextView
+      android:id="@+id/tv_2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Reminder time"
+      />
+
+    <TextView
+      android:id="@+id/att_notification_time"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:text="4 pm"
+      android:textStyle="bold"
+       />
+    </LinearLayout>
+    <LinearLayout
+      android:layout_below="@+id/att_date"
+      android:layout_alignStart="@+id/att_date"
+      android:layout_marginStart="0dp"
+      android:id="@+id/att_lay_req"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="12dp"
+      android:background="?attr/selectableItemBackground"
+      android:clickable="true"
+      android:focusable="true"
+      android:orientation="horizontal"
+      android:padding="4dp">
+
+    <TextView
+      android:id="@+id/tv_1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Required" />
+
+    <TextView
+      android:id="@+id/att_req"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="4dp"
+      android:textStyle="bold" />
+    </LinearLayout>
+
+    <ImageView
+      android:id="@+id/att_add"
+      android:layout_width="@dimen/ic_size_small"
+      android:layout_height="@dimen/ic_size_small"
+      android:layout_alignParentEnd="true"
+      android:layout_centerVertical="true"
+      android:layout_marginEnd="8dp"
+      android:background="?attr/selectableItemBackground"
+      android:clickable="true"
+      android:focusable="true"
+      android:src="@drawable/add_sub"/>
+
+    <Switch
+      android:id="@+id/noti_switch"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignStart="@+id/att_date"
+      android:layout_alignParentTop="true"
+      android:layout_marginStart="124dp"
+      android:text="Notification  " />
+  </RelativeLayout>
+  </androidx.cardview.widget.CardView>
+<include layout="@layout/shimmer_view"
+  />
+
+  <androidx.recyclerview.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:id="@+id/rv_attendance"
+    android:layout_height="match_parent"
+    android:paddingBottom="20dp" />
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="100dp"/>
+
+</LinearLayout>
+</ScrollView>

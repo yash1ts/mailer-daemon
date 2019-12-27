@@ -2,26 +2,46 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   android:id="@+id/fragment_notices"
-  >
+  android:animateLayoutChanges="true">
   <include layout="@layout/shimmer_view"/>
+  <TextView
+    android:id="@+id/tv_no_post"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="48dp"
+    android:text="Nothing Here ..."
+    android:textColor="@color/colorTextBlack"
+    android:textSize="20sp"
+    android:visibility="gone"/>
 
+  <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/refresh"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true">
   <androidx.recyclerview.widget.RecyclerView
     android:layout_below="@+id/shimmer_view_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/rv_notices"
     android:nestedScrollingEnabled="false"
-    android:layout_marginBottom="100dp">
+    >
   </androidx.recyclerview.widget.RecyclerView>
+  </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:layout_width="@dimen/icon_size_med"
     android:layout_height="@dimen/icon_size_med"
     android:id="@+id/fab"
     android:layout_alignParentEnd="true"
-    android:elevation="4dp"
+    style="@style/WhiteFab"
     android:layout_alignParentBottom="true"
     android:layout_margin="32dp"
-    android:src="@drawable/ic_add_white_24dp"/>
+    android:elevation="8dp"
+    android:src="@drawable/add_fab"
+    app:fabCustomSize="@dimen/icon_size_med"
+    app:maxImageSize="@dimen/icon_size_med"/>
 
 </RelativeLayout>

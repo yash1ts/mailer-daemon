@@ -4,9 +4,9 @@
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:elevation="@dimen/cardview_default_elevation"
-  app:strokeColor="@android:color/darker_gray"
-  app:strokeWidth="0.5dp"
+  app:cardElevation="2dp"
+  app:strokeColor="@color/colorBgLightSilver"
+  app:strokeWidth="1dp"
   android:focusable="false"
   android:id="@+id/container"
   android:layout_marginStart="12dp"
@@ -16,6 +16,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
+      android:animateLayoutChanges="true"
         android:layout_height="wrap_content">
     <TextView
         android:layout_width="match_parent"
@@ -44,21 +45,22 @@
         android:layout_below="@+id/notice_head"
         android:layout_gravity="bottom"
         android:padding="2dp"
+        android:autoLink="web"
         android:layout_marginStart="20dp"
-        android:textSize="@dimen/text_size_16"
+        android:textSize="14sp"
         />
       <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:layout_below="@+id/notice_detail"
-        android:background="@android:color/darker_gray"
+        android:background="@color/colorBgLightSilver"
         android:id="@+id/view"
         />
       <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="time"
-        android:textSize="@dimen/text_size_16"
+        android:textSize="12sp"
         android:layout_below="@+id/view"
         android:id="@+id/time2"
         android:gravity="end"
@@ -80,7 +82,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="time"
-        android:textSize="@dimen/text_size_16"
+        android:textSize="12sp"
         android:padding="@dimen/padding_10"
         android:layout_alignEnd="@+id/notice_photo"
         android:layout_alignBottom="@+id/notice_photo"

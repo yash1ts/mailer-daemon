@@ -1,18 +1,18 @@
 package com.mailerdaemon.app.ImpContacts;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
 import com.mailerdaemon.app.R;
 
 public class ContactFragmentViewPager  extends Fragment {
@@ -26,8 +26,11 @@ public class ContactFragmentViewPager  extends Fragment {
         viewPager=view.findViewById(R.id.contact_viewpager);
         tabLayout=view.findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
+        assert getArguments() != null;
         String[] tabs=getArguments().getStringArray("tabs");
 
+        assert getArguments() != null;
         viewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager(),FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             String[] s=getArguments().getStringArray("pages");
             @NonNull
@@ -43,19 +46,17 @@ public class ContactFragmentViewPager  extends Fragment {
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
+                assert tabs != null;
                 return tabs[position];
             }
         });
 
-        for(String s:tabs){
-
-        }
 
         return view;
     }
 
 
-    public Fragment getFragment(String s){
+    private Fragment getFragment(String s){
         ContactDetailFragment fragment=new ContactDetailFragment();
         Bundle bundle=new Bundle();
         bundle.putString("type",s);

@@ -1,62 +1,51 @@
 package com.mailerdaemon.app.ImpContacts;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.SearchView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.imagepipeline.core.ImagePipelineConfig;
-import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig;
-import com.google.gson.Gson;
 import com.mailerdaemon.app.R;
 
+import java.util.Objects;
 
+import Utils.ContactFunction;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ImpContactActivity extends AppCompatActivity {
+public class ImpContactActivity extends AppCompatActivity implements ContactFunction {
 
     @BindView(R.id.bt_faculty)
-    View bt_faculty;
+    LinearLayout bt_faculty;
     @BindView(R.id.bt_admin)
-    View bt_admin;
+    LinearLayout bt_admin;
     @BindView(R.id.bt_hostel)
-    View bt_hostel;
+    LinearLayout bt_hostel;
     @BindView(R.id.bt_senate)
-    View bt_senate;
+    LinearLayout bt_senate;
+    @BindView(R.id.more)
+    LinearLayout bt_more;
 
-    CardView calander;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_imp_contacts);
         ButterKnife.bind(this);
+        Toolbar toolbar=findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-
-        calander=findViewById(R.id.calander);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Contacts");
 
         bt_faculty.setOnClickListener(v -> {
-            String[] tabs = new String[]{"All", "All"};
-            String[] pages = new String[]{"faculty_all", "faculty_all"};
+            String[] tabs = new String[]{"All", "ACH","AGL","AGP","AM","AP","CHE","CIV","CSE","ECE","EE","ESE","FME","HSS","ME","MECH","MME","MS","PE"};
+            String[] pages = new String[]{"faculty_all","ACH","AGL","AGP","AM","AP","CHE","CIV","CSE","ECE","EE","ESE","FME","HSS","ME","MECH","MME","MS","PE"};
             openDetail(tabs, pages);
         });
 
@@ -65,15 +54,13 @@ public class ImpContactActivity extends AppCompatActivity {
             String[] pages = new String[]{"deans", "associate_deans", "hod", "hoc"};
             openDetail(tabs, pages);
         });
-        bt_hostel.setOnClickListener(v -> {
-            openWebView("file:///android_asset/warden.html");
-        });
+        bt_hostel.setOnClickListener(v -> openWebView("file:///android_asset/warden.html"));
         bt_senate.setOnClickListener(v->{
-            String[] tabs = new String[]{"Deans", "Associate Deans", "HOD", "HOC"};
-            String[] pages = new String[]{"deans", "associate_deans", "hod", "hoc"};
-            openDetail(tabs, pages);
+
         });
-        calander.setOnClickListener(v->{openWebView("file:///android_asset/calander.html");});
+        bt_more.setOnClickListener(v->{
+
+        });
     }
 
     public void openDetail(String[] tabs, String[] pages) {
@@ -82,7 +69,7 @@ public class ImpContactActivity extends AppCompatActivity {
         bundle.putStringArray("tabs", tabs);
         bundle.putStringArray("pages", pages);
         fragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_detail, fragment, null).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, fragment, null).commit();
     }
 
     @Override
@@ -91,18 +78,26 @@ public class ImpContactActivity extends AppCompatActivity {
         if (item.getItemId() == android.R.id.home)
             onBackPressed();
         return true;
+
     }
 
+    @Override
+    public void onBackPressed() {
+        if(getSupportFragmentManager().getFragments().isEmpty())
+        super.onBackPressed();
+        else getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().getFragments().get(0)).commit();
+    }
 
     void openWebView(String url){
         HtmlFragment fragment= new HtmlFragment();
         Bundle bundle=new Bundle();
         bundle.putString("url",url);
         fragment.setArguments(bundle);
-        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container_detail,fragment, null).addToBackStack(null).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,fragment, null).addToBackStack(null).commit();
     }
-    public void makeCall(View view){
-        String num=view.getTag().toString();
+
+    @Override
+    public void makeCall(String num) {
         if(!num.trim().equals("0")){
             Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num.trim()));
             startActivity(intent);}
@@ -110,8 +105,9 @@ public class ImpContactActivity extends AppCompatActivity {
             Toast.makeText(this,"Sorry number not available",Toast.LENGTH_LONG).show();
         }
     }
-    public void sendMail(View view){
-        String s=view.getTag().toString();
+
+    @Override
+    public void sendMail(String s) {
         if(!s.trim().isEmpty()) {
             Intent send = new Intent(Intent.ACTION_SENDTO);
             String uriText = "mailto:" + Uri.encode(s.trim()) +
@@ -125,7 +121,5 @@ public class ImpContactActivity extends AppCompatActivity {
         else{
             Toast.makeText(this,"Sorry email not available",Toast.LENGTH_LONG).show();
         }
-
     }
-
 }

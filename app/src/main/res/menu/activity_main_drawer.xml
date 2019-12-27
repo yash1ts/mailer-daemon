@@ -20,6 +20,8 @@
             android:id="@+id/nav_tools"
             android:icon="@drawable/ic_menu_manage"
             android:title="Lost And Found" />
+        <item android:id="@+id/attendance"
+            android:title="Attendance Manager"/>
     </group>
 
     <item android:title="Communicate">
@@ -31,7 +33,7 @@
             <item
                 android:id="@+id/logout"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Logout" />
+                android:title="Log out" />
         </menu>
     </item>
 

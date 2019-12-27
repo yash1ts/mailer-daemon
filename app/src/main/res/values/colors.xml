@@ -3,13 +3,21 @@
     <color name="colorPrimary">#FC9A0A</color>
     <color name="colorPrimaryDark">#E6FF5722</color>
     <color name="colorAccent">#73C716</color>
+    <color name="colorBgLightSilver">#F4F6F8</color>
 
     <color name="colorTextDarkBlack">#000000</color>
-    <color name="colorTextBlack">#E6000000</color>
+    <color name="colorTextBlack">#E6141414</color>
     <color name="background">#C4C4C4</color>
   <color name="blue_backgroud">#E7E9F5</color>
   <color name="text_blue_black">#392C47</color>
   <color name="icon_gray">#9B9B9B</color>
-  <color name="transparent">#22000000</color>
+  <color name="translucent">#22000000</color>
   <color name="map_lines">#1E000000</color>
+  <color name="intro_1">#D990F8</color>
+  <color name="green">#5AD507</color>
+  <color name="red">#F44336</color>
+  <color name="transparent">#00000000</color>
+  <color name="intro_2">#89B1E9</color>
+  <color name="intro_3">#A9E66C</color>
+  <color name="indicator_unselected">#000</color>
 </resources>
