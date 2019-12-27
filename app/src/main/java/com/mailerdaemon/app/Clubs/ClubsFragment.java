@@ -58,7 +58,7 @@ public class ClubsFragment extends Fragment implements AccessDatabse, DialogOpti
           add_club.setOnClickListener(v -> {
               EditClubFragment clubFragment = new EditClubFragment();
               Bundle bundle = new Bundle();
-              bundle.putString("id", iconModel.size() + 1 + "");
+              bundle.putInt("id", iconModel.size() + 1 );
               clubFragment.setArguments(bundle);
               clubFragment.show(getChildFragmentManager(), null);
           });
@@ -85,19 +85,19 @@ public class ClubsFragment extends Fragment implements AccessDatabse, DialogOpti
         });
         else {
             ClubListModel model = new GsonBuilder().create().fromJson(string, ClubListModel.class);
-            iconModel=model.getModelList();
+            iconModel = model.getModelList();
             adapter.setData(iconModel);
             adapter.notifyDataSetChanged();
-        }
-        FirebaseFirestore.getInstance().collection(StringRes.FB_Club_Icons).orderBy("tag", Query.Direction.ASCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
-            iconModel = queryDocumentSnapshots.toObjects(ClubIconModel.class);
-            ClubListModel model = new ClubListModel();
-            model.setModelList(iconModel);
+            FirebaseFirestore.getInstance().collection(StringRes.FB_Club_Icons).orderBy("tag", Query.Direction.ASCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
+                iconModel = queryDocumentSnapshots.toObjects(ClubIconModel.class);
+                ClubListModel model1 = new ClubListModel();
+                model.setModelList(iconModel);
                 adapter.setData(iconModel);
                 adapter.notifyDataSetChanged();
-            if (editor!=null)
-                editor.putString("club",new GsonBuilder().create().toJson(model)).apply();
-        });
+                if (editor != null)
+                    editor.putString("club", new GsonBuilder().create().toJson(model1)).apply();
+            });
+        }
     }
 
     @Override
@@ -108,7 +108,8 @@ public class ClubsFragment extends Fragment implements AccessDatabse, DialogOpti
     @Override
     public void showDialog(String path) {
         Bundle bundle=new Bundle();
-        bundle.putString("club_id",path);
+        bundle.putInt("club_id",Integer.parseInt(path));
+        Log.d("Integer",path);
         ClubDetailBottomSheet fragment=new ClubDetailBottomSheet();
         fragment.setArguments(bundle);
         fragment.setStyle(DialogFragment.STYLE_NORMAL,R.style.bottomSheetTransparent);

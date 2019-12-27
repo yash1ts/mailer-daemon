@@ -10,7 +10,7 @@ public class StringRes {
   public static String No_Internet="Cannot Get Database";
   public static String Done_Refresh="Done, Refresh to see change";
   public static String FB_Lost_Found="lost_n_found";
-  public static String ADMIN_ID="tHlxZ9N6ZpNbDDjCNLQa8ISC5nE2";
+  public static String ADMIN_ID="TBQnd3ZNYAU6wfxOb2IbRP26iVJ2";
   public static String AppLink="https://play.google.com/store/apps/details?id=org.telegram.messenger&hl=en";
   public static String TIME_NOTI="time";
   public static String MESS_LINK="https://firebasestorage.googleapis.com/v0/b/mailer-daemon-a2608.appspot.com/o/mess_menu.pdf?alt=media&token=c4cb8605-4a7e-4cbf-91bb-ee3c70435be6";

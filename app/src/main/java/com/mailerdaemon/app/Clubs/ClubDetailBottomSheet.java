@@ -34,7 +34,7 @@ import vcm.github.webkit.proview.ProWebView;
 
 public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
 
-  private String id;
+  private int id;
   @BindView(R.id.club_des)
   TextView description;
   @BindView(R.id.club_members)
@@ -74,7 +74,7 @@ public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
     webView.setHorizontalScrollBarEnabled(true);
     club.getHierarchy().setProgressBarImage(new CircularProgressDrawable(Objects.requireNonNull(getContext())));
     assert getArguments() != null;
-    id = getArguments().getString("club_id");
+    id = getArguments().getInt("club_id");
     getDatabase();
 
     access= PreferenceManager.getDefaultSharedPreferences(Objects.requireNonNull(getActivity()).getApplicationContext()).getBoolean("Access",false);
@@ -84,14 +84,14 @@ public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
 
 
   private void getDatabase() {
-    FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Club).document(id).get().addOnCompleteListener(task -> {
+    FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Club).document(String.format("%d",id)).get().addOnCompleteListener(task -> {
       if (task.isSuccessful()) {
         model= Objects.requireNonNull(task.getResult()).toObject(ClubDetailModel.class);
         setView(model);
       }else
       {
         Toast.makeText(getContext(), StringRes.No_Internet,Toast.LENGTH_LONG).show();
-        FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Club).document(id).get(Source.CACHE).addOnSuccessListener(documentSnapshot -> setView(Objects.requireNonNull(task.getResult()).toObject(ClubDetailModel.class)));
+        FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Club).document(String.format("%d",id)).get(Source.CACHE).addOnSuccessListener(documentSnapshot -> setView(Objects.requireNonNull(task.getResult()).toObject(ClubDetailModel.class)));
       }
     });
 
@@ -121,7 +121,7 @@ public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
         create.setOnClickListener(v -> {
           EditClubFragment clubFragment = new EditClubFragment();
           Bundle bundle = new Bundle();
-          bundle.putString("id", id);
+          bundle.putInt("id", id);
           bundle.putString("data",new GsonBuilder().create().toJson(model));
           clubFragment.setArguments(bundle);
           clubFragment.show(getChildFragmentManager(), null);

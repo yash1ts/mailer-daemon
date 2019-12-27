@@ -39,8 +39,8 @@ public class EditClubFragment extends DialogFragment implements ViewUtils.showPr
   private String downloadUrl;
   private String previous_Url;
   private SimpleDraweeView imageView;
-  private ImageButton imageButton,send;
-  private String path=null,id;
+  private String path=null;
+  private int id;
   @BindView(R.id.club_edit_youtube)
   EditText youtube;
   @BindView(R.id.club_edit_insta)
@@ -62,12 +62,12 @@ public class EditClubFragment extends DialogFragment implements ViewUtils.showPr
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
     View view=inflater.inflate(R.layout.fragment_edit_club,container,false);
-    imageButton=view.findViewById(R.id.bt_img);
+    ImageButton imageButton = view.findViewById(R.id.bt_img);
     imageView=view.findViewById(R.id.image);
-    send=view.findViewById(R.id.send);
+    ImageButton send = view.findViewById(R.id.send);
     ButterKnife.bind(this,view);
     assert getArguments() != null;
-    id=getArguments().getString("id");
+    id=getArguments().getInt("id");
     String s=getArguments().getString("data","");
     ClubDetailModel model= new GsonBuilder().create().fromJson(s,ClubDetailModel.class);
     if(!s.equals("")){
@@ -105,13 +105,13 @@ public class EditClubFragment extends DialogFragment implements ViewUtils.showPr
     clubDetailModel.setYoutube(youtube.getText().toString());
     clubDetailModel.setWeb(web.getText().toString());
     clubDetailModel.setName(club_name.getText().toString());
-    FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Club).document(id).set(clubDetailModel);
+    FirebaseFirestore.getInstance().collection(StringRes.FB_Collec_Club).document(String.format("%d",id)).set(clubDetailModel);
     ClubIconModel clubIconModel=new ClubIconModel();
     clubIconModel.setTag(id);
     if(downloadUrl!=null)
     clubIconModel.setUrl(downloadUrl);
     else clubIconModel.setUrl(previous_Url);
-    FirebaseFirestore.getInstance().collection(StringRes.FB_Club_Icons).document(id).set(clubIconModel);
+    FirebaseFirestore.getInstance().collection(StringRes.FB_Club_Icons).document(String.format("%d",id)).set(clubIconModel);
     Objects.requireNonNull(getDialog()).dismiss();
   }
 

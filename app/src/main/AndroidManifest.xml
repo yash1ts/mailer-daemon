@@ -115,6 +115,7 @@
     <activity android:name=".ContactUsActivity"
       android:theme="@style/AppTheme.NoActionBar"/>
     <activity android:name=".IntroActivity"
+
       android:theme="@style/AppTheme.NoActionBar.NoStatusColor"/>
   </application>
 

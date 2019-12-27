@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto">
-  <data>
-    <variable
-      name="alph"
-      type="float" />
-  </data>
-<ScrollView
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+
   android:id="@+id/sroll_view"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -19,14 +13,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
+  android:animateLayoutChanges="true"
   android:orientation="vertical">
-
+  <androidx.constraintlayout.widget.Group
+    android:id="@+id/bt_tag_group"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:constraint_referenced_ids="linearLayout3,linearLayout2,linearLayout"/>
   <LinearLayout
     android:id="@+id/linearLayout2"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:alpha="@{alph}"
     android:orientation="vertical"
+    android:animateLayoutChanges="true"
     app:layout_constraintEnd_toStartOf="@+id/linearLayout"
     app:layout_constraintHorizontal_bias="0.5"
     app:layout_constraintStart_toStartOf="parent"
@@ -54,7 +53,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="38dp"
-    android:alpha="@{alph}"
     android:orientation="vertical"
     app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
     app:layout_constraintHorizontal_bias="0.5"
@@ -82,7 +80,6 @@
     android:id="@+id/linearLayout3"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:alpha="@{alph}"
     android:orientation="vertical"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.5"
@@ -308,4 +305,3 @@
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
-</layout>

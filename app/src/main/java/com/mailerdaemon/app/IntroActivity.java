@@ -48,6 +48,7 @@ public class IntroActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         ButterKnife.bind(this);
+        //View view=getWindow().getDecorView();
         indicators=new ImageView[]{indi1,indi2,indi3,indi4,indi5,indi6};
         int color1 = ContextCompat.getColor(this, R.color.intro_1);
         int color2 = ContextCompat.getColor(this, R.color.intro_2);
