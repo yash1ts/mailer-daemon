@@ -24,7 +24,6 @@
     <item name="colorAccent">@color/colorAccent</item>
     <item name="colorPrimaryDark">@color/colorPrimary</item>
     <item name="android:windowTranslucentStatus">true</item>
-    <item name="android:windowTranslucentNavigation">true</item>
   </style>
   <style name="WhiteFab" parent="Widget.MaterialComponents.FloatingActionButton">
     <item name="backgroundTint">#FFF</item>

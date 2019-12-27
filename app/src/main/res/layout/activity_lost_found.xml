@@ -6,6 +6,16 @@
   android:id="@+id/fragment_notices"
   android:animateLayoutChanges="true">
   <include layout="@layout/shimmer_view"/>
+  <TextView
+    android:id="@+id/tv_no_post"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="48dp"
+    android:text="Nothing Here ..."
+    android:textColor="@color/colorTextBlack"
+    android:textSize="20sp"
+    android:visibility="gone"/>
 
   <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     android:id="@+id/refresh"

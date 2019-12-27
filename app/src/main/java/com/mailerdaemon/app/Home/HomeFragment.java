@@ -15,6 +15,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.constraintlayout.widget.Group;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -55,6 +56,8 @@ public class HomeFragment extends Fragment implements ContactFunction {
     LinearLayout bt_mess;
     @BindView(R.id.holidays)
     LinearLayout bt_holidays;
+    @BindView(R.id.bt_tag_group)
+    Group bt_tags;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -82,12 +85,7 @@ public class HomeFragment extends Fragment implements ContactFunction {
             startActivity(new Intent(getActivity(), MapsActivity.class));
         });
        // binding.setAlph(1f);
-        //scrollView=getActivity().findViewById(R.id.fragment_container);
-//        scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> {
-//            int scrollY = scrollView.getScrollY();
-//            if(scrollY<100)
-//            //binding.setAlph((float)(200-scrollY*5)/100);
-//        });
+
         bt_experience.setOnClickListener(v->{
             Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:Tp9iD7YAcKo"));
             Intent webIntent = new Intent(Intent.ACTION_VIEW,

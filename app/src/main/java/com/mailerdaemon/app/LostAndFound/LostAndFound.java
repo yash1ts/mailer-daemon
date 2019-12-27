@@ -3,6 +3,7 @@ package com.mailerdaemon.app.LostAndFound;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,12 +34,14 @@ public class LostAndFound extends AppCompatActivity implements AccessDatabse, Di
     private RecyclerView recyclerView;
     private LNFAdapter adapter;
     private SwipeRefreshLayout refresh;
+    private TextView no_posts;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lost_found);
         FloatingActionButton fab = findViewById(R.id.fab);
+        no_posts=findViewById(R.id.tv_no_post);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Lost And Found");
         shimmerViewContainer = findViewById(R.id.shimmer_view_container);
@@ -66,6 +69,9 @@ public class LostAndFound extends AppCompatActivity implements AccessDatabse, Di
             recyclerView.setVisibility(View.VISIBLE);
             if(task.isSuccessful()) {
                 noticeModels = Objects.requireNonNull(task.getResult()).getDocuments();
+                if (noticeModels.size()==0)
+                    no_posts.setVisibility(View.VISIBLE);
+                else no_posts.setVisibility(View.GONE);
                 adapter.setData(noticeModels);
                 recyclerView.setAdapter(adapter);
                 adapter.notifyDataSetChanged();

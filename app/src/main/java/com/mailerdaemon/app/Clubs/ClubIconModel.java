@@ -7,5 +7,5 @@ import lombok.Data;
 @Data
 class ClubIconModel implements Serializable {
   private String url;
-  private String tag;
+  private Integer tag;
 }

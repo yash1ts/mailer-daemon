@@ -10,7 +10,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +56,6 @@ public class LoginActivity extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private TextView forgot_pass;
     private CardView progress;
-    private ImageView mdLogo;
 
     @Override
     protected void onStart() {
@@ -90,7 +88,6 @@ public class LoginActivity extends AppCompatActivity {
         tvPassword = findViewById(R.id.login_password);
         buttonLogin = findViewById(R.id.login);
         buttonSignUp=findViewById(R.id.signup);
-        mdLogo=findViewById(R.id.md_logo);
         progress=findViewById(R.id.progress_bar);
         progress.setVisibility(View.GONE);
         buttonFbLogin=findViewById(R.id.login_facebook);
