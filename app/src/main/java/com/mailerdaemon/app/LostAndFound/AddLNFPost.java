@@ -1,5 +1,6 @@
 package com.mailerdaemon.app.LostAndFound;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -16,14 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.mailerdaemon.app.Notices.NoticeModel;
 import com.mailerdaemon.app.R;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -61,7 +60,7 @@ public class AddLNFPost  extends DialogFragment implements ImageUploadCallBack, 
         imageView=view.findViewById(R.id.image);
         heading=view.findViewById(R.id.head);
         detail=view.findViewById(R.id.detail);
-        detail.setText("____ belonging to Mr. ___ has been lost/found somewhere between ______. If found, please contact ______.\n (item description)");
+        detail.setText("____ belonging to Mr./Mrs. ___ has been lost/found somewhere between ______. If found, please contact ______.\n (item description)");
         send=view.findViewById(R.id.send);
 
         bt_close.setOnClickListener(v->dismiss());
@@ -73,6 +72,7 @@ public class AddLNFPost  extends DialogFragment implements ImageUploadCallBack, 
 
         send.setOnClickListener(v ->{
             changeProgressBar();
+            Snackbar.make(getActivity().findViewById(R.id.layout_lnf), "Our team will verify your request", Snackbar.LENGTH_LONG).show();
             UploadData.upload(this, path, getContext());
         });
 
@@ -81,12 +81,14 @@ public class AddLNFPost  extends DialogFragment implements ImageUploadCallBack, 
 
     private void setDatabase() {
         Date date=new Date();
-        DateFormat dateFormat=new SimpleDateFormat("hh:mm aaa  dd.MM.yy");
-        NoticeModel noticeModel=new NoticeModel();
-        noticeModel.setDate(dateFormat.format(date));
+        LostAndFoundModel noticeModel=new LostAndFoundModel();
+        noticeModel.setDate(date);
         noticeModel.setDetails(Objects.requireNonNull(detail.getText()).toString());
         noticeModel.setHeading(heading.getText().toString());
         noticeModel.setPhoto(downloadUrl);
+        noticeModel.setVerified(false);
+        String uid= Objects.requireNonNull(getContext()).getSharedPreferences("MAIN", Context.MODE_PRIVATE).getString("uid","");
+        noticeModel.setUid(uid);
         FirebaseFirestore.getInstance().collection(StringRes.FB_Lost_Found).document().set(noticeModel);
         changeProgressBar();
         dismiss();

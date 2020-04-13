@@ -3,7 +3,6 @@ package com.mailerdaemon.app.Clubs;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,7 +74,6 @@ public class ClubsFragment extends Fragment implements AccessDatabse, DialogOpti
         if(string.equals(""))
         FirebaseFirestore.getInstance().collection(StringRes.FB_Club_Icons).orderBy("tag", Query.Direction.ASCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
             iconModel=queryDocumentSnapshots.toObjects(ClubIconModel.class);
-            Log.d("ICON",iconModel.toString());
             ClubListModel model=new ClubListModel();
             model.setModelList(iconModel);
             adapter.setData(iconModel);
@@ -109,7 +107,6 @@ public class ClubsFragment extends Fragment implements AccessDatabse, DialogOpti
     public void showDialog(String path) {
         Bundle bundle=new Bundle();
         bundle.putInt("club_id",Integer.parseInt(path));
-        Log.d("Integer",path);
         ClubDetailBottomSheet fragment=new ClubDetailBottomSheet();
         fragment.setArguments(bundle);
         fragment.setStyle(DialogFragment.STYLE_NORMAL,R.style.bottomSheetTransparent);

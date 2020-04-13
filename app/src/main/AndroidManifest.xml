@@ -108,6 +108,7 @@
     </activity>
     <activity android:name=".Events.EventsActivity"/>
     <activity android:name=".Notices.NoticesActivity"/>
+    <activity android:name=".Placement.PlacementActivity"/>
     <activity android:name=".SignUpActivity"
       android:theme="@style/AppTheme.TransparentActionBar"/>
     <activity android:name=".ForgotPassActivity"
@@ -117,6 +118,8 @@
     <activity android:name=".IntroActivity"
 
       android:theme="@style/AppTheme.NoActionBar.NoStatusColor"/>
+    <activity android:name=".UpdateActivity"
+      android:theme="@style/AppTheme.NoActionBar"/>
   </application>
 
 </manifest>

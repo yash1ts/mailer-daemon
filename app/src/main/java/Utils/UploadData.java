@@ -4,9 +4,6 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -37,7 +34,7 @@ public class UploadData {
         callBack.onSuccess(downloadUrl);
       }));
     } else {
-      Toast.makeText(context, "Done ", Toast.LENGTH_LONG).show();
+      Toast.makeText(context, "Done ", Toast.LENGTH_SHORT).show();
       callBack.onSuccess(null);
     }
 

@@ -18,6 +18,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Source;
+import com.google.gson.Gson;
 import com.mailerdaemon.app.Notices.NoticeModel;
 import com.mailerdaemon.app.R;
 
@@ -112,7 +113,7 @@ public class EventsActivity extends AppCompatActivity implements AccessDatabse, 
   @Override
   public void showOptions(NoticeModel model, String path) {
     Bundle bundle=new Bundle();
-    bundle.putParcelable("model",model);
+    bundle.putString("model",new Gson().toJson(model));
     bundle.putString("path",path);
     OptionsEventFragment optionsFragment=new OptionsEventFragment();
     optionsFragment.setArguments(bundle);

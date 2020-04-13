@@ -27,11 +27,11 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
   private RecyclerView.RecycledViewPool viewPool=new RecyclerView.RecycledViewPool();
   private DialogOptions options;
   private Context context;
-  private EventsChildAdapter adapter;
+  //private EventsChildAdapter adapter;
   private Boolean access;
 
   EventsParentAdapter(DialogOptions options, Boolean access, Context context) {
-    this.adapter=new EventsChildAdapter(options,context);
+
     this.options=options;
     this.context=context;
     this.access=access;
@@ -68,6 +68,7 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
         dialog.show();
       });
     }
+    EventsChildAdapter adapter=new EventsChildAdapter(options,context);
     adapter.setData(eventModel.posts,path);
     recyclerView.setAdapter(adapter);
   }

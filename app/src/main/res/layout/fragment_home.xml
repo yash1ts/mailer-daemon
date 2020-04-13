@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-
   android:id="@+id/sroll_view"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
@@ -15,21 +14,23 @@
   android:layout_height="wrap_content"
   android:animateLayoutChanges="true"
   android:orientation="vertical">
-  <androidx.constraintlayout.widget.Group
-    android:id="@+id/bt_tag_group"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:constraint_referenced_ids="linearLayout3,linearLayout2,linearLayout"/>
   <LinearLayout
-    android:id="@+id/linearLayout2"
-    android:layout_width="wrap_content"
+    android:id="@+id/linearLayout"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_marginTop="42dp"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toStartOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+  <LinearLayout
+    android:layout_width="0dp"
+    android:layout_weight="1"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:animateLayoutChanges="true"
-    app:layout_constraintEnd_toStartOf="@+id/linearLayout"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="@+id/linearLayout">
+    >
 
     <TextView
       android:layout_width="match_parent"
@@ -41,7 +42,7 @@
        />
 
     <TextView
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="Get latest news"
       android:textAlignment="center"
@@ -49,27 +50,22 @@
   </LinearLayout>
 
   <LinearLayout
-    android:id="@+id/linearLayout"
-    android:layout_width="wrap_content"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:layout_marginTop="38dp"
     android:orientation="vertical"
-    app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toEndOf="@+id/linearLayout2"
-    app:layout_constraintTop_toTopOf="parent">
+    android:layout_weight="1">
 
     <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="  Events"
+      android:text="Events"
       android:textAlignment="center"
       android:textColor="@color/colorTextBlack"
       android:textStyle="bold"
        />
 
     <TextView
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="All about ongoing\n events"
       android:textAlignment="center"
@@ -77,19 +73,15 @@
   </LinearLayout>
 
   <LinearLayout
-    android:id="@+id/linearLayout3"
-    android:layout_width="wrap_content"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.5"
-    app:layout_constraintStart_toEndOf="@+id/linearLayout"
-    app:layout_constraintTop_toTopOf="@+id/linearLayout">
+    android:layout_weight="1">
 
     <TextView
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="   Lost &amp; Found"
+      android:text=" Lost &amp; Found"
       android:textAlignment="center"
       android:textColor="@color/colorTextBlack"
       android:textStyle="bold"
@@ -102,12 +94,12 @@
       android:textAlignment="center"
       android:textSize="12sp" />
   </LinearLayout>
+  </LinearLayout>
 
   <LinearLayout
     android:id="@+id/linearLayout4"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
     android:background="@android:color/transparent"
     android:orientation="horizontal"
     app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -267,7 +259,7 @@
     android:layout_marginTop="16dp"
     android:background="@android:color/transparent"
     android:paddingStart="@dimen/padding_10"
-    android:text="Experience IIT ISM"
+    android:text="Placement Daemon"
     android:textColor="@color/colorTextBlack"
     android:textStyle="bold"
     app:layout_constraintStart_toStartOf="@+id/holidays"
@@ -287,9 +279,9 @@
     >
     <ImageView
       android:layout_width="match_parent"
-      android:layout_height="250dp"
+      android:layout_height="220dp"
       android:scaleType="fitXY"
-      android:src="@drawable/exp_img"
+      android:src="@drawable/placement_img"
       />
   </com.google.android.material.card.MaterialCardView>
 

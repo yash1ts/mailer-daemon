@@ -6,19 +6,21 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
-
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 import com.mailerdaemon.app.Notices.NoticeModel;
 import com.mailerdaemon.app.R;
 
@@ -45,7 +47,7 @@ public class OptionsEventFragment extends BottomSheetDialogFragment {
     View view=inflater.inflate(R.layout.fragment_options,container,false);
 
     path = getArguments().getString("path");
-    model=getArguments().getParcelable("model");
+    model=new Gson().fromJson(getArguments().getString("model"),NoticeModel.class);
     ButterKnife.bind(this,view);
     reference=FirebaseFirestore.getInstance().document(path);
     ClipboardManager clipboard = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
@@ -58,7 +60,8 @@ public class OptionsEventFragment extends BottomSheetDialogFragment {
         delete.setVisibility(View.VISIBLE);
         delete.setOnClickListener(v ->{
             reference.update("posts", FieldValue.arrayRemove(model));
-            Toast.makeText(getContext(), StringRes.Done_Refresh,Toast.LENGTH_SHORT);
+            Log.d("DELETE",path);
+            Toast.makeText(getContext(), StringRes.Done_Refresh,Toast.LENGTH_SHORT).show();
             getDialog().dismiss();
         });
     }
@@ -75,7 +78,7 @@ public class OptionsEventFragment extends BottomSheetDialogFragment {
     }else
     download.setOnClickListener(v->{
           DownloadManager.Request request = new DownloadManager.Request(Uri.parse(model.getPhoto()));
-          request.setDescription("notice-image");
+          request.setDescription("event-image");
           request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
           request.setTitle(model.getHeading());
           manager.enqueue(request);
