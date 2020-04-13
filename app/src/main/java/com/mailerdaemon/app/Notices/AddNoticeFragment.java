@@ -26,8 +26,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.mailerdaemon.app.R;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -109,9 +107,9 @@ if(grantResults.length>0&& grantResults[0]==PackageManager.PERMISSION_GRANTED){
 
   private void setDatabase() {
     Date date=new Date();
-    DateFormat dateFormat=new SimpleDateFormat("hh:mm aaa  dd.MM.yy");
+//    DateFormat dateFormat=new SimpleDateFormat("hh:mm aaa  dd.MM.yy");
     NoticeModel noticeModel=new NoticeModel();
-    noticeModel.setDate(dateFormat.format(date));
+    noticeModel.setDate(date);
     noticeModel.setDetails(Objects.requireNonNull(detail.getText()).toString());
     noticeModel.setHeading(heading.getText().toString());
     noticeModel.setPhoto(downloadUrl);

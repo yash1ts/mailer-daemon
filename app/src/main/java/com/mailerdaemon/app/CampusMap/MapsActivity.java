@@ -7,7 +7,6 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -156,7 +155,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (locationList.size() > 0) {
                     //The last location in the list is the newest
                     Location location = locationList.get(locationList.size() - 1);
-                    Log.d("MapsActivity", "Location: " + location.getLatitude() + " " + location.getLongitude());
                     mLastLocation = location;
 //                    boolean inside = PolyUtil.containsLocation(mLastLocation.getLongitude(),mLastLocation.getLatitude(), Arrays.asList(new LatLng(23.821271, 86.435213),
 //                            new LatLng(23.819827, 86.434614),

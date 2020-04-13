@@ -33,6 +33,8 @@
     android:layout_height="wrap_content"
     android:layout_alignParentStart="true"
     android:layout_alignParentTop="true"
+    android:layout_marginEnd="10dp"
+    android:layout_toStartOf="@+id/sub_attendance_num"
     android:padding="8dp"
     android:textColor="@color/colorTextBlack"
     android:textSize="22sp" />
@@ -76,8 +78,9 @@
     android:layout_below="@+id/sub_last"
     android:layout_alignParentStart="true"
     android:layout_marginStart="8dp"
+    android:layout_marginEnd="10dp"
+    android:layout_toStartOf="@+id/sub_attendance_num"
     android:maxWidth="200dp"
-    android:text="\n\n"
     android:textSize="12sp" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton

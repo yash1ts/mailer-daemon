@@ -78,6 +78,26 @@
         android:textColor="@color/colorTextBlack"
         android:textStyle="bold"
         android:visibility="gone"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Privacy Policy"
+        android:textColor="@color/colorTextBlack"
+        android:textStyle="bold"/>
+      <com.google.android.material.card.MaterialCardView
+        android:id="@+id/privacy_policy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:contentPadding="8dp">
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="8dp"
+          android:text="Privacy Policy"/>
+      </com.google.android.material.card.MaterialCardView>
+
 
       <TextView
         android:layout_width="wrap_content"

@@ -20,6 +20,7 @@ public class SearchObservabel {
                 subject.onNext(newText);
                 return true;
             }
+
         });
         return subject;
     }

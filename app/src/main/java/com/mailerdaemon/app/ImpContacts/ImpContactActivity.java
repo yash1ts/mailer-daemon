@@ -14,7 +14,9 @@ import com.mailerdaemon.app.R;
 
 import java.util.Objects;
 
+import Utils.ChromeTab;
 import Utils.ContactFunction;
+import Utils.StringRes;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -44,7 +46,7 @@ public class ImpContactActivity extends AppCompatActivity implements ContactFunc
         getSupportActionBar().setTitle("Contacts");
 
         bt_faculty.setOnClickListener(v -> {
-            String[] tabs = new String[]{"All", "ACH","AGL","AGP","AM","AP","CHE","CIV","CSE","ECE","EE","ESE","FME","HSS","ME","MECH","MME","MS","PE"};
+            String[] tabs = new String[]{"All", "ACH","AGL","AGP","MnC","AP","CHE","CIV","CSE","ECE","EE","ESE","FME","HSS","ME","MECH","MME","MS","PE"};
             String[] pages = new String[]{"faculty_all","ACH","AGL","AGP","AM","AP","CHE","CIV","CSE","ECE","EE","ESE","FME","HSS","ME","MECH","MME","MS","PE"};
             openDetail(tabs, pages);
         });
@@ -54,7 +56,10 @@ public class ImpContactActivity extends AppCompatActivity implements ContactFunc
             String[] pages = new String[]{"deans", "associate_deans", "hod", "hoc"};
             openDetail(tabs, pages);
         });
-        bt_hostel.setOnClickListener(v -> openWebView("file:///android_asset/warden.html"));
+        bt_hostel.setOnClickListener(v -> {
+            ChromeTab tab=new ChromeTab(this);
+            tab.openTab(StringRes.WARDEN_LINK);
+        });
         bt_senate.setOnClickListener(v->{
 
         });

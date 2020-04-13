@@ -14,9 +14,13 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.facebook.login.LoginManager;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.mailerdaemon.app.Attendance.AttendanceFragment;
 import com.mailerdaemon.app.Clubs.ClubsFragment;
 import com.mailerdaemon.app.Events.EventsActivity;
@@ -31,7 +35,6 @@ import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ChromeTab customTab;
     AttendanceFragment fragment1;
     HomeFragment fragment2;
     ClubsFragment fragment3;
@@ -78,11 +81,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.app_bar_main);
-        customTab=new ChromeTab(this);
+        ChromeTab customTab = new ChromeTab(this);
         current=1;
         ButterKnife.bind(this);
         access=PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("Access",false);
-        Log.d("Access", PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getString("Name","gfrt"));
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
@@ -112,14 +114,12 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        Log.d("LOG_OUT","ok");
         int id = item.getItemId();
         switch (id) {
           case R.id.action_logout:
             FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
             firebaseAuth.signOut();
             LoginManager.getInstance().logOut();
-            Log.d("LOG_OUT","ok");
             startActivity(new Intent(this, LoginActivity.class));
             finish();
               break;
@@ -139,6 +139,31 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).commit();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseRemoteConfig mFirebaseRemoteConfig;
+        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(3600)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+        Intent intent=new Intent(this,UpdateActivity.class);
+        mFirebaseRemoteConfig.reset().addOnCompleteListener(task-> mFirebaseRemoteConfig.fetchAndActivate().addOnCompleteListener(new OnCompleteListener<Boolean>() {
+            @Override
+            public void onComplete(@NonNull Task<Boolean> task) {
+                if(task.isSuccessful()) {
+                    long l_version = mFirebaseRemoteConfig.getLong("critical_update");
+                    Log.d("VERSION", l_version + "");
+                    int version = BuildConfig.VERSION_CODE;
+                    if (version < l_version){
+                        finish();
+                        startActivity(intent);}
+
+                }
+            }
+        }));
 
 
+    }
 }

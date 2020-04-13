@@ -15,8 +15,11 @@ import com.mailerdaemon.app.Notices.NoticeModel;
 import com.mailerdaemon.app.R;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import Utils.DialogOptions;
 
@@ -24,12 +27,11 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
   private List<NoticeModel> noticeModels=new ArrayList<>();
   private DialogOptions options;
   private String path;
-  private int size;
   private List<String> photos=new ArrayList<>();
-  private ImageViewer viewer;
+  private Context context;
 
   EventsChildAdapter(DialogOptions options, Context context){
-    this.viewer= new ImageViewer.Builder(context, photos).show();
+    this.context=context;
     this.options=options;
   }
 
@@ -43,6 +45,7 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
   @Override
   public void onBindViewHolder(@NonNull EventsChildAdapter.Holder holder, int i) {
     NoticeModel noticeModel=noticeModels.get(i);
+    DateFormat dateFormat=new SimpleDateFormat("hh:mm aaa  dd.MM.yy", Locale.ENGLISH);
     holder.heading.setText(noticeModel.getHeading());
     String detail=noticeModel.getDetails();
     if(detail.length()>200){
@@ -53,18 +56,21 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
     String s=noticeModel.getPhoto();
     holder.options.setOnClickListener(v -> options.showOptions(noticeModel,path));
     if(s!=null)
-    { holder.imageView.setImageURI(Uri.parse(s));
-      holder.date_time.setText(noticeModel.getDate());
+    {  holder.imageView.setVisibility(View.VISIBLE);
+        holder.date_time.setVisibility(View.VISIBLE);
+        holder.time2.setVisibility(View.GONE);
+        holder.imageView.setImageURI(Uri.parse(s));
+      holder.date_time.setText(dateFormat.format(noticeModel.getDate()));
       holder.imageView.setOnClickListener(v ->{
         photos.clear();
         photos.add(s);
-        viewer.show();
+          new ImageViewer.Builder(context, photos).show();
       });
     }else {
       holder.imageView.setVisibility(View.GONE);
       holder.date_time.setVisibility(View.GONE);
       holder.time2.setVisibility(View.VISIBLE);
-      holder.time2.setText(noticeModel.getDate());
+      holder.time2.setText(dateFormat.format(noticeModel.getDate()));
     }
   }
 
@@ -76,8 +82,7 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
   public void setData(List<NoticeModel> noticeModels, String path) {
     if(noticeModels!=null)
     {this.noticeModels=(noticeModels);
-    this.path=path;
-    this.size=noticeModels.size();}
+    this.path=path; }
   }
 
   public static class Holder extends RecyclerView.ViewHolder {
@@ -97,10 +102,6 @@ public class EventsChildAdapter extends RecyclerView.Adapter<EventsChildAdapter.
       imageView=itemView.findViewById(R.id.notice_photo);
       date_time=itemView.findViewById(R.id.time);
     }
-  }
-
-  private void openImage(String s,Context context) {
-
   }
 
 }

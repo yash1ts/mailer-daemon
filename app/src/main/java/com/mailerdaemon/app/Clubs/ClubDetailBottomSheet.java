@@ -137,28 +137,29 @@ public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
 //        @Override
 //        public void onGlobalLayout() {
           String site=page;
+          if(page.length()>25)
           site=site.substring(25);
 //          int x=webView.getMeasuredWidth()-657;
 //          int y=webView.getMeasuredHeight();
           //webView.getViewTreeObserver().removeOnGlobalLayoutListener(this::onGlobalLayout);
 
-          String s="<!DOCTYPE html>\n" +
-                  "<html>\n" +
-                  "<head>\n" +
-                  "\t<title></title>\n" +
-                  "</head>\n" +
-                  "<body style=\"height: 1000px;text-align: center\">\n" +
-                  "\t<div id='yeep' style='width: 100%;height:100%;text-align: center' >\n" +
-                  "\t</div>\n" +
-                  "</body>\n" +
-                  "\n" +
-                  "<script type=\"text/javascript\">\n" +
-                  "\tvar s = document.getElementById(\"yeep\");\n" +
-                  "\ts.innerHTML+=\"<iframe src='https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F"+site+"&tabs=timeline&width=\"+screen.width+\"&height=\"+screen.height+\"&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId=384900825472866'  style='border:none;height:100%;width: 100%; ' scrolling='no' frameborder='0' allowTransparency='true' allow='encrypted-media'></iframe>\";\n" +
-                  "\t//document.write(s.innerHTML);\n" +
-                  "</script>\n" +
-                  "</html>\n";
-          //String s="<iframe src=\"https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F"+site+"&tabs=timeline&width="+x+"&height="+y+"&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId=384900825472866\" width=\"100%\" height=\"100%\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allow=\"encrypted-media\"></iframe>";
+//          String s="<!DOCTYPE html>\n" +
+//                  "<html>\n" +
+//                  "<head>\n" +
+//                  "\t<title></title>\n" +
+//                  "</head>\n" +
+//                  "<body style=\"height: 1000px;text-align: center\">\n" +
+//                  "\t<div id='yeep' style='width: 100%;height:100%;text-align:center' >\n" +
+//                  "\t</div>\n" +
+//                  "</body>\n" +
+//                  "\n" +
+//                  "<script type=\"text/javascript\">\n" +
+//                  "\tvar s = document.getElementById(\"yeep\");\n" +
+//                  "\ts.innerHTML+=\"<iframe src='https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F"+site+"&tabs=timeline&width=\"+screen.width+\"&height=\"+screen.height+\"&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId=384900825472866'  style='border:none;height:100%;width: 100%; ' scrolling='yes' frameborder='0' allowTransparency='true' allow='encrypted-media'></iframe>\";\n" +
+//                  "\t//document.write(s.innerHTML);\n" +
+//                  "</script>\n" +
+//                  "</html>\n";
+                String s="<iframe src=\"https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F"+site+"&tabs=timeline&width="+350+"&height="+700+"&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId=384900825472866\" width=\"100%\" height=\"100%\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allow=\"encrypted-media\"></iframe>";
           webView.loadHtml(s);
         //}
       //});
