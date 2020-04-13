@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent" android:layout_height="match_parent"
+  android:layout_marginBottom="50dp"
+  android:background="@android:color/white"
+  android:orientation="vertical"
+  android:padding="64dp">
+
+  <ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="0dp"
+    android:layout_gravity="center"
+    android:layout_weight="1"
+    android:src="@drawable/update_illus" />
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Update Is Required"
+    android:textAlignment="center"
+    android:textColor="@color/colorTextBlack"
+    android:textSize="24sp"
+    android:textStyle="bold"/>
+  <Button
+    android:id="@+id/update"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_margin="8dp"
+    android:text="Update"/>
+</LinearLayout>

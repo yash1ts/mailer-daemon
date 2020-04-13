@@ -50,7 +50,6 @@ public class ContactDetailFragment extends Fragment implements ContactFunction {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        assert getArguments() != null;
         contactList= new Gson().fromJson(loadJSONFromAsset(getArguments().getString("type")), FacultyModel.class).getContact();
         //AsyncTask task=new getList(getArguments().getString("type"));
         // //task.execute();

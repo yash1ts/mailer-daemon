@@ -1,6 +1,5 @@
 package com.mailerdaemon.app.Events;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,12 +19,11 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.Gson;
 import com.mailerdaemon.app.Notices.NoticeModel;
 import com.mailerdaemon.app.R;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -82,15 +80,16 @@ public class AddEventPostFragment extends DialogFragment implements ViewUtils.sh
 
   private void setDatabase() {
     Date date=new Date();
-    @SuppressLint("SimpleDateFormat") DateFormat dateFormat=new SimpleDateFormat("hh:mm aaa  dd.MM.yy");
+    //@SuppressLint("SimpleDateFormat") DateFormat dateFormat=new SimpleDateFormat("hh:mm aaa  dd.MM.yy");
     assert this.getArguments() != null;
     String id=this.getArguments().getString("path","");
     NoticeModel noticeModel=new NoticeModel();
-    noticeModel.setDate(dateFormat.format(date));
+    noticeModel.setDate(date);
     noticeModel.setDetails(Objects.requireNonNull(detail.getText()).toString());
     noticeModel.setHeading(heading.getText().toString());
     noticeModel.setPhoto(downloadUrl);
-    FirebaseFirestore.getInstance().document(id).update("posts", FieldValue.arrayUnion(noticeModel));
+    NoticeModel model1=new Gson().fromJson(new Gson().toJson(noticeModel),NoticeModel.class);
+    FirebaseFirestore.getInstance().document(id).update("posts", FieldValue.arrayUnion(model1));
     dismiss();
   }
 

@@ -3,9 +3,37 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/fragment_notices"
+  android:id="@+id/layout_lnf"
   android:animateLayoutChanges="true">
   <include layout="@layout/shimmer_view"/>
+  <androidx.cardview.widget.CardView
+    android:id="@+id/card_rejected"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:visibility="gone"
+    app:cardCornerRadius="8dp"
+    app:contentPadding="8dp">
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+      <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="150"
+        android:text="Your last request was rejected"
+        android:textAlignment="center"
+        android:textColor="@color/colorTextBlack"/>
+      <View
+        android:id="@+id/rejected_close"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_weight="1"
+        android:background="@drawable/ic_close_black_24dp"/>
+    </LinearLayout>
+  </androidx.cardview.widget.CardView>
   <TextView
     android:id="@+id/tv_no_post"
     android:layout_width="wrap_content"
@@ -13,6 +41,7 @@
     android:layout_centerHorizontal="true"
     android:layout_marginTop="48dp"
     android:text="Nothing Here ..."
+    android:layout_below="@+id/card_rejected"
     android:textColor="@color/colorTextBlack"
     android:textSize="20sp"
     android:visibility="gone"/>
@@ -21,6 +50,7 @@
     android:id="@+id/refresh"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_below="@+id/card_rejected"
     android:layout_centerInParent="true">
   <androidx.recyclerview.widget.RecyclerView
     android:layout_below="@+id/shimmer_view_container"
@@ -31,6 +61,7 @@
     >
   </androidx.recyclerview.widget.RecyclerView>
   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
   <com.google.android.material.floatingactionbutton.FloatingActionButton
     android:layout_width="@dimen/icon_size_med"
     android:layout_height="@dimen/icon_size_med"

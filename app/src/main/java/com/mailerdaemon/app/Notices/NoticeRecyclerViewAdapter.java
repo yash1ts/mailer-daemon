@@ -17,8 +17,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.mailerdaemon.app.R;
 import com.stfalcon.frescoimageviewer.ImageViewer;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import Utils.DialogOptions;
 import butterknife.BindView;
@@ -47,6 +50,7 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
   public void onBindViewHolder(@NonNull Holder holder, int i) {
     NoticeModel model=noticeModels.get(i).toObject(NoticeModel.class);
     assert model != null;
+    DateFormat dateFormat=new SimpleDateFormat("hh:mm aaa  dd.MM.yy", Locale.ENGLISH);
     holder.heading.setText(model.getHeading());
     String detail=model.getDetails();
     if(detail.length()>200){
@@ -57,8 +61,11 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
     String s=model.getPhoto();
     holder.options.setOnClickListener(v -> options.showOptions(model,noticeModels.get(i).getReference().getPath()));
     if(s!=null)
-    { holder.imageView.setImageURI(Uri.parse(s));
-    holder.date_time.setText(model.getDate());
+    { holder.imageView.setVisibility(View.VISIBLE);
+        holder.date_time.setVisibility(View.VISIBLE);
+        holder.imageView.setImageURI(Uri.parse(s));
+        holder.time2.setVisibility(View.GONE);
+    holder.date_time.setText(dateFormat.format(model.getDate()));
 
       holder.imageView.setOnClickListener(v ->{
         photo.clear();
@@ -69,7 +76,7 @@ public class NoticeRecyclerViewAdapter extends RecyclerView.Adapter<NoticeRecycl
       holder.imageView.setVisibility(View.GONE);
       holder.date_time.setVisibility(View.GONE);
       holder.time2.setVisibility(View.VISIBLE);
-      holder.time2.setText(model.getDate());
+      holder.time2.setText(dateFormat.format(model.getDate()));
     }
     //setAnimation(holder.container,i);
   }

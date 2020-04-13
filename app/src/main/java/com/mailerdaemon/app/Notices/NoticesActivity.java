@@ -17,6 +17,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Source;
+import com.google.gson.Gson;
 import com.mailerdaemon.app.R;
 
 import java.util.List;
@@ -107,7 +108,7 @@ public class NoticesActivity extends AppCompatActivity implements AccessDatabse,
     public void showOptions(NoticeModel model,String path) {
         Bundle bundle=new Bundle();
         bundle.putString("path", path);
-        bundle.putParcelable("model",model);
+        bundle.putString("model", new Gson().toJson(model));
         OptionsFragment optionsFragment=new OptionsFragment();
         optionsFragment.setArguments(bundle);
         optionsFragment.show(getSupportFragmentManager(), null);

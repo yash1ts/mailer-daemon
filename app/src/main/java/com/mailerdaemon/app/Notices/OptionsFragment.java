@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.gson.GsonBuilder;
 import com.mailerdaemon.app.R;
 
 import java.util.Objects;
@@ -46,7 +47,7 @@ public class OptionsFragment extends BottomSheetDialogFragment {
 
     assert getArguments() != null;
     path = getArguments().getString("path");
-    model=getArguments().getParcelable("model");
+    model=new GsonBuilder().create().fromJson(getArguments().getString("model"),NoticeModel.class);
     ButterKnife.bind(this,view);
     reference=FirebaseFirestore.getInstance().document(path);
     ClipboardManager clipboard = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CLIPBOARD_SERVICE);

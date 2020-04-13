@@ -6,7 +6,7 @@ android {
         applicationId "com.mailerdaemon.app"
         minSdkVersion 22
         targetSdkVersion 28
-        versionCode 1
+        versionCode 10
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -65,5 +65,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-invites:17.0.0'
     implementation 'com.github.vic797:prowebview:2.2.1'
     implementation 'com.google.firebase:firebase-messaging:20.1.0'
+    implementation 'com.google.firebase:firebase-config:19.1.0'
 }
 apply plugin: 'com.google.gms.google-services'

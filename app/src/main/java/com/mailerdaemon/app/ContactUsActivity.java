@@ -26,6 +26,7 @@ public class ContactUsActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         ImageView bt_fb,bt_insta,bt_email_md;
         MaterialCardView formLink=findViewById(R.id.google_form);
+        MaterialCardView privacyPolicy=findViewById(R.id.privacy_policy);
         bt_fb=findViewById(R.id.contact_fb);
         bt_insta=findViewById(R.id.contact_insta);
         bt_email_md=findViewById(R.id.contact_email2);
@@ -70,6 +71,10 @@ public class ContactUsActivity extends AppCompatActivity {
         formLink.setOnClickListener(v->{
             ChromeTab tab=new ChromeTab(this);
             tab.openTab("https://docs.google.com/forms/d/e/1FAIpQLScrYmD4pCmBc35QkkebFC9AC-HT45t-r5SAzsYja6-TleSVAQ/viewform?usp=sf_link");
+        });
+        privacyPolicy.setOnClickListener(v->{
+            ChromeTab tab=new ChromeTab(this);
+            tab.openTab("https://drive.google.com/file/d/1RqZjZB8q-q-Wo0HAo0HgQzo7d3AY1_Cb/view?usp=sharing");
         });
     }
 

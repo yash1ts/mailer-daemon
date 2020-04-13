@@ -1,6 +1,7 @@
 package com.mailerdaemon.app;
 
 import android.app.Application;
+import android.webkit.WebView;
 
 import androidx.room.Room;
 
@@ -30,6 +31,7 @@ public class ApplicationClass extends Application {
         db = Room.databaseBuilder(this,
                 AppDatabase.class, "attendance").build();
 
+        WebView.setWebContentsDebuggingEnabled(false);
 
 
 

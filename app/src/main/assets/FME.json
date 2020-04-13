@@ -1,12 +1,12 @@
 {"contact":[
-{"name": "Anand  Anupam", "email": "anand@iitism.ac.in", "image": "employee/992/emp_992_20151118064921.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9162343434", "url": "facultydetail.php?id=OTky"},
-{"name": "Barun Kumar Nandi", "email": "barun@iitism.ac.in", "image": "employee/1051/emp_1051_20151118065726.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9471192317", "url": "facultydetail.php?id=MTA1MQ=="},
-{"name": "N R Mandre", "email": "", "image": "employee/112/emp_112_20151118050322.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9431126113", "url": "facultydetail.php?id=MTEy"},
-{"name": "Nikkam  Suresh", "email": "", "image": "employee/684/emp_684_20151118051045.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9431126465", "url": "facultydetail.php?id=Njg0"},
-{"name": "Pankaj Kumar Jain", "email": "panku@iitism.ac.in", "image": "employee/1000/1000.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "7766904994", "url": "facultydetail.php?id=MTAwMA=="},
-{"name": "R  Venugopal", "email": "", "image": "employee/673/emp_673.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9431126330", "url": "facultydetail.php?id=Njcz"},
-{"name": "Shalini  Gautam", "email": "", "image": "employee/846/846.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9471191399", "url": "facultydetail.php?id=ODQ2"},
-{"name": "Shatrughan  Soren", "email": "ssoren@iitism.ac.in", "image": "employee/927/emp_927_20151118062211.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9939707967", "url": "facultydetail.php?id=OTI3"},
-{"name": "Shravan  Kumar", "email": "shravan@iitism.ac.in", "image": "employee/993/993.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9771421510", "url": "facultydetail.php?id=OTkz"},
-{"name": "Sumantra  Bhattacharya", "email": "sumantra@iitism.ac.in", "image": "employee/683/emp_683_20151118051015.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9431120001", "url": "facultydetail.php?id=Njgz"}
+{"name": "Anand  Anupam", "email": "anand@iitism.ac.in", "image": "https://www.iitism.ac.in/employee/992/emp_992_20151118064921.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9162343434", "url": "facultydetail.php?id=OTky"},
+{"name": "Barun Kumar Nandi", "email": "barun@iitism.ac.in", "image": "https://www.iitism.ac.in/employee/1051/emp_1051_20151118065726.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9471192317", "url": "facultydetail.php?id=MTA1MQ=="},
+{"name": "N R Mandre", "email": "", "image": "https://www.iitism.ac.in/employee/112/emp_112_20151118050322.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9431126113", "url": "facultydetail.php?id=MTEy"},
+{"name": "Nikkam  Suresh", "email": "", "image": "https://www.iitism.ac.in/employee/684/emp_684_20151118051045.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9431126465", "url": "facultydetail.php?id=Njg0"},
+{"name": "Pankaj Kumar Jain", "email": "panku@iitism.ac.in", "image": "https://www.iitism.ac.in/employee/1000/1000.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "7766904994", "url": "facultydetail.php?id=MTAwMA=="},
+{"name": "R  Venugopal", "email": "", "image": "https://www.iitism.ac.in/employee/673/emp_673.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9431126330", "url": "facultydetail.php?id=Njcz"},
+{"name": "Shalini  Gautam", "email": "", "image": "https://www.iitism.ac.in/employee/846/846.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9471191399", "url": "facultydetail.php?id=ODQ2"},
+{"name": "Shatrughan  Soren", "email": "ssoren@iitism.ac.in", "image": "https://www.iitism.ac.in/employee/927/emp_927_20151118062211.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9939707967", "url": "facultydetail.php?id=OTI3"},
+{"name": "Shravan  Kumar", "email": "shravan@iitism.ac.in", "image": "https://www.iitism.ac.in/employee/993/993.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9771421510", "url": "facultydetail.php?id=OTkz"},
+{"name": "Sumantra  Bhattacharya", "email": "sumantra@iitism.ac.in", "image": "https://www.iitism.ac.in/employee/683/emp_683_20151118051015.jpg", "dept": "Fuel, Minerals and Metallurgical Engineering", "phone": "9431120001", "url": "facultydetail.php?id=Njgz"}
 ]}
