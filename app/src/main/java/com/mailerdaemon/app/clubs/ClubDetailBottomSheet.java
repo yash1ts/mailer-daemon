@@ -82,14 +82,14 @@ public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
 
 
   private void getDatabase() {
-    FirebaseFirestore.getInstance().collection(ConstantsKt.FB_Collec_Club).document(String.format("%d",id)).get().addOnCompleteListener(task -> {
+    FirebaseFirestore.getInstance().collection(ConstantsKt.FB_CLUB).document(String.format("%d",id)).get().addOnCompleteListener(task -> {
       if (task.isSuccessful()) {
         model= Objects.requireNonNull(task.getResult()).toObject(ClubDetailModel.class);
         setView(model);
       }else
       {
-        Toast.makeText(getContext(), ConstantsKt.No_Internet,Toast.LENGTH_LONG).show();
-        FirebaseFirestore.getInstance().collection(ConstantsKt.FB_Collec_Club).document(String.format("%d",id)).get(Source.CACHE).addOnSuccessListener(documentSnapshot -> setView(Objects.requireNonNull(task.getResult()).toObject(ClubDetailModel.class)));
+        Toast.makeText(getContext(), ConstantsKt.NO_INTERNET,Toast.LENGTH_LONG).show();
+        FirebaseFirestore.getInstance().collection(ConstantsKt.FB_CLUB).document(String.format("%d",id)).get(Source.CACHE).addOnSuccessListener(documentSnapshot -> setView(Objects.requireNonNull(task.getResult()).toObject(ClubDetailModel.class)));
       }
     });
 

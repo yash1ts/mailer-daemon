@@ -64,7 +64,7 @@ public class AddEventFragment extends DialogFragment implements ViewUtils.showPr
     Date date= new Date(calendar.getTimeInMillis());
     model.setDate(date);
     model.setName(heading.getText().toString());
-    FirebaseFirestore.getInstance().collection(ConstantsKt.FB_Collec_Event).document().set(model);
+    FirebaseFirestore.getInstance().collection(ConstantsKt.FB_EVENT).document().set(model);
     changeProgressBar();
     dismiss();
   }

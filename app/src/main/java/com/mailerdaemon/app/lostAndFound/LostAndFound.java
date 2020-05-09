@@ -89,7 +89,7 @@ public class LostAndFound extends AppCompatActivity implements AccessDatabase {
             }
             }
         });
-        firestore.collection(ConstantsKt.FB_Lost_Found).orderBy("date", Query.Direction.DESCENDING).limit(20).get().addOnCompleteListener(task -> {
+        firestore.collection(ConstantsKt.FB_LOST_FOUND).orderBy("date", Query.Direction.DESCENDING).limit(20).get().addOnCompleteListener(task -> {
             recyclerView.setVisibility(View.VISIBLE);
             if(task.isSuccessful()) {
                 noticeModels = Objects.requireNonNull(task.getResult()).getDocuments();

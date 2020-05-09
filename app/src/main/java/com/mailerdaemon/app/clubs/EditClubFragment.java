@@ -105,13 +105,13 @@ public class EditClubFragment extends DialogFragment implements ViewUtils.showPr
     clubDetailModel.setYoutube(youtube.getText().toString());
     clubDetailModel.setWeb(web.getText().toString());
     clubDetailModel.setName(club_name.getText().toString());
-    FirebaseFirestore.getInstance().collection(ConstantsKt.FB_Collec_Club).document(String.format("%d",id)).set(clubDetailModel);
+    FirebaseFirestore.getInstance().collection(ConstantsKt.FB_CLUB).document(String.format("%d",id)).set(clubDetailModel);
     ClubIconModel clubIconModel=new ClubIconModel();
     clubIconModel.setTag(id);
     if(downloadUrl!=null)
     clubIconModel.setUrl(downloadUrl);
     else clubIconModel.setUrl(previous_Url);
-    FirebaseFirestore.getInstance().collection(ConstantsKt.FB_Club_Icons).document(String.format("%d",id)).set(clubIconModel);
+    FirebaseFirestore.getInstance().collection(ConstantsKt.FB_CLUB_ICON).document(String.format("%d",id)).set(clubIconModel);
     Objects.requireNonNull(getDialog()).dismiss();
   }
 

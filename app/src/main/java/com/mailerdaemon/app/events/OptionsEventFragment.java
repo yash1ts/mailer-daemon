@@ -60,7 +60,7 @@ public class OptionsEventFragment extends BottomSheetDialogFragment {
         delete.setOnClickListener(v ->{
             reference.update("posts", FieldValue.arrayRemove(model));
             Log.d("DELETE",path);
-            Toast.makeText(getContext(), ConstantsKt.Done_Refresh,Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), ConstantsKt.DONE_REFRESH,Toast.LENGTH_SHORT).show();
             getDialog().dismiss();
         });
     }

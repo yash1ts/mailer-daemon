@@ -71,7 +71,7 @@ public class OptionsFragment extends BottomSheetDialogFragment {
                 reference.delete();
                 AccessDatabase activity= (AccessDatabase) getActivity();
                 activity.getDatabase();
-                Toast.makeText(getContext(), ConstantsKt.Done_Refresh,Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), ConstantsKt.DONE_REFRESH,Toast.LENGTH_SHORT).show();
                 Objects.requireNonNull(getDialog()).dismiss();
             });
             if(!model.getVerified())

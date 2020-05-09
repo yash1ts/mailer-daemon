@@ -76,7 +76,7 @@ public class EventsActivity extends AppCompatActivity implements AccessDatabase,
   @Override
   public void getDatabase() {
 
-    firebaseFirestore.collection(ConstantsKt.FB_Collec_Event)
+    firebaseFirestore.collection(ConstantsKt.FB_EVENT)
             .orderBy("date", Query.Direction.DESCENDING).get().addOnCompleteListener(task -> {
       if(task.isSuccessful()) {
         snap= Objects.requireNonNull(task.getResult()).getDocuments();

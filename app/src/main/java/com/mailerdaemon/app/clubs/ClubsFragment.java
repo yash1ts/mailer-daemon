@@ -71,7 +71,7 @@ public class ClubsFragment extends Fragment implements AccessDatabase, DialogOpt
         String string=getDefaultSharedPreferences(getActivity()).getString("club","");
         assert string != null;
         if(string.equals(""))
-        FirebaseFirestore.getInstance().collection(ConstantsKt.FB_Club_Icons).orderBy("tag", Query.Direction.ASCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
+        FirebaseFirestore.getInstance().collection(ConstantsKt.FB_CLUB_ICON).orderBy("tag", Query.Direction.ASCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
             iconModel=queryDocumentSnapshots.toObjects(ClubIconModel.class);
             ClubListModel model=new ClubListModel();
             model.setModelList(iconModel);
@@ -85,7 +85,7 @@ public class ClubsFragment extends Fragment implements AccessDatabase, DialogOpt
             iconModel = model.getModelList();
             adapter.setData(iconModel);
             adapter.notifyDataSetChanged();
-            FirebaseFirestore.getInstance().collection(ConstantsKt.FB_Club_Icons).orderBy("tag", Query.Direction.ASCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
+            FirebaseFirestore.getInstance().collection(ConstantsKt.FB_CLUB_ICON).orderBy("tag", Query.Direction.ASCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
                 iconModel = queryDocumentSnapshots.toObjects(ClubIconModel.class);
                 ClubListModel model1 = new ClubListModel();
                 model.setModelList(iconModel);

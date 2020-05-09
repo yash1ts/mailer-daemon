@@ -89,7 +89,7 @@ public class AddLNFPost  extends DialogFragment implements ImageUploadCallBack, 
         noticeModel.setVerified(false);
         String uid= Objects.requireNonNull(getContext()).getSharedPreferences("MAIN", Context.MODE_PRIVATE).getString("uid","");
         noticeModel.setUid(uid);
-        FirebaseFirestore.getInstance().collection(ConstantsKt.FB_Lost_Found).document().set(noticeModel);
+        FirebaseFirestore.getInstance().collection(ConstantsKt.FB_LOST_FOUND).document().set(noticeModel);
         changeProgressBar();
         dismiss();
     }
