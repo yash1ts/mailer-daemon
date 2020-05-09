@@ -59,4 +59,4 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build all configurations
-        run: ./gradlew assemble
+        run: ./gradlew assembleDebug
