@@ -1,5 +1,6 @@
 package com.mailerdaemon.app.clubs;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -93,6 +94,7 @@ public class EditClubFragment extends DialogFragment implements ViewUtils.showPr
     return view;
   }
 
+  @SuppressLint("DefaultLocale")
   private void setDatabase() {
     ClubDetailModel clubDetailModel=new ClubDetailModel();
     if(downloadUrl!=null)

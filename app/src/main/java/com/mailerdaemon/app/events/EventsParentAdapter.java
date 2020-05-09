@@ -71,7 +71,7 @@ public class EventsParentAdapter extends RecyclerView.Adapter<EventsParentAdapte
       });
     }
     EventsChildAdapter adapter=new EventsChildAdapter(options,context);
-    adapter.setData(eventModel.posts,path);
+    adapter.setData(eventModel.getPosts(),path);
     recyclerView.setAdapter(adapter);
   }
 
