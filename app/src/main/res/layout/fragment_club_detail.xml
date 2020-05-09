@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+    android:layout_height="match_parent"
+  >
+
+  <RelativeLayout
+    android:id="@+id/lay"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="36dp"
+    android:background="@drawable/bottom_sheet"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:theme="@style/AppTheme">
+
+    <TextView
+      android:id="@+id/club_name"
+      style="@style/TextAppearance.AppCompat.Headline"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="108dp"
+      android:padding="@dimen/padding_8"
+      android:textColor="@color/text_blue_black"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+      android:id="@+id/lay_icons"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/club_name"
+      android:orientation="horizontal">
+
+      <ImageButton
+        android:id="@+id/club_fb"
+        android:layout_width="@dimen/default_icon_size"
+        android:layout_height="@dimen/default_icon_size"
+        android:layout_margin="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:src="@drawable/vector_drawable_icons__facebook_filled" />
+
+      <ImageView
+        android:id="@+id/club_insta"
+        android:layout_width="@dimen/default_icon_size"
+        android:layout_height="@dimen/default_icon_size"
+        android:layout_margin="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:src="@drawable/vector_drawable_icons__instagram___"
+        android:visibility="gone" />
+
+      <ImageView
+        android:id="@+id/club_youtube"
+        android:layout_width="@dimen/default_icon_size"
+        android:layout_height="@dimen/default_icon_size"
+        android:layout_margin="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:src="@drawable/vector_drawable__ionicons_svg_logo_youtube"
+        android:visibility="gone"
+        />
+
+      <ImageView
+        android:id="@+id/club_web"
+        android:layout_width="@dimen/default_icon_size"
+        android:layout_height="@dimen/default_icon_size"
+        android:layout_margin="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:src="@drawable/vector_drawable_www"
+        android:visibility="gone"
+        />
+      <ImageView
+        android:id="@+id/club_edit"
+        android:layout_width="@dimen/default_icon_size"
+        android:layout_height="@dimen/default_icon_size"
+        android:layout_margin="8dp"
+        android:background="?attr/selectableItemBackground"
+        android:src="@drawable/ic_create_black_24dp"
+        android:visibility="gone"
+        />
+    </LinearLayout>
+    <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@id/lay_icons"
+      android:fillViewport="true">
+    <RelativeLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      >
+    <TextView
+      android:id="@+id/club_des"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:maxLines="10"
+      android:padding="@dimen/padding_8"
+      android:textColor="@color/colorTextBlack"
+      android:textSize="12sp" />
+
+    <TextView
+      android:id="@+id/tv_heading_senior_mem"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@id/club_des"
+      android:layout_marginTop="16dp"
+      android:text="Senior members"
+      android:visibility="gone" />
+
+    <TextView
+      android:id="@+id/club_members"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/tv_heading_senior_mem"
+      android:visibility="gone" />
+    <vcm.github.webkit.proview.ProWebView
+      android:id="@+id/web"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/tv_heading_senior_mem"
+      android:layout_marginTop="10dp"
+      app:javascriptEnabled="true"
+      app:nestedScrollingEnabled="true"/>
+    <include android:id="@+id/shimmer_view_container"
+      layout="@layout/post_place_holder"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/club_members"
+      android:visibility="gone"
+      />
+    </RelativeLayout>
+    </ScrollView>
+  </RelativeLayout>
+  <com.facebook.drawee.view.SimpleDraweeView
+    android:id="@+id/club_icon"
+    android:layout_width="@dimen/icon_size_big"
+    android:layout_height="@dimen/icon_size_big"
+    android:layout_marginEnd="36dp"
+    android:background="@drawable/circular_drawable"
+    android:elevation="4dp"
+    android:scaleType="centerCrop"
+    app:layout_anchor="@id/lay"
+    app:layout_anchorGravity="end"
+    app:roundAsCircle="true"
+    />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bt_nav_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home">
+    </item>
+    <item
+        android:id="@+id/bt_nav_attendance"
+        android:icon="@drawable/ic_done_all_black_24dp"
+        android:title="Attendance">
+    </item>
+    <item android:id="@+id/bt_nav_clubs"
+        android:icon="@drawable/ic_bt_nav_clubs_24dp"
+        android:title="Clubs">
+    </item>
+
+</menu>

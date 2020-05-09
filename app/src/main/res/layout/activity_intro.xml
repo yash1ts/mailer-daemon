@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.viewpager.widget.ViewPager
+      android:id="@+id/view_pager"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:paddingBottom="?attr/actionBarSize" />
+
+    <!-- divider -->
+    <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:layout_gravity="bottom"
+      android:layout_marginBottom="?attr/actionBarSize"
+      android:alpha="0.12"
+      android:background="@android:color/white" />
+
+    <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:layout_gravity="bottom"
+      android:paddingStart="@dimen/activity_horizontal_margin"
+      android:paddingLeft="@dimen/activity_horizontal_margin"
+      android:paddingEnd="@dimen/activity_horizontal_margin"
+      android:paddingRight="@dimen/activity_horizontal_margin">
+
+      <Button
+        android:id="@+id/intro_btn_skip"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|center"
+        android:text="Skip"
+        android:textColor="@android:color/white" />
+
+      <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="16dp">
+
+        <ImageView
+          android:id="@+id/intro_indicator_1"
+          android:layout_width="8dp"
+          android:layout_height="8dp"
+          android:layout_marginEnd="16dp"
+          android:background="@color/indicator_unselected" />
+
+        <!-- Your other 2 indicators here -->
+        <ImageView
+          android:id="@+id/intro_indicator_2"
+          android:layout_width="8dp"
+          android:layout_height="8dp"
+          android:layout_marginEnd="16dp"
+
+          android:background="@color/indicator_unselected" />
+        <ImageView
+          android:id="@+id/intro_indicator_3"
+          android:layout_width="8dp"
+          android:layout_height="8dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginRight="16dp"
+          android:background="@color/indicator_unselected" />
+        <ImageView
+          android:id="@+id/intro_indicator_4"
+          android:layout_width="8dp"
+          android:layout_height="8dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginRight="16dp"
+          android:background="@color/indicator_unselected" />
+        <ImageView
+          android:id="@+id/intro_indicator_5"
+          android:layout_width="8dp"
+          android:layout_height="8dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginRight="16dp"
+          android:background="@color/indicator_unselected" />
+        <ImageView
+          android:id="@+id/intro_indicator_6"
+          android:layout_width="8dp"
+          android:layout_height="8dp"
+          android:layout_marginEnd="16dp"
+          android:layout_marginRight="16dp"
+          android:background="@color/indicator_unselected" />
+
+      </LinearLayout>
+
+      <!-- This overlaps the next button in the last slide -->
+      <Button
+        android:id="@+id/intro_btn_finish"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center"
+        android:text="Finish"
+        android:textColor="@android:color/white"
+        android:visibility="gone" />
+
+      <ImageButton
+        android:id="@+id/intro_btn_next"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|center"
+        android:padding="@dimen/activity_horizontal_margin"
+        android:src="@drawable/ic_chevron_right_white_24dp"
+        android:tint="@android:color/white" />
+
+    </FrameLayout>
+
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginStart="16dp"
+  android:layout_marginTop="2dp"
+  android:layout_marginEnd="16dp"
+  android:layout_marginBottom="8dp"
+  app:cardCornerRadius="8dp"
+  app:contentPadding="8dp">
+<RelativeLayout
+  android:layout_width="match_parent" android:layout_height="match_parent"
+  android:orientation="vertical"
+  >
+
+  <ImageView
+    android:id="@+id/sub_options"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="0dp"
+    android:layout_marginEnd="0dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:src="@drawable/ic_more_horiz_gray_24dp"/>
+
+  <TextView
+    android:id="@+id/subject_name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentTop="true"
+    android:layout_marginEnd="10dp"
+    android:layout_toStartOf="@+id/sub_attendance_num"
+    android:padding="8dp"
+    android:textColor="@color/colorTextBlack"
+    android:textSize="22sp" />
+
+  <TextView
+    android:id="@+id/sub_attendance_num"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="61dp"
+    android:padding="4dp"
+    android:textAlignment="center"
+    android:textSize="24sp" />
+
+  <TextView
+    android:id="@+id/sub_last"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/subject_name"
+    android:paddingStart="8dp"
+    android:text="Last Updated"
+    android:textSize="12sp"/>
+
+  <TextView
+    android:id="@+id/sub_last_update"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignTop="@+id/sub_last"
+    android:layout_marginStart="5dp"
+    android:layout_marginTop="0dp"
+    android:layout_toEndOf="@+id/sub_last"
+    android:textSize="12sp"
+    />
+
+  <TextView
+    android:id="@+id/sub_status"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/sub_last"
+    android:layout_alignParentStart="true"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="10dp"
+    android:layout_toStartOf="@+id/sub_attendance_num"
+    android:maxWidth="200dp"
+    android:textSize="12sp" />
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+  android:id="@+id/sub_increase"
+  style="@style/WhiteFab"
+  android:layout_width="24dp"
+  android:layout_height="24dp"
+    android:layout_below="@+id/sub_attendance_num"
+    android:layout_alignStart="@+id/sub_attendance_num"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="0dp"
+    android:src="@drawable/ic_green_tick"
+    app:elevation="0dp"
+  app:fabCustomSize="24dp" />
+
+  <com.google.android.material.floatingactionbutton.FloatingActionButton
+    android:id="@+id/sub_decrease"
+    android:layout_width="24dp"
+    android:layout_height="24dp"
+    android:layout_below="@+id/sub_attendance_num"
+    android:layout_alignEnd="@+id/sub_attendance_num"
+    android:layout_marginEnd="16dp"
+    android:src="@drawable/ic_red_cross"
+    app:elevation="0dp"
+    app:fabCustomSize="24dp" />
+
+  <TextView
+    android:id="@+id/sub_percent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/sub_status"
+    android:layout_alignParentEnd="true"
+    android:layout_marginTop="-23dp"
+    android:layout_marginEnd="16dp"
+    android:padding="4dp"
+    android:text="90%" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/sub_status"
+    android:layout_marginTop="0dp"
+    android:orientation="horizontal"
+    android:padding="4dp">
+
+    <ProgressBar
+      android:id="@+id/sub_progress"
+      style="@style/Widget.ProgressBar.Vertical"
+      android:layout_width="match_parent"
+      android:layout_height="4dp"
+      android:layout_margin="4dp"
+      android:progress="90" />
+  </LinearLayout>
+
+</RelativeLayout>
+</androidx.cardview.widget.CardView>

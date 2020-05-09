@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  >
+  <com.google.android.material.appbar.AppBarLayout
+    android:id="@+id/app_bar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@null"
+    app:elevation="0dp"
+    >
+
+    <androidx.appcompat.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@drawable/toolbar_bg"
+      android:elevation="3dp"
+      android:paddingStart="16dp"
+      android:paddingEnd="16dp"
+      android:paddingBottom="8dp"
+      app:menu="@menu/main"
+      app:title="Contact us"
+      app:titleMarginStart="16dp"
+      app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+      app:titleTextColor="@android:color/white" />
+  </com.google.android.material.appbar.AppBarLayout>
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="16dp">
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Reach Mailer Daemon at"/>
+      <LinearLayout
+        android:id="@+id/lay_icons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageButton
+          android:id="@+id/contact_fb"
+          android:layout_width="@dimen/default_icon_size"
+          android:layout_height="48dp"
+          android:layout_margin="8dp"
+          android:background="?attr/selectableItemBackground"
+          android:src="@drawable/vector_drawable_icons__facebook_filled"
+          />
+
+        <ImageView
+          android:id="@+id/contact_insta"
+          android:layout_width="@dimen/default_icon_size"
+          android:layout_height="@dimen/default_icon_size"
+          android:layout_margin="8dp"
+          android:background="?attr/selectableItemBackground"
+          android:src="@drawable/vector_drawable_icons__instagram___"
+          />
+
+        <ImageView
+          android:id="@+id/contact_email2"
+          android:layout_width="@dimen/default_icon_size"
+          android:layout_height="@dimen/default_icon_size"
+          android:layout_margin="8dp"
+          android:background="?attr/selectableItemBackground"
+          android:src="@drawable/email"
+          />
+      </LinearLayout>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:text="Developer"
+        android:textColor="@color/colorTextBlack"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Privacy Policy"
+        android:textColor="@color/colorTextBlack"
+        android:textStyle="bold"/>
+      <com.google.android.material.card.MaterialCardView
+        android:id="@+id/privacy_policy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:contentPadding="8dp">
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="8dp"
+          android:text="Privacy Policy"/>
+      </com.google.android.material.card.MaterialCardView>
+
+
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Report bug"
+        android:textColor="@color/colorTextBlack"
+        android:textStyle="bold"/>
+      <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Found a bug?\nDo tell us at above contacts. We will be pleased to hear you."/>
+      <com.google.android.material.card.MaterialCardView
+        android:id="@+id/google_form"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:contentPadding="8dp">
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:padding="8dp"
+          android:text="Fill a google form"/>
+      </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</LinearLayout>

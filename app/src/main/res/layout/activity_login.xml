@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="@android:color/white"
+  android:fillViewport="true"
+  android:scrollbars="vertical"
+  tools:context=".MainActivity"
+  >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:paddingStart="32dp"
+      android:paddingEnd="32dp"
+      >
+
+        <ImageView
+          android:id="@+id/md_logo"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="40dp"
+          android:src="@drawable/md_logo"
+          app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/textInputLayout"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="188dp"
+          app:boxStrokeColor="@android:color/black"
+          app:errorEnabled="true"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/login_email"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="Enter Email"
+              android:inputType="textEmailAddress"
+              tools:ignore="HardcodedText" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/textInputLayout2"
+          style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:boxStrokeColor="@android:color/black"
+          app:errorEnabled="true"
+          app:layout_constraintStart_toStartOf="@+id/textInputLayout"
+          app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+          app:passwordToggleEnabled="true"
+          >
+
+            <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/login_password"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="Enter Password"
+              android:inputType="textPassword"
+              tools:ignore="HardcodedText" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <androidx.cardview.widget.CardView
+          android:id="@+id/progress_bar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          app:cardBackgroundColor="@android:color/white"
+          app:cardCornerRadius="24dp"
+          app:cardElevation="8dp"
+          app:contentPadding="8dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
+            <ProgressBar
+              android:layout_width="32dp"
+              android:layout_height="32dp"
+              android:elevation="5dp"
+              />
+        </androidx.cardview.widget.CardView>
+
+
+
+        <Button
+          android:id="@+id/login"
+          style="@style/Widget.AppCompat.Button.Colored"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Login"
+          app:layout_constraintStart_toStartOf="@+id/textInputLayout2"
+          app:layout_constraintTop_toBottomOf="@+id/textInputLayout2"
+          tools:ignore="HardcodedText" />
+
+        <Button
+          android:id="@+id/signup"
+          style="@style/Widget.AppCompat.Button.Colored"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="8dp"
+          android:text="Sign Up"
+          app:layout_constraintStart_toStartOf="@+id/login"
+          app:layout_constraintTop_toBottomOf="@+id/login"
+          tools:ignore="HardcodedText"
+          />
+
+        <TextView
+          android:id="@+id/forgot_password"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="16dp"
+          android:gravity="center"
+          android:text="Forgot Password?"
+          android:textColor="@color/colorTextDarkBlack"
+          android:textSize="20sp"
+          app:layout_constraintStart_toStartOf="@+id/signup"
+          app:layout_constraintTop_toBottomOf="@+id/signup"
+          tools:ignore="HardcodedText" />
+
+        <com.google.android.gms.common.SignInButton
+          android:id="@+id/google_signin"
+          android:layout_width="120dp"
+          android:layout_height="52dp"
+          android:layout_marginStart="40dp"
+          android:layout_marginTop="40dp"
+          app:layout_constraintStart_toStartOf="@+id/forgot_password"
+          app:layout_constraintTop_toBottomOf="@+id/forgot_password" />
+
+        <ImageButton
+          android:id="@+id/login_facebook"
+          android:layout_width="100dp"
+          android:layout_height="48dp"
+          android:layout_marginStart="24dp"
+          android:layout_marginTop="2dp"
+          android:background="@drawable/facebbok_login"
+          android:elevation="4dp"
+          app:layout_constraintStart_toEndOf="@+id/google_signin"
+          app:layout_constraintTop_toTopOf="@+id/google_signin" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

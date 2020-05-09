@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+    <com.google.android.material.appbar.AppBarLayout
+      android:id="@+id/app_bar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/colorBgLightSilver"
+      app:elevation="0dp"
+  >
+
+  <androidx.appcompat.widget.Toolbar
+    android:id="@+id/toolbar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/toolbar_bg"
+    android:elevation="3dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
+    android:paddingBottom="32dp"
+    app:menu="@menu/main"
+    app:title="Mailer Daemon"
+    app:titleMarginStart="16dp"
+    app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+    app:titleTextColor="@android:color/white"
+    />
+</com.google.android.material.appbar.AppBarLayout>
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:baselineAligned="false"
+    android:elevation="8dp"
+    android:orientation="horizontal"
+    app:layout_anchor="@id/toolbar"
+    app:layout_anchorGravity="bottom">
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:orientation="vertical">
+      <com.google.android.material.floatingactionbutton.FloatingActionButton
+      android:id="@+id/fab_notices"
+      style="@style/WhiteFab"
+        android:layout_width="@dimen/icon_size_big"
+        android:layout_height="@dimen/icon_size_big"
+        android:layout_margin="10dp"
+      android:src="@drawable/ic_notice"
+      app:fabCustomSize="@dimen/icon_size_big"
+        app:maxImageSize="36dp"
+      />
+    </LinearLayout>
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:orientation="vertical">
+      <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_events"
+        style="@style/WhiteFab"
+        android:layout_width="@dimen/icon_size_big"
+        android:layout_height="@dimen/icon_size_big"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_events"
+        app:fabCustomSize="@dimen/icon_size_big"
+        app:maxImageSize="42dp"
+        />
+    </LinearLayout>
+    <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="center"
+      android:orientation="vertical">
+      <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_lost_found"
+        style="@style/WhiteFab"
+        android:layout_width="@dimen/icon_size_big"
+        android:layout_height="@dimen/icon_size_big"
+        android:layout_margin="10dp"
+        android:src="@drawable/ic_lost_found"
+        app:fabCustomSize="@dimen/icon_size_big"
+        app:maxImageSize="54dp"
+
+        />
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <androidx.core.widget.NestedScrollView
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/bottom_nav"
+        android:focusable="false"
+    android:requiresFadingEdge="vertical"
+      app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        >
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+      android:id="@+id/bottom_nav"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom"
+      android:background="@drawable/bottom_nav_bg"
+      android:padding="6dp"
+      app:itemIconTint="@drawable/selected"
+      app:itemTextColor="@drawable/selected"
+      app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+      app:menu="@menu/bottom_nav_menu" />
+  </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,18 @@
+{"contact":[
+  {"name": "Prof. Vivekananda Mukherjee", "image": "https://www.iitism.ac.in/assets/img/admin/as-dean-pg.jpg", "dept": " Academic : Postgraduate", "email": "adean_pg@iitism.ac.in", "phone": "+91-326-223-5218", "url": ""},
+  {"name": "Dr. Keka Ojha", "image": "https://www.iitism.ac.in/assets/img/admin/adean_ug.jpg", "dept": " \tAcademic : Undergraduate", "email": "adean_ug@iitism.ac.in", "phone": "+91-326-223-5204", "url": ""},
+  {"name": "Prof. Atul Kumar Varma", "image": "https://www.iitism.ac.in/assets/img/admin/as-dean-fac.jpg", "dept": " Faculty : Selection Career Progression", "email": "adean_fac@iitism.ac.in", "phone": "+91-326-223-5204", "url": ""},
+  {"name": "Dr. Subhasis Chatterjee", "image": "https://www.iitism.ac.in/assets/img/admin/adean_rec.jpg", "dept": " Faculty : Recruitment", "email": "adean_rec@iitism.ac.in", "phone": "+91-326-223-5204", "url": ""},
+  {"name": "Prof.  Badam Singh Kushvah ", "image": "https://www.iitism.ac.in/assets/img/admin/adean_na.jpg", "dept": " Information Systems: Networking & Automation", "email": "adean_na@iitism.ac.in", "phone": "+91-326-223-5286", "url": ""},
+  {"name": "Prof. A. R. Dixit ", "image": "https://www.iitism.ac.in/assets/img/admin/adean_cm.jpg", "dept": " Infrastructure : Campus Management", "email": "adean_cm@iitism.ac.in", "phone": "+91-326-223-5214", "url": ""},
+  {"name": "Prof. Alok Sinha", "image": "https://www.iitism.ac.in/assets/img/admin/adean_pp.jpg", "dept": " Infrastructure : Planning & Projects", "email": "adean_pp@iitism.ac.in", "phone": "+91-326-223-5214", "url": ""},
+  {"name": "Prof. Rajeev Upadhyay", "image": "https://www.iitism.ac.in/assets/img/admin/adean_aa.jpg", "dept": " IRAA : Alumni Affairs", "email": "adean_aa@iitism.ac.in", "phone": "+91-326-223-5220", "url": ""},
+  {"name": "Prof. Pankaj Mishra", "image": "https://www.iitism.ac.in/assets/img/admin/adean_ii.jpg", "dept": " IRAA : Innovation and Incubation", "email": "adean_ii@iitism.ac.in", "phone": "+91-326-223-5220", "url": ""},
+  {"name": "Prof. Dheeraj Kumar", "image": "https://www.iitism.ac.in/assets/img/admin/diraa.jpg", "dept": " IRAA : Outreach Programmes", "email": "adean_op@iitism.ac.in", "phone": "+91-326-223-", "url": ""},
+  {"name": "Dr. Anup Krishna Prasad", "image": "https://www.iitism.ac.in/assets/img/admin/adean_ic.jpg", "dept": " R & D : IC (Industrial Consultancy)", "email": "adean_ic@iitism.ac.in", "phone": "+91-326-223-", "url": ""},
+  {"name": "Prof. Ravi Kumar Gangwar", "image": "https://www.iitism.ac.in/assets/img/admin/adean_sr.jpg", "dept": " R & D : Sponsored Research", "email": "adean_sr@iitism.ac.in", "phone": "+91-326-223-", "url": ""},
+  {"name": "Prof. S. P. Tiwari", "image": "https://www.iitism.ac.in/assets/img/admin/as-dean-hm.jpg", "dept": " Student : Hostel Management", "email": "adean_hostel@iitism.ac.in", "phone": "+91-326-223-", "url": ""},
+  {"name": "Prof. Bobby Antony", "image": "https://www.iitism.ac.in/assets/img/admin/adean_sa.jpg", "dept": " Students Activities", "email": "adean_sa@iitism.ac.in", "phone": "+91-326-223-5218", "url": ""},
+  {"name": "Prof. Ashis Mallick", "image": "https://www.iitism.ac.in/assets/img/admin/as-dean-sw.jpg", "dept": " Students' welfare, Sholarships, Insurance and Welfare Activities", "email": "adean_sw@iitism.ac.in", "phone": "+91-326-223-", "url": ""},
+  {"name": "Prof. K. K. Singh", "image": "https://www.iitism.ac.in/assets/img/admin/adean_mr.jpg", "dept": " Monitoring & Review", "email": "adean_mr@iitism.ac.in", "phone": "+91-326-223-", "url": ""}
+]}

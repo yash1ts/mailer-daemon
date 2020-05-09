@@ -1,0 +1,47 @@
+name: build
+
+on: [pull_request,push]
+
+jobs:
+
+  staticAnalysis:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Decode google-services.json
+        shell: bash
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+        run: echo "$FIREBASE_CONFIG" > app/google-services.json
+        
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: Static Analysis
+        run: ./gradlew ktlintCheck detekt app:lintDebug
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Decode google-services.json
+        shell: bash
+        env:
+          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
+        run: echo "$FIREBASE_CONFIG" > app/google-services.json
+        
+      - name: Change wrapper permissions
+        run: chmod +x ./gradlew
+
+      - name: Build all configurations
+        run: ./gradlew assemble
