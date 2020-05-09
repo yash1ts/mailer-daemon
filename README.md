@@ -10,7 +10,7 @@ A Must have app for all IIT(ISM) students.
 Browse the latest information of all the functioning clubs and remain updated to neoteric Academic decisions. Visit all the pages instantly. Get notification of any post from the official Mailer Daemon page. Have a check of upcoming events and the status of ongoing events.
 Manage your attendance with easy-to-use Attendance Manager. Get all the useful contacts with a single click. Lost and Found section to aid you in any such misfortune. Get all placement info and a lot more...
 
-![build](https://github.com/yash1ts/mailer-daemon/workflows/build/badge.svg)
+![build](https://github.com/yash1ts/mailer-daemon/workflows/build/badge.svg?event=push)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/31d2ffc44d1b482dbd01d66fb910a29b)](https://www.codacy.com/manual/yash1ts/mailer-daemon?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=yash1ts/mailer-daemon&amp;utm_campaign=Badge_Grade)
 
 <h2>Screenshots </h2>
