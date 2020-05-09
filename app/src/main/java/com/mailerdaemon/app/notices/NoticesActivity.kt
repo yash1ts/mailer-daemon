@@ -1,7 +1,7 @@
 package com.mailerdaemon.app.notices
 
+import android.content.Context
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -24,7 +24,7 @@ class NoticesActivity : AppCompatActivity() {
             it.title = "Notices"
         }
 
-        access = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        access = getSharedPreferences("GENERAL", Context.MODE_PRIVATE)
             .getBoolean("Access", false)
         rv_notices.adapter = NoticeAdapter
 
@@ -41,10 +41,10 @@ class NoticesActivity : AppCompatActivity() {
         outState.putParcelable("data", PostsList(NoticeAdapter.list))
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         NoticeAdapter.list =
-            savedInstanceState?.getParcelable<PostsList>("data")?.posts ?: emptyList()
+            savedInstanceState.getParcelable<PostsList>("data")?.posts ?: emptyList()
     }
 
     fun getDatabase() {

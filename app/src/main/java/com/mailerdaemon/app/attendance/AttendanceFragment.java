@@ -49,7 +49,6 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 import static android.view.View.GONE;
 
 public class AttendanceFragment extends Fragment implements UpdateDatabse {
@@ -99,7 +98,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     adapter=new AttendanceAdapter(this,getContext());
     recyclerView.setAdapter(adapter);
-    time= getDefaultSharedPreferences(getContext()).getLong(ConstantsKt.TIME_NOTI,0);
+    time= getActivity().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getLong(ConstantsKt.TIME_NOTI,0);
     Calendar current_date=Calendar.getInstance();
     tv__date.setText(String.format("%d", current_date.get(Calendar.DAY_OF_MONTH)));
     DateFormatSymbols dfs = new DateFormatSymbols();
@@ -109,7 +108,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
     notiTime= Calendar.getInstance();
     notiTime.setTimeInMillis(time);
     updateTimeTv();
-    boolean x= getDefaultSharedPreferences(getContext()).getBoolean("Notification",false);
+    boolean x= getContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getBoolean("Notification",false);
     notificationSwitch.setChecked(x);
 
     notificationSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -189,7 +188,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
       }
     });
     view.findViewById(R.id.bt_ok).setOnClickListener(v->{
-      getDefaultSharedPreferences(getContext()).edit().putInt("attendance",x[0]).apply();
+      getContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit().putInt("attendance",x[0]).apply();
       new DataBase().execute();
       dialog.dismiss();
     });
@@ -222,7 +221,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
 
   private void setUpNotification(){
     Calendar calendar=notiTime;
-    getDefaultSharedPreferences(getContext()).edit().putBoolean("Notification",true).putLong(ConstantsKt.TIME_NOTI,calendar.getTimeInMillis()).apply();
+    getContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit().putBoolean("Notification",true).putLong(ConstantsKt.TIME_NOTI,calendar.getTimeInMillis()).apply();
     time=notiTime.getTimeInMillis();
     AlarmManager alarmMgr = (AlarmManager) Objects.requireNonNull(getContext()).getSystemService(Context.ALARM_SERVICE);
     Intent intent = new Intent(getContext(), NotificationReceiver.class);
@@ -273,7 +272,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
   }
 
   private void cancelNotification(){
-    getDefaultSharedPreferences(getContext()).edit().putBoolean("Notification",false).apply();
+    getContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit().putBoolean("Notification",false).apply();
     AlarmManager alarmMgr = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
     Intent intent = new Intent(getContext(), NotificationReceiver.class);
     PendingIntent alarmIntent = PendingIntent.getBroadcast(getContext(), 123, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -376,7 +375,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
     protected void onPostExecute(Void aVoid) {
       super.onPostExecute(aVoid);
       if(context!=null)
-      requiredAtt=getDefaultSharedPreferences(context).getInt("attendance",75);
+      requiredAtt=context.getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getInt("attendance",75);
       adapter.setData(list,requiredAtt);
       required.setText(String.format("%d%%", requiredAtt));
       adapter.notifyDataSetChanged();

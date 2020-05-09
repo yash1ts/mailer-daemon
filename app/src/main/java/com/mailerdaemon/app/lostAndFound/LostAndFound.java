@@ -1,7 +1,7 @@
 package com.mailerdaemon.app.lostAndFound;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -47,7 +47,7 @@ public class LostAndFound extends AppCompatActivity implements AccessDatabase {
         setContentView(R.layout.activity_lost_found);
         FloatingActionButton fab = findViewById(R.id.fab);
         no_posts=findViewById(R.id.tv_no_post);
-        access= PreferenceManager.getDefaultSharedPreferences(this).getBoolean("Access",false);
+        access= getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getBoolean("Access",false);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("Lost And Found");
         rejected=findViewById(R.id.card_rejected);

@@ -1,5 +1,6 @@
 package com.mailerdaemon.app.clubs;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,7 +27,6 @@ import com.mailerdaemon.app.utils.DialogOptions;
 import java.util.List;
 import java.util.Objects;
 
-import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class ClubsFragment extends Fragment implements AccessDatabase, DialogOptions {
     private List<ClubIconModel> iconModel;
@@ -35,6 +35,7 @@ public class ClubsFragment extends Fragment implements AccessDatabase, DialogOpt
     private ImageButton add_club;
     private SharedPreferences.Editor editor;
 
+    @SuppressLint("CommitPrefEdits")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class ClubsFragment extends Fragment implements AccessDatabase, DialogOpt
         adapter=new ClubAdapter(getContext(),this);
         recyclerView=view.findViewById(R.id.rv_clubs);
         recyclerView.setAdapter(adapter);
-        editor= Objects.requireNonNull(getActivity()).getSharedPreferences("MAIN",Context.MODE_PRIVATE).edit();
+        editor= Objects.requireNonNull(container).getContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit();
         add_club= view.findViewById(R.id.add_club);
       if(iconModel==null) {
           getDatabase();
@@ -50,7 +51,7 @@ public class ClubsFragment extends Fragment implements AccessDatabase, DialogOpt
           adapter.setData(iconModel);
           adapter.notifyDataSetChanged();
       }
-        boolean access= getDefaultSharedPreferences(getActivity().getApplicationContext()).getBoolean("Access",false);
+        boolean access= Objects.requireNonNull(getActivity()).getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getBoolean("Access",false);
         if(access) {
           add_club.setVisibility(View.VISIBLE);
           add_club.setOnClickListener(v -> {
@@ -68,8 +69,7 @@ public class ClubsFragment extends Fragment implements AccessDatabase, DialogOpt
 
     @Override
     public void getDatabase() {
-        String string=getDefaultSharedPreferences(getActivity()).getString("club","");
-        assert string != null;
+        String string= Objects.requireNonNull(getActivity()).getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getString("club","");
         if(string.equals(""))
         FirebaseFirestore.getInstance().collection(ConstantsKt.FB_CLUB_ICON).orderBy("tag", Query.Direction.ASCENDING).get().addOnSuccessListener(queryDocumentSnapshots -> {
             iconModel=queryDocumentSnapshots.toObjects(ClubIconModel.class);

@@ -6,7 +6,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +57,7 @@ public class OptionsFragment extends BottomSheetDialogFragment {
 
         DownloadManager manager = (DownloadManager) Objects.requireNonNull(getContext())
                 .getSystemService(Context.DOWNLOAD_SERVICE);
-        access= PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext()).getBoolean("Access",false);
+        access= getActivity().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getBoolean("Access",false);
 
         if(access){
             delete.setVisibility(View.VISIBLE);

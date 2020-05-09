@@ -1,9 +1,9 @@
 package com.mailerdaemon.app.clubs;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -75,7 +75,7 @@ public class ClubDetailBottomSheet extends BottomSheetDialogFragment {
     id = getArguments().getInt("club_id");
     getDatabase();
 
-    access= PreferenceManager.getDefaultSharedPreferences(Objects.requireNonNull(getActivity()).getApplicationContext()).getBoolean("Access",false);
+    access= getActivity().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getBoolean("Access",false);
 
     return view;
   }

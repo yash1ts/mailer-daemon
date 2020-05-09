@@ -2,11 +2,11 @@ package com.mailerdaemon.app;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -187,7 +187,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseFirestore.getInstance().collection("user").document(user.getUid()).set(model);
         getSharedPreferences("MAIN",MODE_PRIVATE).edit().putString("uid",user.getUid()).apply();
         createNotificationChannel();
-        SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(this).edit();
+        SharedPreferences.Editor editor = getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit();
         Calendar calendar=Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY,17);
         calendar.set(Calendar.MINUTE,30);

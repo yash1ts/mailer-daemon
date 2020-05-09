@@ -1,7 +1,7 @@
 package com.mailerdaemon.app.events;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -46,7 +46,7 @@ public class EventsActivity extends AppCompatActivity implements AccessDatabase,
     refresh=findViewById(R.id.refresh);
 
     RecyclerView recyclerView = findViewById(R.id.rv_events);
-    Boolean access = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("Access", false);
+    Boolean access = getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getBoolean("Access", false);
     if (access){
       fab_add.show();
     }

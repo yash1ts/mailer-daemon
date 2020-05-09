@@ -1,8 +1,8 @@
 package com.mailerdaemon.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -84,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
         ChromeTab customTab = new ChromeTab(this);
         current=1;
         ButterKnife.bind(this);
-        access=PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("Access",false);
+        access=getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getBoolean("Access",false);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);

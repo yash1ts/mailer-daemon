@@ -16,15 +16,14 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 public class OnBootReciever extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
-        boolean x= getDefaultSharedPreferences(context).getBoolean("Notification",false);
+        boolean x= context.getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getBoolean("Notification",false);
         if(Objects.equals(intent.getAction(), "android.intent.action.BOOT_COMPLETED") &&x){
             Calendar calendar=Calendar.getInstance();
-            long time =getDefaultSharedPreferences(context).getLong(ConstantsKt.TIME_NOTI,0);
+            long time =context.getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getLong(ConstantsKt.TIME_NOTI,0);
             calendar.setTimeInMillis(time);
             AlarmManager alarmMgr = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
             Intent intent1 = new Intent(context, NotificationReceiver.class);

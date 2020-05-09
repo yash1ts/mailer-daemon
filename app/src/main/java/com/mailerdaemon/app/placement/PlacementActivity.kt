@@ -3,7 +3,6 @@ package com.mailerdaemon.app.placement
 import android.app.SearchManager
 import android.content.Context
 import android.os.Bundle
-import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -33,7 +32,7 @@ class PlacementActivity : AppCompatActivity(), AccessDatabase {
             it.setDisplayHomeAsUpEnabled(true)
             it.title = "Placement Daemon"
         }
-        access = PreferenceManager.getDefaultSharedPreferences(applicationContext)
+        access = getSharedPreferences("GENERAL", Context.MODE_PRIVATE)
             .getBoolean("Access", false)
 
         if (PlacementAdapter.list.isEmpty())
@@ -50,10 +49,10 @@ class PlacementActivity : AppCompatActivity(), AccessDatabase {
         outState.putParcelable("data", PlacementList(PlacementAdapter.list))
     }
 
-    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         PlacementAdapter.list =
-            savedInstanceState?.getParcelable<PlacementList>("data")?.list ?: emptyList()
+            savedInstanceState.getParcelable<PlacementList>("data")?.list ?: emptyList()
     }
 
     override fun getDatabase() {
