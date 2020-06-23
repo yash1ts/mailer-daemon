@@ -27,7 +27,7 @@ jobs:
         shell: bash
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: echo "$FIREBASE_CONFIG" > app/google-services.json
+        run: 'echo "$FIREBASE_CONFIG" > app/google-services.json'
         
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
@@ -53,7 +53,7 @@ jobs:
         shell: bash
         env:
           FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: echo "$FIREBASE_CONFIG" > app/google-services.json
+        run: 'echo "$FIREBASE_CONFIG" > app/google-services.json'
         
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
