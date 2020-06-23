@@ -1,4 +1,4 @@
-package com.mailerdaemon.app;
+package com.mailerdaemon.app
 
 import android.animation.ArgbEvaluator
 import android.content.Intent
@@ -11,14 +11,14 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_intro.*
 
-class IntroActivity:AppCompatActivity() {
+class IntroActivity : AppCompatActivity() {
 
-    private lateinit var indicators:Array<ImageView>
-    public override fun onCreate(@Nullable savedInstanceState:Bundle?) {
+    private lateinit var indicators: Array<ImageView>
+    public override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
-        //View view=getWindow().getDecorView();
-        indicators = arrayOf<ImageView>(intro_indicator_1, intro_indicator_2, intro_indicator_3, intro_indicator_4, intro_indicator_5, intro_indicator_6)
+        // View view=getWindow().getDecorView();
+        indicators = arrayOf(intro_indicator_1, intro_indicator_2, intro_indicator_3, intro_indicator_4, intro_indicator_5, intro_indicator_6)
         val color1 = ContextCompat.getColor(this, R.color.intro_1)
         val color2 = ContextCompat.getColor(this, R.color.intro_2)
         val color3 = ContextCompat.getColor(this, R.color.intro_3)
@@ -26,12 +26,12 @@ class IntroActivity:AppCompatActivity() {
         val colorList = intArrayOf(color1, color2, color3, color1, color2, color3)
         view_pager.adapter = IntroAdapter()
         updateIndicators(0)
-        view_pager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
-            override fun onPageScrolled(position:Int, positionOffset:Float, positionOffsetPixels:Int) {
+        view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 val colorUpdate = evaluator.evaluate(positionOffset, colorList[position], colorList[if (position == colorList.size - 1) position else position + 1]) as Int
                 view_pager.setBackgroundColor(colorUpdate)
             }
-            override fun onPageSelected(position:Int) {
+            override fun onPageSelected(position: Int) {
                 updateIndicators(position)
                 when (position) {
                     0 -> view_pager.setBackgroundColor(color1)
@@ -44,7 +44,8 @@ class IntroActivity:AppCompatActivity() {
                 intro_btn_next.visibility = if (position == colorList.size - 1) View.GONE else View.VISIBLE
                 intro_btn_finish.visibility = if (position == colorList.size - 1) View.VISIBLE else View.GONE
             }
-            override fun onPageScrollStateChanged(state:Int) {
+            override fun onPageScrollStateChanged(state: Int) {
+                return
             }
         })
         intro_btn_next.setOnClickListener { view_pager.currentItem = view_pager.currentItem + 1 }
@@ -57,9 +58,8 @@ class IntroActivity:AppCompatActivity() {
             startActivity(Intent(this, LoginActivity::class.java))
             finish() }
     }
-    internal fun updateIndicators(position:Int) {
-        for (i in indicators.indices)
-        {
+    internal fun updateIndicators(position: Int) {
+        for (i in indicators.indices) {
             indicators[i].setBackgroundResource(
                     if (i == position) R.drawable.indicator_selected else R.drawable.indicator_unselected
             )
