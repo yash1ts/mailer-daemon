@@ -4,12 +4,9 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -25,13 +22,12 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login.*
+import org.jetbrains.anko.toast
 import java.util.*
 
-@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class LoginActivity: AppCompatActivity() {
 
     private val email = "email"
-    private val tag = "LoginActivity"
     private val rcsignin = 234
     private lateinit var mAuth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
@@ -43,31 +39,26 @@ class LoginActivity: AppCompatActivity() {
         if (getSharedPreferences("MAIN", Context.MODE_PRIVATE).getBoolean("intro", true)) {
             startActivity(Intent(this, IntroActivity::class.java))
             finish()
-        } else {
-            val currentUser = mAuth.currentUser
-            currentUser?.let { startMain() }
-        }
+        } else
+            startMain()
         setContentView(R.layout.activity_login)
         progress_bar.visibility = View.GONE
         forgot_password.setOnClickListener { startActivity(Intent(this, ForgotPassActivity::class.java)) }
         login.setOnClickListener {
-            val email = Objects.requireNonNull(login_email.text).toString().trim { it <= ' ' }
-            val password = Objects.requireNonNull(login_password.text).toString()
+            val email = login_email!!.text.toString().trim { it <= ' ' }
+            val password = (login_password!!.text).toString()
             if (email.isNotEmpty()) {
                 if (password.isNotEmpty()) {
                     progress_bar.visibility = View.VISIBLE
                     mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task: Task<AuthResult?> ->
                         progress_bar.visibility = View.GONE
-                        if (task.isSuccessful) {
-                            saveUser(Objects.requireNonNull(mAuth.currentUser))
-                        } else {
-                            Toast.makeText(applicationContext, "Invalid password", Toast.LENGTH_LONG).show()
-                        }
+                        if (task.isSuccessful)
+                            saveUser((mAuth.currentUser)!!)
+                         else
+                            toast("Invalid password")
                     }
                 } else login_password.error = "Password cannot be empty"
-            } else {
-                login_email.error = "Email cannot be empty"
-            }
+            } else login_email.error = "Email cannot be empty"
         }
         signup.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
@@ -82,7 +73,7 @@ class LoginActivity: AppCompatActivity() {
 
             override fun onCancel() {}
             override fun onError(error: FacebookException) {
-                Toast.makeText(applicationContext, "If you don't have a account please signup.$error", Toast.LENGTH_LONG).show()
+                toast("If you don't have a account please signup.$error")
             }
         })
         login_facebook.setOnClickListener {
@@ -107,16 +98,14 @@ class LoginActivity: AppCompatActivity() {
     private fun handleFacebookAccessToken(accessToken: AccessToken?) {
         val credential = FacebookAuthProvider.getCredential(accessToken!!.token)
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this) { task: Task<AuthResult?> ->
-                    if (task.isSuccessful) {
-                        val user = mAuth.currentUser
-                        saveUser(user)
-                    } else {
-                        Toast.makeText(this@LoginActivity, "Authentication failed." + task.exception,
-                                Toast.LENGTH_SHORT).show()
-                    }
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful)
+                        saveUser(mAuth.currentUser)
+                    else
+                        toast("Authentication failed." + task.exception)
                 }
     }
+
 
     private fun saveUser(user: FirebaseUser?) {
         val model = UserModel()
@@ -124,16 +113,17 @@ class LoginActivity: AppCompatActivity() {
         model.userId = user.uid
         model.rejectedPost = false
         model.email = user.email
-        FirebaseFirestore.getInstance().collection("user").document(user.uid).set(model)
+        FirebaseFirestore.getInstance().collection(user1).document(user.uid).set(model)
         getSharedPreferences("MAIN", Context.MODE_PRIVATE).edit().putString("uid", user.uid).apply()
         createNotificationChannel()
-        val editor: SharedPreferences.Editor = getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit()
+        val editor = getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit()
         val calendar = Calendar.getInstance()
         calendar[Calendar.HOUR_OF_DAY] = 17
         calendar[Calendar.MINUTE] = 30
         editor.putLong(TIME_NOTI, calendar.timeInMillis)
         editor.putString("Name", user.displayName).apply()
-        if (user.uid == ADMIN_ID) editor.putBoolean("Access", true).apply() else editor.putBoolean("Access", false).apply()
+        if (user.uid == ADMIN_ID) editor.putBoolean("Access", true).apply()
+        else editor.putBoolean(access, false).apply()
         startMain()
     }
 
@@ -142,10 +132,10 @@ class LoginActivity: AppCompatActivity() {
             val name: CharSequence = "MailerDaemon"
             val description = "Remider of Attendance Manager"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel("id123", name, importance)
+            val channel = NotificationChannel(channel_id, name, importance)
             channel.description = description
-            val notificationManager: NotificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager.createNotificationChannel(channel)
+            val notificationManager = getSystemService(NotificationManager::class.java)
+            notificationManager!!.createNotificationChannel(channel)
         }
     }
 
@@ -157,32 +147,26 @@ class LoginActivity: AppCompatActivity() {
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
-                val account = task.getResult(ApiException::class.java)!!
+                val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account)
             } catch (e: ApiException) {
-                Toast.makeText(this@LoginActivity, e.message, Toast.LENGTH_SHORT).show()
+                toast(e.message.toString())
             }
-        } else {
+        } else
             callbackManager.onActivityResult(requestCode, resultCode, data)
-        }
     }
 
-    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
-        val credential = GoogleAuthProvider.getCredential(account.idToken, null)
+    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
+        val credential = GoogleAuthProvider.getCredential(account!!.idToken, null)
 
         //Now using firebase we are signing in the user here
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this) { task: Task<AuthResult?> ->
-                    if (task.isSuccessful) {
-                        Log.d(tag, "signInWithCredential:success")
-                        val user = mAuth.currentUser!!
-                        saveUser(user)
-                    } else {
+                    if (task.isSuccessful)
+                        saveUser( mAuth.currentUser)
+                    else
                         // If sign in fails, display a message to the user.
-                        Log.w(tag, "signInWithCredential:failure", task.exception)
-                        Toast.makeText(this@LoginActivity, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show()
-                    }
+                        toast("Authentication failed.")
                 }
     }
 
@@ -193,3 +177,4 @@ class LoginActivity: AppCompatActivity() {
         finish()
     }
 }
+
