@@ -7,6 +7,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -22,7 +23,6 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login.*
-import org.jetbrains.anko.toast
 import java.util.*
 
 class LoginActivity: AppCompatActivity() {
@@ -32,11 +32,15 @@ class LoginActivity: AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
 
+    fun Any.toast(context: Context, duration: Int = Toast.LENGTH_SHORT): Toast {
+        return Toast.makeText(context, this.toString(), duration).apply { show() }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar_NoStatusColor)
         val mAuth = FirebaseAuth.getInstance()
-        if (getSharedPreferences("MAIN", Context.MODE_PRIVATE).getBoolean("intro", true)) {
+        if (getSharedPreferences(MAIN, Context.MODE_PRIVATE).getBoolean("intro", true)) {
             startActivity(Intent(this, IntroActivity::class.java))
             finish()
         } else
@@ -45,17 +49,17 @@ class LoginActivity: AppCompatActivity() {
         progress_bar.visibility = View.GONE
         forgot_password.setOnClickListener { startActivity(Intent(this, ForgotPassActivity::class.java)) }
         login.setOnClickListener {
-            val email = login_email!!.text.toString().trim { it <= ' ' }
-            val password = (login_password!!.text).toString()
+            val email = login_email.text.toString().trim { it <= ' ' }
+            val password = (login_password.text).toString()
             if (email.isNotEmpty()) {
                 if (password.isNotEmpty()) {
                     progress_bar.visibility = View.VISIBLE
                     mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task: Task<AuthResult?> ->
                         progress_bar.visibility = View.GONE
                         if (task.isSuccessful)
-                            saveUser((mAuth.currentUser)!!)
+                            saveUser((mAuth.currentUser))
                          else
-                            toast("Invalid password")
+                            ("Invalid password").toast(this)
                     }
                 } else login_password.error = "Password cannot be empty"
             } else login_email.error = "Email cannot be empty"
@@ -73,7 +77,7 @@ class LoginActivity: AppCompatActivity() {
 
             override fun onCancel() {}
             override fun onError(error: FacebookException) {
-                toast("If you don't have a account please signup.$error")
+                ("If you don't have a account please signup.$error").toast(this@LoginActivity)
             }
         })
         login_facebook.setOnClickListener {
@@ -102,28 +106,24 @@ class LoginActivity: AppCompatActivity() {
                     if (task.isSuccessful)
                         saveUser(mAuth.currentUser)
                     else
-                        toast("Authentication failed." + task.exception)
+                        ("Authentication failed." + task.exception).toast(this)
                 }
     }
 
 
     private fun saveUser(user: FirebaseUser?) {
-        val model = UserModel()
-        model.name = user!!.displayName
-        model.userId = user.uid
-        model.rejectedPost = false
-        model.email = user.email
-        FirebaseFirestore.getInstance().collection(user1).document(user.uid).set(model)
-        getSharedPreferences("MAIN", Context.MODE_PRIVATE).edit().putString("uid", user.uid).apply()
+        val model = UserModel(user?.uid, user?.displayName, user?.email,false)
+        FirebaseFirestore.getInstance().collection(FB_USER).document(user!!.uid).set(model)
+        getSharedPreferences(MAIN, Context.MODE_PRIVATE).edit().putString(U_ID, user.uid).apply()
         createNotificationChannel()
-        val editor = getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit()
+        val editor = getSharedPreferences(GENERAL, Context.MODE_PRIVATE).edit()
         val calendar = Calendar.getInstance()
         calendar[Calendar.HOUR_OF_DAY] = 17
         calendar[Calendar.MINUTE] = 30
         editor.putLong(TIME_NOTI, calendar.timeInMillis)
         editor.putString("Name", user.displayName).apply()
-        if (user.uid == ADMIN_ID) editor.putBoolean("Access", true).apply()
-        else editor.putBoolean(access, false).apply()
+        if (user.uid == ADMIN_ID) editor.putBoolean(ACCESS, true).apply()
+        else editor.putBoolean(ACCESS, false).apply()
         startMain()
     }
 
@@ -132,10 +132,10 @@ class LoginActivity: AppCompatActivity() {
             val name: CharSequence = "MailerDaemon"
             val description = "Remider of Attendance Manager"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(channel_id, name, importance)
+            val channel = NotificationChannel(CHANNEL_ID, name, importance)
             channel.description = description
             val notificationManager = getSystemService(NotificationManager::class.java)
-            notificationManager!!.createNotificationChannel(channel)
+            notificationManager?.createNotificationChannel(channel)
         }
     }
 
@@ -150,7 +150,7 @@ class LoginActivity: AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account)
             } catch (e: ApiException) {
-                toast(e.message.toString())
+                (e.message.toString()).toast(this)
             }
         } else
             callbackManager.onActivityResult(requestCode, resultCode, data)
@@ -166,7 +166,7 @@ class LoginActivity: AppCompatActivity() {
                         saveUser( mAuth.currentUser)
                     else
                         // If sign in fails, display a message to the user.
-                        toast("Authentication failed.")
+                        ("Authentication failed.").toast(this)
                 }
     }
 
@@ -177,4 +177,3 @@ class LoginActivity: AppCompatActivity() {
         finish()
     }
 }
-
