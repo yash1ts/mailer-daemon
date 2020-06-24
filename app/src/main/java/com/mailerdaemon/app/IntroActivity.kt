@@ -17,7 +17,7 @@ class IntroActivity : AppCompatActivity() {
     public override fun onCreate(@Nullable savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
-        // View view=getWindow().getDecorView();
+
         indicators = arrayOf(intro_indicator_1, intro_indicator_2, intro_indicator_3, intro_indicator_4, intro_indicator_5, intro_indicator_6)
         val color1 = ContextCompat.getColor(this, R.color.intro_1)
         val color2 = ContextCompat.getColor(this, R.color.intro_2)
@@ -28,9 +28,13 @@ class IntroActivity : AppCompatActivity() {
         updateIndicators(0)
         view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                val colorUpdate = evaluator.evaluate(positionOffset, colorList[position], colorList[if (position == colorList.size - 1) position else position + 1]) as Int
+                val colorUpdate = evaluator
+                        .evaluate(positionOffset,
+                                colorList[position],
+                                colorList[if (position == colorList.size - 1) position else position + 1]) as Int
                 view_pager.setBackgroundColor(colorUpdate)
             }
+
             override fun onPageSelected(position: Int) {
                 updateIndicators(position)
                 when (position) {
@@ -44,24 +48,27 @@ class IntroActivity : AppCompatActivity() {
                 intro_btn_next.visibility = if (position == colorList.size - 1) View.GONE else View.VISIBLE
                 intro_btn_finish.visibility = if (position == colorList.size - 1) View.VISIBLE else View.GONE
             }
+
             override fun onPageScrollStateChanged(state: Int) {
-                return
             }
         })
-        intro_btn_next.setOnClickListener { view_pager.currentItem = view_pager.currentItem + 1 }
-        intro_btn_skip.setOnClickListener {
+        intro_btn_next.setOnClickListener { view_pager.currentItem += 1 }
+        intro_btn_skip.setOnClickListener { _ ->
             getSharedPreferences("MAIN", MODE_PRIVATE).edit().putBoolean("intro", false).apply()
             startActivity(Intent(this, LoginActivity::class.java))
-            finish() }
-        intro_btn_finish.setOnClickListener {
+            finish()
+        }
+        intro_btn_finish.setOnClickListener { _ ->
             getSharedPreferences("MAIN", MODE_PRIVATE).edit().putBoolean("intro", false).apply()
             startActivity(Intent(this, LoginActivity::class.java))
-            finish() }
+            finish()
+        }
     }
-    internal fun updateIndicators(position: Int) {
-        for (i in indicators.indices) {
-            indicators[i].setBackgroundResource(
-                    if (i == position) R.drawable.indicator_selected else R.drawable.indicator_unselected
+
+    private fun updateIndicators(position: Int) {
+        indicators.indices.forEach {
+            indicators[it].setBackgroundResource(
+                    if (it == position) R.drawable.indicator_selected else R.drawable.indicator_unselected
             )
         }
     }
