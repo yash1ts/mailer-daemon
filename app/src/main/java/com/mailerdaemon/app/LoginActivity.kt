@@ -1,4 +1,4 @@
-package com.mailerdaemon.app;
+package com.mailerdaemon.app
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -9,12 +9,8 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
@@ -24,25 +20,19 @@ import com.facebook.login.LoginResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
-import kotlinx.android.synthetic.main.activity_main.*
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 class LoginActivity: AppCompatActivity() {
 
-    private val EMAIL = "email"
-    private val TAG = "LoginActivity"
-    private val POSTS = "user_posts"
-    private val RC_SIGN_IN = 234
+    private val email = "email"
+    private val tag = "LoginActivity"
+    private val rcsignin = 234
     private lateinit var mAuth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
 
@@ -55,13 +45,13 @@ class LoginActivity: AppCompatActivity() {
             finish()
         } else {
             val currentUser = mAuth.currentUser
-            currentUser?.let { startMain(it) }
+            currentUser?.let { startMain() }
         }
         setContentView(R.layout.activity_login)
         progress_bar.visibility = View.GONE
-        forgot_password.setOnClickListener { v: View? -> startActivity(Intent(this, ForgotPassActivity::class.java)) }
-        login.setOnClickListener { v: View? ->
-            val email = Objects.requireNonNull(login_email!!.text).toString().trim { it <= ' ' }
+        forgot_password.setOnClickListener { startActivity(Intent(this, ForgotPassActivity::class.java)) }
+        login.setOnClickListener {
+            val email = Objects.requireNonNull(login_email.text).toString().trim { it <= ' ' }
             val password = Objects.requireNonNull(login_password.text).toString()
             if (email.isNotEmpty()) {
                 if (password.isNotEmpty()) {
@@ -79,10 +69,10 @@ class LoginActivity: AppCompatActivity() {
                 login_email.error = "Email cannot be empty"
             }
         }
-        signup.setOnClickListener(View.OnClickListener { v: View? ->
+        signup.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
             finish()
-        })
+        }
         callbackManager = CallbackManager.Factory.create()
         LoginManager.getInstance().registerCallback(callbackManager,object : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
@@ -92,14 +82,14 @@ class LoginActivity: AppCompatActivity() {
 
             override fun onCancel() {}
             override fun onError(error: FacebookException) {
-                Toast.makeText(getApplicationContext(), "If you don't have a account please signup.$error", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "If you don't have a account please signup.$error", Toast.LENGTH_LONG).show()
             }
         })
-        login_facebook.setOnClickListener { v: View? ->
+        login_facebook.setOnClickListener {
             progress_bar.visibility = View.VISIBLE
             LoginManager.getInstance().logInWithReadPermissions(
                     this@LoginActivity,
-                    Arrays.asList(EMAIL)
+                    listOf(email)
             )
         }
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -107,9 +97,9 @@ class LoginActivity: AppCompatActivity() {
                 .requestEmail()
                 .build()
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-        google_signin.setOnClickListener { v: View? ->
+        google_signin.setOnClickListener {
             progress_bar.visibility = View.VISIBLE
-            startActivityForResult(mGoogleSignInClient.getSignInIntent(), RC_SIGN_IN)
+            startActivityForResult(mGoogleSignInClient.signInIntent, rcsignin)
         }
 
     }
@@ -117,15 +107,15 @@ class LoginActivity: AppCompatActivity() {
     private fun handleFacebookAccessToken(accessToken: AccessToken?) {
         val credential = FacebookAuthProvider.getCredential(accessToken!!.token)
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, OnCompleteListener { task: Task<AuthResult?> ->
+                .addOnCompleteListener(this) { task: Task<AuthResult?> ->
                     if (task.isSuccessful) {
-                        val user = mAuth.currentUser!!
+                        val user = mAuth.currentUser
                         saveUser(user)
                     } else {
                         Toast.makeText(this@LoginActivity, "Authentication failed." + task.exception,
                                 Toast.LENGTH_SHORT).show()
                     }
-                })
+                }
     }
 
     private fun saveUser(user: FirebaseUser?) {
@@ -144,7 +134,7 @@ class LoginActivity: AppCompatActivity() {
         editor.putLong(TIME_NOTI, calendar.timeInMillis)
         editor.putString("Name", user.displayName).apply()
         if (user.uid == ADMIN_ID) editor.putBoolean("Access", true).apply() else editor.putBoolean("Access", false).apply()
-        startMain(user)
+        startMain()
     }
 
     private fun createNotificationChannel() {
@@ -162,7 +152,7 @@ class LoginActivity: AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGN_IN) {
+        if (requestCode == rcsignin) {
             progress_bar.visibility = View.GONE
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
@@ -182,23 +172,23 @@ class LoginActivity: AppCompatActivity() {
 
         //Now using firebase we are signing in the user here
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, OnCompleteListener { task: Task<AuthResult?> ->
+                .addOnCompleteListener(this) { task: Task<AuthResult?> ->
                     if (task.isSuccessful) {
-                        Log.d(TAG, "signInWithCredential:success")
+                        Log.d(tag, "signInWithCredential:success")
                         val user = mAuth.currentUser!!
                         saveUser(user)
                     } else {
                         // If sign in fails, display a message to the user.
-                        Log.w(TAG, "signInWithCredential:failure", task.exception)
+                        Log.w(tag, "signInWithCredential:failure", task.exception)
                         Toast.makeText(this@LoginActivity, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show()
                     }
-                })
+                }
     }
 
 
-    private fun startMain(currentUser: FirebaseUser?) {
-        intent = Intent(getApplicationContext(), MainActivity::class.java)
+    private fun startMain() {
+        intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(intent)
         finish()
     }
