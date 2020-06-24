@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
-import androidx.annotation.NonNull
 import androidx.viewpager.widget.PagerAdapter
 
 class IntroAdapter : PagerAdapter() {
@@ -12,17 +11,16 @@ class IntroAdapter : PagerAdapter() {
             R.layout.intro_3, R.layout.intro_4,
             R.layout.intro_5, R.layout.intro_6)
 
-    override fun isViewFromObject(@NonNull view: View, @NonNull `object`: Any) = (view === `object`)
+    override fun isViewFromObject( view: View, `object`: Any) = (view === `object`)
 
-    @NonNull
-    override fun instantiateItem(@NonNull container: ViewGroup, position: Int): Any {
+    override fun instantiateItem( container: ViewGroup, position: Int): Any {
         val view = LayoutInflater.from(container.context).inflate(xml[position], container, false)
         container.addView(view)
         return view
     }
 
-    override fun destroyItem(@NonNull container: ViewGroup, position: Int, @NonNull `object`: Any) = container.removeView(`object` as LinearLayout)
-
+    override fun destroyItem( container: ViewGroup, position: Int,  `object`: Any)
+            = container.removeView(`object` as LinearLayout)
 
     override fun getCount() = xml.size
 }

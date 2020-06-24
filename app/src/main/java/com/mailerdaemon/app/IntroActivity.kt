@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
-import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
@@ -14,11 +13,12 @@ import kotlinx.android.synthetic.main.activity_intro.*
 class IntroActivity : AppCompatActivity() {
 
     private lateinit var indicators: Array<ImageView>
-    public override fun onCreate(@Nullable savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
 
-        indicators = arrayOf(intro_indicator_1, intro_indicator_2, intro_indicator_3, intro_indicator_4, intro_indicator_5, intro_indicator_6)
+        indicators = arrayOf(intro_indicator_1, intro_indicator_2, intro_indicator_3,
+                intro_indicator_4, intro_indicator_5, intro_indicator_6)
         val color1 = ContextCompat.getColor(this, R.color.intro_1)
         val color2 = ContextCompat.getColor(this, R.color.intro_2)
         val color3 = ContextCompat.getColor(this, R.color.intro_3)
@@ -53,23 +53,18 @@ class IntroActivity : AppCompatActivity() {
             }
         })
         intro_btn_next.setOnClickListener { view_pager.currentItem += 1 }
-        intro_btn_skip.setOnClickListener { _ ->
+        intro_btn_skip.setOnClickListener {
             getSharedPreferences("MAIN", MODE_PRIVATE).edit().putBoolean("intro", false).apply()
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-        }
-        intro_btn_finish.setOnClickListener { _ ->
+            startActivity(Intent(this, LoginActivity::class.java)) }
+        intro_btn_finish.setOnClickListener {
             getSharedPreferences("MAIN", MODE_PRIVATE).edit().putBoolean("intro", false).apply()
-            startActivity(Intent(this, LoginActivity::class.java))
-            finish()
-        }
+            startActivity(Intent(this, LoginActivity::class.java)) }
     }
 
-    private fun updateIndicators(position: Int) {
+    private fun updateIndicators(position: Int) =
         indicators.indices.forEach {
             indicators[it].setBackgroundResource(
                     if (it == position) R.drawable.indicator_selected else R.drawable.indicator_unselected
             )
         }
-    }
 }
