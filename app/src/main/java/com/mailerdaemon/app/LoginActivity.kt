@@ -7,7 +7,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
@@ -31,11 +30,7 @@ class LoginActivity: AppCompatActivity() {
     private val rcsignin = 234
     private lateinit var mAuth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
-
-    fun Any.toast(context: Context, duration: Int = Toast.LENGTH_SHORT): Toast {
-        return Toast.makeText(context, this.toString(), duration).apply { show() }
-    }
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar_NoStatusColor)
@@ -59,7 +54,7 @@ class LoginActivity: AppCompatActivity() {
                         if (task.isSuccessful)
                             saveUser((mAuth.currentUser))
                          else
-                            ("Invalid password").toast(this)
+                            this.toast("Invalid password")
                     }
                 } else login_password.error = "Password cannot be empty"
             } else login_email.error = "Email cannot be empty"
@@ -77,7 +72,7 @@ class LoginActivity: AppCompatActivity() {
 
             override fun onCancel() {}
             override fun onError(error: FacebookException) {
-                ("If you don't have a account please signup.$error").toast(this@LoginActivity)
+                this@LoginActivity.toast("If you don't have a account please signup.$error")
             }
         })
         login_facebook.setOnClickListener {
@@ -106,7 +101,7 @@ class LoginActivity: AppCompatActivity() {
                     if (task.isSuccessful)
                         saveUser(mAuth.currentUser)
                     else
-                        ("Authentication failed." + task.exception).toast(this)
+                        this.toast("Authentication failed." + task.exception)
                 }
     }
 
@@ -150,7 +145,7 @@ class LoginActivity: AppCompatActivity() {
                 val account = task.getResult(ApiException::class.java)
                 firebaseAuthWithGoogle(account)
             } catch (e: ApiException) {
-                (e.message.toString()).toast(this)
+                this.toast(e.message.toString())
             }
         } else
             callbackManager.onActivityResult(requestCode, resultCode, data)
@@ -166,7 +161,7 @@ class LoginActivity: AppCompatActivity() {
                         saveUser( mAuth.currentUser)
                     else
                         // If sign in fails, display a message to the user.
-                        ("Authentication failed.").toast(this)
+                        this.toast("Authentication failed.")
                 }
     }
 
@@ -177,3 +172,4 @@ class LoginActivity: AppCompatActivity() {
         finish()
     }
 }
+
