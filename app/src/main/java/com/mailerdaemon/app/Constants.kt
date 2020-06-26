@@ -1,5 +1,7 @@
 package com.mailerdaemon.app
 
+const val Intro="intro"
+const val Name="Name"
 const val U_ID="uid"
 const val GENERAL="GENERAL"
 const val MAIN="Main"
