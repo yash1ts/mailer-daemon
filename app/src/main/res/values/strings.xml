@@ -17,5 +17,11 @@
   <string name="fb_login_protocol_scheme">fb384900825472866</string>
 
   <string name="title_activity_maps">Map</string>
+  <string name="LoginPassError">Password cannot be empty</string>
+  <string name="LoginMailError">Email cannot be empty</string>
+  <string name="Invaild_Password">Invalid password</string>
+  <string name="SignUpError">If you dont have a account please signup.</string>
+  <string name="AuthFailed">Authentication failed.</string>
+  <string name="EmailId">email</string>
 
 </resources>
