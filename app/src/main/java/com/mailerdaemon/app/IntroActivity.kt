@@ -53,12 +53,13 @@ class IntroActivity : AppCompatActivity() {
             }
         })
         intro_btn_next.setOnClickListener { view_pager.currentItem += 1 }
-        intro_btn_skip.setOnClickListener {
-            getSharedPreferences("MAIN", MODE_PRIVATE).edit().putBoolean("intro", false).apply()
-            startActivity(Intent(this, LoginActivity::class.java)) }
-        intro_btn_finish.setOnClickListener {
-            getSharedPreferences("MAIN", MODE_PRIVATE).edit().putBoolean("intro", false).apply()
-            startActivity(Intent(this, LoginActivity::class.java)) }
+        intro_btn_skip.setOnClickListener { skipIntro() }
+        intro_btn_finish.setOnClickListener { skipIntro() }
+    }
+
+    private fun skipIntro() {
+        getSharedPreferences("MAIN", MODE_PRIVATE).edit().putBoolean("intro", false).apply()
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 
     private fun updateIndicators(position: Int) =
