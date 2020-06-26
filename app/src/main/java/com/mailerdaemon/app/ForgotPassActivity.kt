@@ -1,37 +1,53 @@
-package com.mailerdaemon.app
+package com.mailerdaemon.app;
 
-import android.os.Bundle
-import android.view.MenuItem
-import android.widget.Button
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.google.android.material.textfield.TextInputEditText
-import com.google.firebase.auth.FirebaseAuth
-import java.util.Objects.*
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.Toast;
 
-class ForgotPassActivity: AppCompatActivity() {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
-        override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_forgot_pass)
-        val auth = FirebaseAuth.getInstance()
-        requireNonNull(supportActionBar)!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
-        val send = findViewById<Button>(R.id.send)
-        val email = findViewById<TextInputEditText>(R.id.email)
-        send.setOnClickListener {
-        val s = requireNonNull(email.text).toString().trim { it <= ' ' }
-        if (s.isNotEmpty()) auth.sendPasswordResetEmail(s).addOnCompleteListener { task ->
-        if (task.isSuccessful) {
-        Toast.makeText(applicationContext, "Email Sent", Toast.LENGTH_SHORT).show()
-        onBackPressed()
-        } else Toast.makeText(applicationContext, requireNonNull(task.exception).toString(), Toast.LENGTH_SHORT).show()
-        } else email.error = "Email cannot be empty"
-        }
-        }
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 
-        override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.home) onBackPressed()
-        return true
-        }
+import java.util.Objects;
+
+public class ForgotPassActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_forgot_pass);
+        FirebaseAuth auth=FirebaseAuth.getInstance();
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        Button send=findViewById(R.id.send);
+        TextInputEditText email=findViewById(R.id.email);
+        send.setOnClickListener(v->{
+            String s= Objects.requireNonNull(email.getText()).toString().trim();
+            if(!s.isEmpty())
+            auth.sendPasswordResetEmail(s).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                    Toast.makeText(getApplicationContext(),"Email Sent",Toast.LENGTH_SHORT).show();
+                    onBackPressed();}
+                    else Toast.makeText(getApplicationContext(), Objects.requireNonNull(task.getException()).toString(),Toast.LENGTH_SHORT).show();
+
+                }
+            });
+            else email.setError("Email cannot be empty");
+        });
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == android.R.id.home)
+            onBackPressed();
+        return true;
+
+    }
 }
