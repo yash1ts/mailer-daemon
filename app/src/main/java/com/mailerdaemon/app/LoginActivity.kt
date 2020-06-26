@@ -18,7 +18,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.*
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login.*
@@ -26,11 +25,13 @@ import java.util.*
 
 class LoginActivity: AppCompatActivity() {
 
-    private val email = "email"
-    private val rcsignin = 234
+    private val EMAIL_ID = "email"
+    private val RC_SIGNIN = 234
     private lateinit var mAuth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
-    
+    private var LoginPassError = "Password cannot be empty"
+    private var LoginMailError= "Email cannot be empty"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar_NoStatusColor)
@@ -44,20 +45,20 @@ class LoginActivity: AppCompatActivity() {
         progress_bar.visibility = View.GONE
         forgot_password.setOnClickListener { startActivity(Intent(this, ForgotPassActivity::class.java)) }
         login.setOnClickListener {
-            val email = login_email.text.toString().trim { it <= ' ' }
-            val password = (login_password.text).toString()
+            val email = login_email.text.toString().trim()
+            val password = login_password.text.toString()
             if (email.isNotEmpty()) {
                 if (password.isNotEmpty()) {
                     progress_bar.visibility = View.VISIBLE
-                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task: Task<AuthResult?> ->
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener{ task ->
                         progress_bar.visibility = View.GONE
                         if (task.isSuccessful)
                             saveUser((mAuth.currentUser))
                          else
                             this.toast("Invalid password")
                     }
-                } else login_password.error = "Password cannot be empty"
-            } else login_email.error = "Email cannot be empty"
+                } else login_password.error = LoginPassError
+            } else login_email.error = LoginMailError
         }
         signup.setOnClickListener {
             startActivity(Intent(this, SignUpActivity::class.java))
@@ -79,7 +80,7 @@ class LoginActivity: AppCompatActivity() {
             progress_bar.visibility = View.VISIBLE
             LoginManager.getInstance().logInWithReadPermissions(
                     this@LoginActivity,
-                    listOf(email)
+                    listOf(EMAIL_ID)
             )
         }
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -89,7 +90,7 @@ class LoginActivity: AppCompatActivity() {
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         google_signin.setOnClickListener {
             progress_bar.visibility = View.VISIBLE
-            startActivityForResult(mGoogleSignInClient.signInIntent, rcsignin)
+            startActivityForResult(mGoogleSignInClient.signInIntent, RC_SIGNIN)
         }
 
     }
@@ -108,18 +109,20 @@ class LoginActivity: AppCompatActivity() {
 
     private fun saveUser(user: FirebaseUser?) {
         val model = UserModel(user?.uid, user?.displayName, user?.email,false)
-        FirebaseFirestore.getInstance().collection(FB_USER).document(user!!.uid).set(model)
-        getSharedPreferences(MAIN, Context.MODE_PRIVATE).edit().putString(U_ID, user.uid).apply()
-        createNotificationChannel()
-        val editor = getSharedPreferences(GENERAL, Context.MODE_PRIVATE).edit()
-        val calendar = Calendar.getInstance()
-        calendar[Calendar.HOUR_OF_DAY] = 17
-        calendar[Calendar.MINUTE] = 30
-        editor.putLong(TIME_NOTI, calendar.timeInMillis)
-        editor.putString("Name", user.displayName).apply()
-        if (user.uid == ADMIN_ID) editor.putBoolean(ACCESS, true).apply()
-        else editor.putBoolean(ACCESS, false).apply()
-        startMain()
+        if (user != null) {
+            FirebaseFirestore.getInstance().collection(FB_USER).document(user.uid).set(model)
+            getSharedPreferences(MAIN, Context.MODE_PRIVATE).edit().putString(U_ID, user.uid).apply()
+            createNotificationChannel()
+            val editor = getSharedPreferences(GENERAL, Context.MODE_PRIVATE).edit()
+            val calendar = Calendar.getInstance()
+            calendar[Calendar.HOUR_OF_DAY] = 17
+            calendar[Calendar.MINUTE] = 30
+            editor.putLong(TIME_NOTI, calendar.timeInMillis)
+            editor.putString("Name", user.displayName).apply()
+            if (user.uid == ADMIN_ID) editor.putBoolean(ACCESS, true).apply()
+            else editor.putBoolean(ACCESS, false).apply()
+            startMain()
+        }
     }
 
     private fun createNotificationChannel() {
@@ -137,7 +140,7 @@ class LoginActivity: AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == rcsignin) {
+        if (requestCode == RC_SIGNIN) {
             progress_bar.visibility = View.GONE
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
@@ -152,11 +155,11 @@ class LoginActivity: AppCompatActivity() {
     }
 
     private fun firebaseAuthWithGoogle(account: GoogleSignInAccount?) {
-        val credential = GoogleAuthProvider.getCredential(account!!.idToken, null)
+        val credential = GoogleAuthProvider.getCredential(account?.idToken, null)
 
         //Now using firebase we are signing in the user here
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this) { task: Task<AuthResult?> ->
+                .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful)
                         saveUser( mAuth.currentUser)
                     else
@@ -172,4 +175,3 @@ class LoginActivity: AppCompatActivity() {
         finish()
     }
 }
-
