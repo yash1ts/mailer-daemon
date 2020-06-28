@@ -8,8 +8,7 @@ class DiffUtilCallBack(private val mOldEmployeeList: List<Contact>, private val 
 
     override fun getNewListSize() = mNewEmployeeList.size
 
-    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int)
-            = (mOldEmployeeList[oldItemPosition].name == mNewEmployeeList[newItemPosition].name)
+    override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) = (mOldEmployeeList[oldItemPosition].name == mNewEmployeeList[newItemPosition].name)
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val (_, _, _, name) = mOldEmployeeList[oldItemPosition]

@@ -28,7 +28,7 @@ import java.util.ArrayList
 
 class ContactDetailFragment : Fragment(), ContactFunction {
     private var contactList = ArrayList<Contact>()
-    private val adapter:ContactRecyclerAdapter = ContactRecyclerAdapter(this)
+    private val adapter: ContactRecyclerAdapter = ContactRecyclerAdapter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         contactList = Gson().fromJson(loadJSONFromAsset(arguments?.getString("type")), FacultyModel::class.java).contact as ArrayList<Contact>
@@ -49,7 +49,7 @@ class ContactDetailFragment : Fragment(), ContactFunction {
     }
 
     private fun loadJSONFromAsset(type: String?): String? {
-        val json:String
+        val json: String
         try {
             val `is` = (activity)?.assets?.open("$type.json")
             val size = `is`?.available()
@@ -57,8 +57,7 @@ class ContactDetailFragment : Fragment(), ContactFunction {
             `is`.read(buffer)
             `is`.close()
             json = String(buffer, StandardCharsets.UTF_8)
-        }
-        catch (ex:IOException) {
+        }catch (ex: IOException) {
             ex.printStackTrace()
             return null
         }
@@ -70,7 +69,7 @@ class ContactDetailFragment : Fragment(), ContactFunction {
         val searchManager = (activity)?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
         val searchView = menu.findItem(R.id.search).actionView as SearchView
         searchView.queryHint = "Search Contacts"
-        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 rv_contact_detail.scrollToPosition(0)
                 searchView.clearFocus()
@@ -79,8 +78,7 @@ class ContactDetailFragment : Fragment(), ContactFunction {
             override fun onQueryTextChange(newText: String): Boolean {
                 if (newText == "") {
                     updateRV(contactList)
-                }
-                else {
+                }else {
                     val list = ArrayList<Contact>()
                     for (it in contactList) {
                         if (it.name?.contains(newText.toLowerCase())!!)
@@ -91,7 +89,7 @@ class ContactDetailFragment : Fragment(), ContactFunction {
                 return true
             }
         })
-        searchView.setOnFocusChangeListener { v, hasFocus->
+        searchView.setOnFocusChangeListener { v, hasFocus ->
             val manager = v.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             if (hasFocus) manager.showSoftInput(v.findFocus(), InputMethodManager.RESULT_SHOWN) }
         searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
@@ -103,8 +101,7 @@ class ContactDetailFragment : Fragment(), ContactFunction {
         if (num.trim { it <= ' ' } != "0") {
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num.trim { it <= ' ' }))
             startActivity(intent)
-        }
-        else  Toast.makeText(context, "Sorry number not available", Toast.LENGTH_LONG).show()
+        }else Toast.makeText(context, "Sorry number not available", Toast.LENGTH_LONG).show()
     }
 
     override fun sendMail(s: String) {
@@ -116,7 +113,6 @@ class ContactDetailFragment : Fragment(), ContactFunction {
             val uri = Uri.parse(uriText)
             send.data = uri
             startActivity(Intent.createChooser(send, "Send mail..."))
-        }
-        else Toast.makeText(context, "Sorry email not available", Toast.LENGTH_LONG).show()
+        }else Toast.makeText(context, "Sorry email not available", Toast.LENGTH_LONG).show()
     }
 }

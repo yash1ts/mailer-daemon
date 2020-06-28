@@ -14,10 +14,9 @@ import kotlinx.android.synthetic.main.item_contacts_home.view.contact_img
 import kotlinx.android.synthetic.main.item_contacts_home.view.contact_name
 import kotlinx.android.synthetic.main.item_contacts_home.view.contact_phone
 import kotlinx.android.synthetic.main.item_contacts_home.view.contact_send_mail
-import java.util.*
 
 class ContactRecyclerAdapter(private var `fun`: ContactFunction) : RecyclerView.Adapter<ContactRecyclerAdapter.Holder>() {
-    var data:List<Contact> = ArrayList()
+    var data: List<Contact> = ArrayList()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): Holder {
         val view = LayoutInflater.from(viewGroup.context).inflate(R.layout.rv_contact_detail, viewGroup, false)
@@ -26,14 +25,14 @@ class ContactRecyclerAdapter(private var `fun`: ContactFunction) : RecyclerView.
 
     override fun onBindViewHolder(holder: Holder, i: Int) {
         val c = data[i]
-        holder.itemView.let{
+        holder.itemView.let {
             it.contact_name.text = c.name
             it.contact_img.setImageURI(c.image)
             it.contact_phone.text = c.phone
             it.contact_dept.text = c.dept
             it.contact_email.text = c.email
             it.contact_call.setOnClickListener { `fun`.makeCall(c.phone) }
-            it.contact_send_mail.setOnClickListener {  `fun`.sendMail(c.email) }
+            it.contact_send_mail.setOnClickListener { `fun`.sendMail(c.email) }
         }
     }
 
