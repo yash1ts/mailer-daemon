@@ -23,7 +23,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 
-class LoginActivity: AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private val RC_SIGNIN = 234
     private lateinit var mAuth: FirebaseAuth
@@ -33,28 +33,27 @@ class LoginActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar_NoStatusColor)
         val mAuth = FirebaseAuth.getInstance()
-        if (getSharedPreferences(MAIN, Context.MODE_PRIVATE)
-                        .getBoolean(Intro, true)) {
+        if (getSharedPreferences(MAIN, Context.MODE_PRIVATE).getBoolean(INTRO, true)) {
             startActivity(Intent(this, IntroActivity::class.java))
             finish()
         } else
             startMain()
         setContentView(R.layout.activity_login)
         progress_bar.visibility = View.GONE
-        forgot_password.setOnClickListener{
-            startActivity(Intent(this, ForgotPassActivity::class.java)) }
+        forgot_password.setOnClickListener {
+            startActivity(Intent(this, ForgotPassActivity::class.java))
+        }
         login.setOnClickListener {
             val email = login_email.text.toString().trim()
             val password = login_password.text.toString()
             if (email.isNotEmpty()) {
                 if (password.isNotEmpty()) {
                     progress_bar.visibility = View.VISIBLE
-                    mAuth.signInWithEmailAndPassword(email, password)
-                            .addOnCompleteListener{ task ->
+                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                         progress_bar.visibility = View.GONE
                         if (task.isSuccessful)
                             saveUser((mAuth.currentUser))
-                         else
+                        else
                             this.toast(getString(R.string.Invaild_Password))
                     }
                 } else login_password.error = getString(R.string.LoginPassError)
@@ -65,7 +64,7 @@ class LoginActivity: AppCompatActivity() {
             finish()
         }
         callbackManager = CallbackManager.Factory.create()
-        LoginManager.getInstance().registerCallback(callbackManager,object
+        LoginManager.getInstance().registerCallback(callbackManager, object
             : FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 progress_bar.visibility = View.GONE
@@ -74,7 +73,7 @@ class LoginActivity: AppCompatActivity() {
 
             override fun onCancel() {}
             override fun onError(error: FacebookException) {
-                this@LoginActivity.toast(getString(R.string.SignUpError)+"$error")
+                this@LoginActivity.toast(getString(R.string.SignUpError) + "$error")
             }
         })
         login_facebook.setOnClickListener {
@@ -103,24 +102,23 @@ class LoginActivity: AppCompatActivity() {
                     if (task.isSuccessful)
                         saveUser(mAuth.currentUser)
                     else
-                        this.toast(getString(R.string.AuthFailed)+ task.exception)
+                        this.toast(getString(R.string.AuthFailed) + task.exception)
                 }
     }
 
 
     private fun saveUser(user: FirebaseUser?) {
         if (user != null) {
-            val model = UserModel(user.uid, user.displayName, user.email,false)
+            val model = UserModel(user.uid, user.displayName, user.email, false)
             FirebaseFirestore.getInstance().collection(FB_USER).document(user.uid).set(model)
             getSharedPreferences(MAIN, Context.MODE_PRIVATE).edit().putString(U_ID, user.uid).apply()
             createNotificationChannel()
-            val editor = getSharedPreferences(GENERAL, Context.MODE_PRIVATE)
-                                                .edit()
+            val editor = getSharedPreferences(GENERAL, Context.MODE_PRIVATE).edit()
             val calendar = Calendar.getInstance()
             calendar[Calendar.HOUR_OF_DAY] = 17
             calendar[Calendar.MINUTE] = 30
             editor.putLong(TIME_NOTI, calendar.timeInMillis)
-            editor.putString(Name, user.displayName).apply()
+            editor.putString(NAME, user.displayName).apply()
             if (user.uid == ADMIN_ID) editor.putBoolean(ACCESS, true).apply()
             else editor.putBoolean(ACCESS, false).apply()
             startMain()
@@ -134,8 +132,7 @@ class LoginActivity: AppCompatActivity() {
             val importance = NotificationManager.IMPORTANCE_DEFAULT
             val channel = NotificationChannel(CHANNEL_ID, name, importance)
             channel.description = description
-            val notificationManager = 
-                    getSystemService(NotificationManager::class.java)
+            val notificationManager = getSystemService(NotificationManager::class.java)
             notificationManager?.createNotificationChannel(channel)
         }
     }
@@ -164,9 +161,9 @@ class LoginActivity: AppCompatActivity() {
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful)
-                        saveUser( mAuth.currentUser)
+                        saveUser(mAuth.currentUser)
                     else
-                        // If sign in fails, display a message to the user.
+                    // If sign in fails, display a message to the user.
                         this.toast(getString(R.string.AuthFailed))
                 }
     }
@@ -178,3 +175,4 @@ class LoginActivity: AppCompatActivity() {
         finish()
     }
 }
+
