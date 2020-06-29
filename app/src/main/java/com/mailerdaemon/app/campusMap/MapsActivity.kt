@@ -26,6 +26,10 @@ import java.lang.ref.WeakReference
 import java.util.*
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+    const val MY_PERMISSIONS_REQUEST_LOCATION = 99
+        private const val COLOR_BLACK_ARGB = -0x1000000
+        private const val POLYLINE_STROKE_WIDTH_PX = 2
+    
     var mLocationRequest: LocationRequest? = null
     var mLastLocation: Location? = null
     var mCurrLocationMarker: Marker? = null
@@ -125,25 +129,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     //The last location in the list is the newest
                     val location = locationList[locationList.size - 1]
                     mLastLocation = location
-                    //                    boolean inside = PolyUtil.containsLocation(mLastLocation.getLongitude(),mLastLocation.getLatitude(), Arrays.asList(new LatLng(23.821271, 86.435213),
-//                            new LatLng(23.819827, 86.434614),
-//                            new LatLng(23.818309, 86.436635),
-//                            new LatLng(23.817824, 86.436289),
-//                            new LatLng(23.815959, 86.439142),
-//                            new LatLng(23.811823, 86.436986),
-//                            new LatLng(23.810356, 86.437202),
-//                            new LatLng(23.809208, 86.441401),
-//                            new LatLng(23.808920, 86.442469),
-//                            new LatLng(23.811918, 86.444478),
-//                            new LatLng(23.811966, 86.447407),
-//                            new LatLng(23.814787, 86.447845),
-//                            new LatLng(23.816345, 86.442538),
-//                            new LatLng(23.817181, 86.442852),
-//                            new LatLng(23.818064, 86.440134),
-//                            new LatLng(23.819137, 86.440809),
-//                            new LatLng(23.819931, 86.439832),
-//                            new LatLng(23.818626, 86.438828),
-//                            new LatLng(23.821271, 86.435213)), true);
+                    
                     if (mCurrLocationMarker != null) {
                         mCurrLocationMarker!!.remove()
                     }
@@ -239,34 +225,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun stylePolyline(polyline: Polyline) {
-//        String type = "";
-//        // Get the data object stored with the polyline.
-//        if (polyline.getTag() != null) {
-//            type = polyline.getTag().toString();
-//        }
 
-        /* switch (type) {
-            // If no type is given, allow the API to use the default.
-            case "A":
-                // Use a custom bitmap as the cap at the start of the line.
-                polyline.setStartCap(
-                        new CustomCap(
-                                BitmapDescriptorFactory.fromResource(R.drawable.ic_arrow), 10));
-                break;
-            case "B":
-                // Use a round cap at the start of the line.
-                polyline.setStartCap(new RoundCap());
-                break;
-        }*/
         polyline.endCap = RoundCap()
         polyline.width = POLYLINE_STROKE_WIDTH_PX.toFloat()
         polyline.color = R.color.map_lines
         polyline.jointType = JointType.ROUND
     }
-
-    companion object {
-        const val MY_PERMISSIONS_REQUEST_LOCATION = 99
-        private const val COLOR_BLACK_ARGB = -0x1000000
-        private const val POLYLINE_STROKE_WIDTH_PX = 2
-    }
+    
 }
