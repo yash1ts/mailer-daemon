@@ -63,4 +63,4 @@ public class ContactFragmentViewPager  extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
-}
+ }

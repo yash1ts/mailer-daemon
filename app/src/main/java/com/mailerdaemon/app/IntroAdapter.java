@@ -11,7 +11,7 @@ import androidx.viewpager.widget.PagerAdapter;
 public class IntroAdapter extends PagerAdapter {
 
     private int[] xml={
-        R.layout.intro_1,R.layout.intro_2,R.layout.intro_3,R.layout.intro_4,R.layout.intro_5,R.layout.intro_6
+            R.layout.intro_1,R.layout.intro_2,R.layout.intro_3,R.layout.intro_4,R.layout.intro_5,R.layout.intro_6
     };
     @Override
     public int getCount() {
