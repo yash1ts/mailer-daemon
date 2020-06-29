@@ -1,4 +1,4 @@
-package com.mailerdaemon.app.impContacts;
+package com.mailerdaemon.app.impContacts
 
 import android.content.Intent
 import android.net.Uri
@@ -70,8 +70,8 @@ private fun openDetail(tabs: Array<String>, pages: Array<String>) {
         override fun makeCall(num: String) {
         if (num.trim { it <= ' ' } != "0") {
         val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num.trim { it <= ' ' }))
-        startActivity(intent) }
-        else Toast.makeText(this, "Sorry number not available", Toast.LENGTH_LONG).show()
+        startActivity(intent)
+        }else Toast.makeText(this, "Sorry number not available", Toast.LENGTH_LONG).show()
         }
 
         override fun sendMail(s: String) {
@@ -82,7 +82,7 @@ private fun openDetail(tabs: Array<String>, pages: Array<String>) {
         "&body=" + Uri.encode("the body of the message"))
         val uri = Uri.parse(uriText)
         send.data = uri
-        startActivity(Intent.createChooser(send, "Send mail...")) }
-        else Toast.makeText(this, "Sorry email not available", Toast.LENGTH_LONG).show()
+        startActivity(Intent.createChooser(send, "Send mail..."))
+        }else Toast.makeText(this, "Sorry email not available", Toast.LENGTH_LONG).show()
         }
 }
