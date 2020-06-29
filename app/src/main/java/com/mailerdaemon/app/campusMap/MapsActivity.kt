@@ -22,16 +22,22 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.mailerdaemon.app.R
 import com.mailerdaemon.app.campusMap.MapsActivity
+import com.mailerdaemon.app.toast
 import java.lang.ref.WeakReference
 import java.util.*
 
+const val MY_PERMISSIONS_REQUEST_LOCATION = 99
+private const val COLOR_BLACK_ARGB = -0x1000000
+private const val POLYLINE_STROKE_WIDTH_PX = 2
+
+
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
-    var mLocationRequest: LocationRequest? = null
-    var mLastLocation: Location? = null
-    var mCurrLocationMarker: Marker? = null
-    var mFusedLocationClient: FusedLocationProviderClient? = null
-    var mLocationCallback: LocationCallback? = null
-    var ref = WeakReference<Activity>(this)
+    private lateinit var mLocationRequest: LocationRequest
+    private lateinit  var mLastLocation: Location
+    private lateinit var mCurrLocationMarker: Marker
+    private lateinit var mFusedLocationClient: FusedLocationProviderClient
+    private lateinit var mLocationCallback: LocationCallback
+    private var ref = WeakReference<Activity>(this)
     private var mMap: GoogleMap? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,22 +45,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         Objects.requireNonNull(supportActionBar)?.setDisplayShowHomeEnabled(true)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = (supportFragmentManager
-                .findFragmentById(R.id.map) as SupportMapFragment?)!!
-        mapFragment.getMapAsync(this)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.title = "Campus Map"
+                .findFragmentById(R.id.map) as? SupportMapFragment?)
+        mapFragment?.getMapAsync(this)
+
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.title = resources.getString(R.string.campus_map)
+        }
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(ref.get()!!)
     }
 
     public override fun onPause() {
         super.onPause()
-
         //stop location updates when Activity is no longer active
         if (mFusedLocationClient != null) {
-            mFusedLocationClient!!.removeLocationUpdates(mLocationCallback)
+            mFusedLocationClient.removeLocationUpdates(mLocationCallback)
         }
     }
-
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -72,16 +79,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val ismGate = LatLng(23.809163, 86.442590)
         val Jasper = LatLng(23.817035, 86.440934)
         val Ruby = LatLng(23.813257, 86.444626)
-        mMap!!.addMarker(MarkerOptions().position(ism).title("Heritage Building"))
-        mMap!!.addMarker(MarkerOptions().position(ismGate).title("Main Entrance"))
-        mMap!!.addMarker(MarkerOptions().position(Jasper).title("Jasper").alpha(0.5f))
-        mMap!!.addMarker(MarkerOptions().position(Ruby).title("Ruby").alpha(0.5f))
+        mMap?.addMarker(MarkerOptions().position(ism).title(resources.getString(R.string.marker_heritage)))
+        mMap?.addMarker(MarkerOptions().position(ismGate).title(resources.getString(R.string.marker_main_entrance)))
+        mMap?.addMarker(MarkerOptions().position(Jasper).title(resources.getString(R.string.marker_jasper)).alpha(0.5f))
+        mMap?.addMarker(MarkerOptions().position(Ruby).title(resources.getString(R.string.marker_ruby)).alpha(0.5f))
         val sac = LatLng(23.817462, 86.437456)
-        mMap!!.addMarker(MarkerOptions().position(sac).title("SAC"))
+        mMap?.addMarker(MarkerOptions().position(sac).title(resources.getString(R.string.marker_sac)))
         val pm = LatLng(23.814902, 86.441178)
-        mMap!!.addMarker(MarkerOptions().position(pm).title("PenMan Auditoritum"))
+        mMap?.addMarker(MarkerOptions().position(pm).title(resources.getString(R.string.marker_penman)))
         val hc = LatLng(23.811926, 86.439028)
-        mMap!!.addMarker(MarkerOptions().position(hc).title("Health Centre"))
+        mMap?.addMarker(MarkerOptions().position(hc).title(resources.getString(R.string.marker_hc)))
         val polyline1 = googleMap.addPolyline(PolylineOptions()
                 .clickable(true)
                 .add(
@@ -109,14 +116,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val width1 = resources.displayMetrics.widthPixels
         val height = resources.displayMetrics.heightPixels
         val padding = (width1 * 0.12).toInt() // offset from edges of the map 12% of screen
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(ism))
+        mMap?.moveCamera(CameraUpdateFactory.newLatLng(ism))
         val update = CameraUpdateFactory.newLatLngBounds(LatLngBounds(LatLng(23.809756, 86.433533), LatLng(23.820778, 86.449679)), width1, height, padding)
-        mMap!!.moveCamera(update)
+        mMap?.moveCamera(update)
         mLocationRequest = LocationRequest()
-        mLocationRequest!!.interval = 60000 // two minute interval
-        mLocationRequest!!.fastestInterval = 60000
-        mLocationRequest!!.smallestDisplacement = 10f
-        mLocationRequest!!.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+
+        mLocationRequest.let {
+            it.interval = 60000 // two minute interval
+            it.fastestInterval = 60000
+            it.smallestDisplacement = 10f
+            it.priority = LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY
+        }
         mLocationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 var locationList: List<Location> = ArrayList()
@@ -125,39 +135,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     //The last location in the list is the newest
                     val location = locationList[locationList.size - 1]
                     mLastLocation = location
-                    //                    boolean inside = PolyUtil.containsLocation(mLastLocation.getLongitude(),mLastLocation.getLatitude(), Arrays.asList(new LatLng(23.821271, 86.435213),
-//                            new LatLng(23.819827, 86.434614),
-//                            new LatLng(23.818309, 86.436635),
-//                            new LatLng(23.817824, 86.436289),
-//                            new LatLng(23.815959, 86.439142),
-//                            new LatLng(23.811823, 86.436986),
-//                            new LatLng(23.810356, 86.437202),
-//                            new LatLng(23.809208, 86.441401),
-//                            new LatLng(23.808920, 86.442469),
-//                            new LatLng(23.811918, 86.444478),
-//                            new LatLng(23.811966, 86.447407),
-//                            new LatLng(23.814787, 86.447845),
-//                            new LatLng(23.816345, 86.442538),
-//                            new LatLng(23.817181, 86.442852),
-//                            new LatLng(23.818064, 86.440134),
-//                            new LatLng(23.819137, 86.440809),
-//                            new LatLng(23.819931, 86.439832),
-//                            new LatLng(23.818626, 86.438828),
-//                            new LatLng(23.821271, 86.435213)), true);
+
                     if (mCurrLocationMarker != null) {
-                        mCurrLocationMarker!!.remove()
+                        mCurrLocationMarker.remove()
                     }
 
                     //Place current location marker
                     val latLng = LatLng(location.latitude, location.longitude)
                     val markerOptions = MarkerOptions()
-                    markerOptions.position(latLng)
-                    markerOptions.title("Current Position")
-                    markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
-                    mCurrLocationMarker = mMap!!.addMarker(markerOptions)
 
-                    //move map camera
-                    //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
+                    markerOptions.let {
+                        it.position(latLng)
+                        it.title(resources.getString(R.string.marker_title))
+                        it.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
+                    }
+                    mCurrLocationMarker = mMap!!.addMarker(markerOptions)
                 }
             }
         }
@@ -166,15 +158,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 //Location Permission already granted
-                mFusedLocationClient!!.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
-                mMap!!.isMyLocationEnabled = true
+                mFusedLocationClient?.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
+                mMap?.isMyLocationEnabled = true
             } else {
                 //Request Location Permission
                 checkLocationPermission()
             }
         } else {
-            mFusedLocationClient!!.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
-            mMap!!.isMyLocationEnabled = true
+            mFusedLocationClient?.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
+            mMap?.isMyLocationEnabled = true
         }
     }
 
@@ -189,16 +181,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
-                AlertDialog.Builder(this)
-                        .setTitle("Location Permission Needed")
-                        .setMessage("This app needs the Location permission, please accept to use location functionality")
-                        .setPositiveButton("OK") { dialogInterface: DialogInterface?, i: Int ->
-                            //Prompt the user once explanation has been shown
-                            ActivityCompat.requestPermissions(this@MapsActivity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                                    MY_PERMISSIONS_REQUEST_LOCATION)
-                        }
-                        .create()
-                        .show()
+
+                val builder = AlertDialog.Builder(this)
+                with(builder)
+                {
+                    setTitle(resources.getString(R.string.dialog_title))
+                    setMessage(resources.getString(R.string.dialog_message))
+                    setPositiveButton("OK") { dialogInterface: DialogInterface?, i: Int ->
+                        //Prompt the user once explanation has been shown
+                        ActivityCompat.requestPermissions(this@MapsActivity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                                MY_PERMISSIONS_REQUEST_LOCATION)
+                    }
+                }
+                val alertDialog:AlertDialog = builder.create();
+                alertDialog.show()
+
             } else {
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -218,16 +215,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (ContextCompat.checkSelfPermission(this,
                                 Manifest.permission.ACCESS_FINE_LOCATION)
                         == PackageManager.PERMISSION_GRANTED) {
-                    mFusedLocationClient!!.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
-                    mMap!!.isMyLocationEnabled = true
+                    mFusedLocationClient?.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
+                    mMap?.isMyLocationEnabled = true
                 }
             } else {
-
                 // permission denied, boo! Disable the
                 // functionality that depends on this permission.
-                Toast.makeText(this, "permission denied", Toast.LENGTH_LONG).show()
+                toast("Permission Denied")
             }
-
             // other 'case' lines to check for other
             // permissions this app might request
         }
@@ -239,34 +234,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun stylePolyline(polyline: Polyline) {
-//        String type = "";
-//        // Get the data object stored with the polyline.
-//        if (polyline.getTag() != null) {
-//            type = polyline.getTag().toString();
-//        }
 
-        /* switch (type) {
-            // If no type is given, allow the API to use the default.
-            case "A":
-                // Use a custom bitmap as the cap at the start of the line.
-                polyline.setStartCap(
-                        new CustomCap(
-                                BitmapDescriptorFactory.fromResource(R.drawable.ic_arrow), 10));
-                break;
-            case "B":
-                // Use a round cap at the start of the line.
-                polyline.setStartCap(new RoundCap());
-                break;
-        }*/
+
         polyline.endCap = RoundCap()
         polyline.width = POLYLINE_STROKE_WIDTH_PX.toFloat()
         polyline.color = R.color.map_lines
         polyline.jointType = JointType.ROUND
-    }
-
-    companion object {
-        const val MY_PERMISSIONS_REQUEST_LOCATION = 99
-        private const val COLOR_BLACK_ARGB = -0x1000000
-        private const val POLYLINE_STROKE_WIDTH_PX = 2
     }
 }
