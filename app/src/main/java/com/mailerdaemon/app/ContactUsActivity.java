@@ -23,7 +23,7 @@ public class ContactUsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        ImageView bt_fb,bt_insta,bt_email_md;
+        ImageView bt_fb, bt_insta, bt_email_md;
         MaterialCardView formLink=findViewById(R.id.google_form);
         MaterialCardView privacyPolicy=findViewById(R.id.privacy_policy);
         bt_fb=findViewById(R.id.contact_fb);
