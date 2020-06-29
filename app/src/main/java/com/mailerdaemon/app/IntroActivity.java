@@ -70,23 +70,23 @@ public class IntroActivity extends AppCompatActivity {
 
                 switch (position) {
                     case 0:
-                      viewPager.setBackgroundColor(color1);
-                      break;
+                       viewPager.setBackgroundColor(color1);
+                       break;
                     case 1:
-                      viewPager.setBackgroundColor(color2);
-                      break;
+                       viewPager.setBackgroundColor(color2);
+                       break;
                     case 2:
-                      viewPager.setBackgroundColor(color3);
-                      break;
+                       viewPager.setBackgroundColor(color3);
+                       break;
                     case 3:
-                      viewPager.setBackgroundColor(color1);
-                      break;
+                       viewPager.setBackgroundColor(color1);
+                       break;
                     case 4:
-                      viewPager.setBackgroundColor(color2);
-                      break;
+                       viewPager.setBackgroundColor(color2);
+                       break;
                     case 5:
-                      viewPager.setBackgroundColor(color3);
-                      break;
+                       viewPager.setBackgroundColor(color3);
+                       break;
                 }
                 mNextBtn.setVisibility(position == colorList.length-1 ? View.GONE : View.VISIBLE);
                 mFinishBtn.setVisibility(position == colorList.length-1 ? View.VISIBLE : View.GONE);
