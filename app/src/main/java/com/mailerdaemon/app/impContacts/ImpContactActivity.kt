@@ -5,11 +5,14 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
+
 import androidx.appcompat.app.AppCompatActivity
+
 import com.mailerdaemon.app.R
 import com.mailerdaemon.app.utils.ChromeTab
 import com.mailerdaemon.app.utils.ContactFunction
 import com.mailerdaemon.app.WARDEN_LINK
+
 import kotlinx.android.synthetic.main.activity_imp_contacts.*
 
 class ImpContactActivity : AppCompatActivity(), ContactFunction {
@@ -71,7 +74,7 @@ private fun openDetail(tabs: Array<String>, pages: Array<String>) {
         if (num.trim { it <= ' ' } != "0") {
         val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num.trim { it <= ' ' }))
         startActivity(intent)
-        }else Toast.makeText(this, "Sorry number not available", Toast.LENGTH_LONG).show()
+        } else Toast.makeText(this, "Sorry number not available", Toast.LENGTH_LONG).show()
         }
 
         override fun sendMail(s: String) {
@@ -83,6 +86,6 @@ private fun openDetail(tabs: Array<String>, pages: Array<String>) {
         val uri = Uri.parse(uriText)
         send.data = uri
         startActivity(Intent.createChooser(send, "Send mail..."))
-        }else Toast.makeText(this, "Sorry email not available", Toast.LENGTH_LONG).show()
+        } else Toast.makeText(this, "Sorry email not available", Toast.LENGTH_LONG).show()
         }
 }
