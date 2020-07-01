@@ -5,14 +5,11 @@ import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
-
 import androidx.appcompat.app.AppCompatActivity
-
 import com.mailerdaemon.app.R
+import com.mailerdaemon.app.WARDEN_LINK
 import com.mailerdaemon.app.utils.ChromeTab
 import com.mailerdaemon.app.utils.ContactFunction
-import com.mailerdaemon.app.WARDEN_LINK
-
 import kotlinx.android.synthetic.main.activity_imp_contacts.*
 
 class ImpContactActivity : AppCompatActivity(), ContactFunction {
