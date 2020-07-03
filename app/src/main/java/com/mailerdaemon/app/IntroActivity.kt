@@ -18,7 +18,7 @@ class IntroActivity : AppCompatActivity() {
         setContentView(R.layout.activity_intro)
 
         indicators = arrayOf(intro_indicator_1, intro_indicator_2, intro_indicator_3,
-                intro_indicator_4, intro_indicator_5, intro_indicator_6)
+            intro_indicator_4, intro_indicator_5, intro_indicator_6)
         val color1 = ContextCompat.getColor(this, R.color.intro_1)
         val color2 = ContextCompat.getColor(this, R.color.intro_2)
         val color3 = ContextCompat.getColor(this, R.color.intro_3)
@@ -29,9 +29,9 @@ class IntroActivity : AppCompatActivity() {
         view_pager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                 val colorUpdate = evaluator
-                        .evaluate(positionOffset,
-                                colorList[position],
-                                colorList[if (position == colorList.size - 1) position else position + 1]) as Int
+                    .evaluate(positionOffset,
+                        colorList[position],
+                        colorList[if (position == colorList.size - 1) position else position + 1]) as Int
                 view_pager.setBackgroundColor(colorUpdate)
             }
 
@@ -65,7 +65,7 @@ class IntroActivity : AppCompatActivity() {
     private fun updateIndicators(position: Int) =
         indicators.indices.forEach {
             indicators[it].setBackgroundResource(
-                    if (it == position) R.drawable.indicator_selected else R.drawable.indicator_unselected
+                if (it == position) R.drawable.indicator_selected else R.drawable.indicator_unselected
             )
         }
 }

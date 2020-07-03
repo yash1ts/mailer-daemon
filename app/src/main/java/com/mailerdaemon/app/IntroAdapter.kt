@@ -8,8 +8,8 @@ import androidx.viewpager.widget.PagerAdapter
 
 class IntroAdapter : PagerAdapter() {
     private val xml = intArrayOf(R.layout.intro_1, R.layout.intro_2,
-            R.layout.intro_3, R.layout.intro_4,
-            R.layout.intro_5, R.layout.intro_6)
+        R.layout.intro_3, R.layout.intro_4,
+        R.layout.intro_5, R.layout.intro_6)
 
     override fun isViewFromObject(view: View, `object`: Any) = (view === `object`)
 
@@ -20,7 +20,7 @@ class IntroAdapter : PagerAdapter() {
     }
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) = container
-            .removeView(`object` as LinearLayout)
+        .removeView(`object` as LinearLayout)
 
     override fun getCount() = xml.size
 }
