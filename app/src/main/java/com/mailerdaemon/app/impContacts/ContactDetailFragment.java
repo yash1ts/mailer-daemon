@@ -125,8 +125,8 @@ public class ContactDetailFragment extends Fragment implements ContactFunction {
     @Override
     public void makeCall(String num) {
         if(!num.trim().equals("0")){
-            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num.trim()));
-            startActivity(intent);}
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num.trim()));
+        startActivity(intent);}
         else{
             Toast.makeText(getContext(),"Sorry number not available",Toast.LENGTH_LONG).show();
         }

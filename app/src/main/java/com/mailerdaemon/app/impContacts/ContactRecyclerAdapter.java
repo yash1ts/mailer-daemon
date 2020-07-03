@@ -24,7 +24,7 @@ public class ContactRecyclerAdapter extends RecyclerView.Adapter<ContactRecycler
     ContactFunction fun;
     private List<Contact> contact =new ArrayList();
     public ContactRecyclerAdapter( ContactFunction function) {
-        this.fun=function;
+    this.fun=function;
     }
 
     @NonNull

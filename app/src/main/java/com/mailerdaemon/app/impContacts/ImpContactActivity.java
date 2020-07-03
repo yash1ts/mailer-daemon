@@ -46,26 +46,26 @@ public class ImpContactActivity extends AppCompatActivity implements ContactFunc
         getSupportActionBar().setTitle("Contacts");
 
         bt_faculty.setOnClickListener(v -> {
-        String[] tabs = new String[]{"All", "ACH","AGL","AGP","MnC","AP","CHE","CIV","CSE","ECE","EE","ESE","FME","HSS","ME","MECH","MME","MS","PE"};
-        String[] pages = new String[]{"faculty_all","ACH","AGL","AGP","AM","AP","CHE","CIV","CSE","ECE","EE","ESE","FME","HSS","ME","MECH","MME","MS","PE"};
-        openDetail(tabs, pages);
-    });
+            String[] tabs = new String[]{"All", "ACH","AGL","AGP","MnC","AP","CHE","CIV","CSE","ECE","EE","ESE","FME","HSS","ME","MECH","MME","MS","PE"};
+            String[] pages = new String[]{"faculty_all","ACH","AGL","AGP","AM","AP","CHE","CIV","CSE","ECE","EE","ESE","FME","HSS","ME","MECH","MME","MS","PE"};
+            openDetail(tabs, pages);
+        });
 
         bt_admin.setOnClickListener(v -> {
-        String[] tabs = new String[]{"Deans", "Associate Deans", "HOD", "HOC"};
-        String[] pages = new String[]{"deans", "associate_deans", "hod", "hoc"};
-        openDetail(tabs, pages);
-    });
+            String[] tabs = new String[]{"Deans", "Associate Deans", "HOD", "HOC"};
+            String[] pages = new String[]{"deans", "associate_deans", "hod", "hoc"};
+            openDetail(tabs, pages);
+        });
         bt_hostel.setOnClickListener(v -> {
-        ChromeTab tab=new ChromeTab(this);
-        tab.openTab(ConstantsKt.WARDEN_LINK);
-    });
+            ChromeTab tab=new ChromeTab(this);
+            tab.openTab(ConstantsKt.WARDEN_LINK);
+        });
         bt_senate.setOnClickListener(v->{
 
-    });
+        });
         bt_more.setOnClickListener(v->{
 
-    });
+        });
     }
 
     public void openDetail(String[] tabs, String[] pages) {
@@ -89,7 +89,7 @@ public class ImpContactActivity extends AppCompatActivity implements ContactFunc
     @Override
     public void onBackPressed() {
         if(getSupportFragmentManager().getFragments().isEmpty())
-            super.onBackPressed();
+        super.onBackPressed();
         else getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().getFragments().get(0)).commit();
     }
 
@@ -116,7 +116,7 @@ public class ImpContactActivity extends AppCompatActivity implements ContactFunc
         if(!s.trim().isEmpty()) {
             Intent send = new Intent(Intent.ACTION_SENDTO);
             String uriText = "mailto:" + Uri.encode(s.trim()) +
-            "?subject=" + Uri.encode("Subject") +
+                    "?subject=" + Uri.encode("Subject") +
                     "&body=" + Uri.encode("the body of the message");
             Uri uri = Uri.parse(uriText);
 
