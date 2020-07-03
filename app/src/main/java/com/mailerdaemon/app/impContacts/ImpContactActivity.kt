@@ -66,7 +66,7 @@ class ImpContactActivity : AppCompatActivity(), ContactFunction {
         if (num.trim() != "0") {
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num.trim()))
             startActivity(intent)
-        } else this.toast( "Sorry number not available")
+        } else this.toast("Sorry number not available")
     }
 
     override fun sendMail(s: String) {
