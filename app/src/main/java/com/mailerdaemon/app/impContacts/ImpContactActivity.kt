@@ -20,7 +20,7 @@ class ImpContactActivity : AppCompatActivity(), ContactFunction {
         setSupportActionBar(toolbar)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
-            it.title = "Contacts"
+            it.title = resources.getString(R.string.title_activity_imp_contacts)
         }
         bt_faculty.setOnClickListener { openDetail(resources.getStringArray(R.array.tabs), resources.getStringArray(R.array.pages)) }
         bt_admin.setOnClickListener {
@@ -66,7 +66,7 @@ class ImpContactActivity : AppCompatActivity(), ContactFunction {
         if (num.trim() != "0") {
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num.trim()))
             startActivity(intent)
-        } else this.toast("Sorry number not available")
+        } else this.toast(resources.getString(R.string.number_not_available))
     }
 
     override fun sendMail(s: String) {
@@ -75,6 +75,6 @@ class ImpContactActivity : AppCompatActivity(), ContactFunction {
             val uriText = "mailto:${Uri.encode(s.trim())}?subject=${Uri.encode("Subject")}&body=${Uri.encode("the body of the message")}"
             send.data = Uri.parse(uriText)
             startActivity(Intent.createChooser(send, "Send mail..."))
-        } else this.toast("Sorry email not available")
+        } else this.toast(resources.getString(R.string.email_not_available))
     }
 }
