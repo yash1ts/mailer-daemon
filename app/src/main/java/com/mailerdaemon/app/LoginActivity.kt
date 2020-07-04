@@ -2,29 +2,36 @@ package com.mailerdaemon.app
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import androidx.appcompat.app.AppCompatActivity
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.facebook.AccessToken
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
 import com.facebook.login.LoginManager
 import com.facebook.login.LoginResult
-import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
-import java.util.*
-import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_login.forgot_password
+import kotlinx.android.synthetic.main.activity_login.google_signin
+import kotlinx.android.synthetic.main.activity_login.login
+import kotlinx.android.synthetic.main.activity_login.login_email
+import kotlinx.android.synthetic.main.activity_login.login_facebook
+import kotlinx.android.synthetic.main.activity_login.login_password
+import kotlinx.android.synthetic.main.activity_login.progress_bar
+import kotlinx.android.synthetic.main.activity_login.signup
+import java.util.Calendar
 
 class LoginActivity : AppCompatActivity() {
 
