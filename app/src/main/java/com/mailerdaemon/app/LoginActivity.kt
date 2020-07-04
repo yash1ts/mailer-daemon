@@ -18,7 +18,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
-import com.google.firebase.auth.*
+import com.google.firebase.auth.FacebookAuthProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
@@ -64,8 +67,7 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
         callbackManager = CallbackManager.Factory.create()
-        LoginManager.getInstance().registerCallback(callbackManager, object
-            : FacebookCallback<LoginResult> {
+        LoginManager.getInstance().registerCallback(callbackManager, object: FacebookCallback<LoginResult> {
             override fun onSuccess(loginResult: LoginResult) {
                 progress_bar.visibility = View.GONE
                 handleFacebookAccessToken(loginResult.accessToken)
@@ -92,7 +94,6 @@ class LoginActivity : AppCompatActivity() {
             progress_bar.visibility = View.VISIBLE
             startActivityForResult(mGoogleSignInClient.signInIntent, RC_SIGNIN)
         }
-
     }
 
     private fun handleFacebookAccessToken(accessToken: AccessToken?) {
@@ -105,8 +106,7 @@ class LoginActivity : AppCompatActivity() {
                         this.toast(getString(R.string.AuthFailed) + task.exception)
                 }
     }
-
-
+    
     private fun saveUser(user: FirebaseUser?) {
         if (user != null) {
             val model = UserModel(user.uid, user.displayName, user.email, false)
@@ -124,7 +124,7 @@ class LoginActivity : AppCompatActivity() {
             startMain()
         }
     }
-
+    
     private fun createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name: CharSequence = "MailerDaemon"
@@ -136,7 +136,6 @@ class LoginActivity : AppCompatActivity() {
             notificationManager?.createNotificationChannel(channel)
         }
     }
-
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -163,11 +162,10 @@ class LoginActivity : AppCompatActivity() {
                     if (task.isSuccessful)
                         saveUser(mAuth.currentUser)
                     else
-                    // If sign in fails, display a message to the user.
+                    //If sign in fails, display a message to the user.
                         this.toast(getString(R.string.AuthFailed))
                 }
     }
-
 
     private fun startMain() {
         intent = Intent(applicationContext, MainActivity::class.java)
@@ -175,4 +173,3 @@ class LoginActivity : AppCompatActivity() {
         finish()
     }
 }
-
