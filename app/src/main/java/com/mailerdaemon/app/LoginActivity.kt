@@ -18,19 +18,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FacebookAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_login.forgot_password
-import kotlinx.android.synthetic.main.activity_login.google_signin
-import kotlinx.android.synthetic.main.activity_login.login
-import kotlinx.android.synthetic.main.activity_login.login_email
-import kotlinx.android.synthetic.main.activity_login.login_facebook
-import kotlinx.android.synthetic.main.activity_login.login_password
-import kotlinx.android.synthetic.main.activity_login.progress_bar
-import kotlinx.android.synthetic.main.activity_login.signup
+import kotlinx.android.synthetic.main.activity_login.*
 import java.util.Calendar
 
 class LoginActivity : AppCompatActivity() {
@@ -104,14 +98,19 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleFacebookAccessToken(accessToken: AccessToken?) {
-        val credential = FacebookAuthProvider.getCredential(accessToken!!.token)
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful)
-                        saveUser(mAuth.currentUser)
-                    else
-                        this.toast(getString(R.string.AuthFailed) + task.exception)
-                }
+            val credential :AuthCredential
+        if(accessToken!=null) {
+            credential = FacebookAuthProvider.getCredential(accessToken.token)
+            mAuth.signInWithCredential(credential)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful)
+                            saveUser(mAuth.currentUser)
+                        else
+                            this.toast(getString(R.string.AuthFailed) + task.exception)
+                    }
+        }
+        else
+            this.toast(getString(R.string.Failed))
     }
 
     private fun saveUser(user: FirebaseUser?) {
