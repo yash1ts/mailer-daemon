@@ -98,9 +98,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleFacebookAccessToken(accessToken: AccessToken?) {
-            val credential: AuthCredential
         if (accessToken != null) {
-            credential = FacebookAuthProvider.getCredential(accessToken.token)
+            val credential = FacebookAuthProvider.getCredential(accessToken.token)
             mAuth.signInWithCredential(credential)
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful)
@@ -109,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
                             this.toast(getString(R.string.AuthFailed) + task.exception)
                     }
         } else
-            this.toast(getString(R.string.Failed))
+            this.toast(getString(R.string.AuthFailed))
     }
 
     private fun saveUser(user: FirebaseUser?) {
