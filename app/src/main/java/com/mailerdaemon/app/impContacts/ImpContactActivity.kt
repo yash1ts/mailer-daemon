@@ -22,7 +22,8 @@ class ImpContactActivity : AppCompatActivity(), ContactFunction {
             it.setDisplayHomeAsUpEnabled(true)
             it.title = resources.getString(R.string.title_activity_imp_contacts)
         }
-        bt_faculty.setOnClickListener { openDetail(resources.getStringArray(R.array.tabs), resources.getStringArray(R.array.pages)) }
+        bt_faculty.setOnClickListener { openDetail(resources.getStringArray(R.array.tabs),
+                resources.getStringArray(R.array.pages)) }
         bt_admin.setOnClickListener {
             val tabs = arrayOf("Deans", "Associate Deans", "HOD", "HOC")
             val pages = arrayOf("deans", "associate_deans", "hod", "hoc")
@@ -72,7 +73,9 @@ class ImpContactActivity : AppCompatActivity(), ContactFunction {
     override fun sendMail(s: String) {
         if (s.trim().isNotEmpty()) {
             val send = Intent(Intent.ACTION_SENDTO)
-            val uriText = "mailto:${Uri.encode(s.trim())}?subject=${Uri.encode("Subject")}&body=${Uri.encode("the body of the message")}"
+            val uriText = "mailto:${Uri.encode(s.trim())}" +
+                    "?subject=${Uri.encode("Subject")}" +
+                    "&body=${Uri.encode("the body of the message")}"
             send.data = Uri.parse(uriText)
             startActivity(Intent.createChooser(send, "Send mail..."))
         } else this.toast(resources.getString(R.string.email_not_available))
