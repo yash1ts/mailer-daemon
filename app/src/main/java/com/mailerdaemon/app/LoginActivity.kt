@@ -98,8 +98,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleFacebookAccessToken(accessToken: AccessToken?) {
-            val credential :AuthCredential
-        if(accessToken!=null) {
+            val credential:AuthCredential
+        if (accessToken != null) {
             credential = FacebookAuthProvider.getCredential(accessToken.token)
             mAuth.signInWithCredential(credential)
                     .addOnCompleteListener(this) { task ->
@@ -108,8 +108,7 @@ class LoginActivity : AppCompatActivity() {
                         else
                             this.toast(getString(R.string.AuthFailed) + task.exception)
                     }
-        }
-        else
+        } else
             this.toast(getString(R.string.Failed))
     }
 
