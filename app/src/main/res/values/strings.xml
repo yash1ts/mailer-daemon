@@ -23,5 +23,6 @@
   <string name="SignUpError">If you dont have a account please signup.</string>
   <string name="AuthFailed">Authentication failed.</string>
   <string name="EmailId">email</string>
+  <string name="Failed">FAILED SIGNIN</string>
 
 </resources>
