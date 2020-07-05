@@ -98,7 +98,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun handleFacebookAccessToken(accessToken: AccessToken?) {
-            val credential:AuthCredential
+            val credential: AuthCredential
         if (accessToken != null) {
             credential = FacebookAuthProvider.getCredential(accessToken.token)
             mAuth.signInWithCredential(credential)
