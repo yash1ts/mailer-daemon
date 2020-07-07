@@ -20,7 +20,7 @@ class ContactFragmentViewPager : Fragment() {
             it.tabMode = TabLayout.MODE_SCROLLABLE
         }
         val tabs = arguments?.getStringArray("tabs")
-        view.contact_viewpager.adapter = object:FragmentStatePagerAdapter(childFragmentManager,
+        view.contact_viewpager.adapter = object: FragmentStatePagerAdapter(childFragmentManager,
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             var s = arguments?.getStringArray("pages")
 

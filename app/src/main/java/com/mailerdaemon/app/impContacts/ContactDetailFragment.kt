@@ -63,7 +63,7 @@ class ContactDetailFragment : Fragment(), ContactFunction {
                 it.close()
             }
             json = String(buffer, StandardCharsets.UTF_8)
-        }catch (ex: IOException) {
+        } catch (ex: IOException) {
             ex.printStackTrace()
             return null
         }
@@ -86,7 +86,7 @@ class ContactDetailFragment : Fragment(), ContactFunction {
                 override fun onQueryTextChange(newText: String): Boolean {
                     if (newText == "") {
                         updateRV(contactList)
-                    }else {
+                    } else {
                         val list = ArrayList<Contact>()
                         for (c in contactList) {
                             if (c.name?.contains(newText.toLowerCase())!!)
@@ -110,7 +110,7 @@ class ContactDetailFragment : Fragment(), ContactFunction {
         if (num.trim() != "0") {
             val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + num.trim()))
             startActivity(intent)
-        }else context?.toast(resources.getString(R.string.number_not_available))
+        } else context?.toast(resources.getString(R.string.number_not_available))
     }
 
     override fun sendMail(s: String) {
@@ -121,6 +121,6 @@ class ContactDetailFragment : Fragment(), ContactFunction {
                     "&body=${Uri.encode("the body of the message")}"
             send.data = Uri.parse(uriText)
             startActivity(Intent.createChooser(send, "Send mail..."))
-        }else context?.toast(resources.getString(R.string.email_not_available))
+        } else context?.toast(resources.getString(R.string.email_not_available))
     }
 }
