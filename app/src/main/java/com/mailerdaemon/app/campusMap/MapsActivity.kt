@@ -9,7 +9,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Looper
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -21,7 +20,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.mailerdaemon.app.R
-import com.mailerdaemon.app.campusMap.MapsActivity
 import com.mailerdaemon.app.toast
 import java.lang.ref.WeakReference
 import java.util.*
@@ -38,7 +36,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private lateinit var mLocationCallback: LocationCallback
     private var ref = WeakReference<Activity>(this)
-    private var mMap: GoogleMap? = null
+    private lateinit var mMap: GoogleMap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
@@ -52,15 +50,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             it.setDisplayHomeAsUpEnabled(true)
             it.title = resources.getString(R.string.campus_map)
         }
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(ref.get()!!)
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(requireNotNull(ref.get()))
     }
 
     public override fun onPause() {
         super.onPause()
         //stop location updates when Activity is no longer active
-        if (mFusedLocationClient != null) {
-            mFusedLocationClient.removeLocationUpdates(mLocationCallback)
-        }
+        mFusedLocationClient.removeLocationUpdates(mLocationCallback)
     }
     /**
      * Manipulates the map once available.
@@ -77,18 +73,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // Add a marker in Sydney and move the camera
         val ism = LatLng(23.814110, 86.441207)
         val ismGate = LatLng(23.809163, 86.442590)
-        val Jasper = LatLng(23.817035, 86.440934)
-        val Ruby = LatLng(23.813257, 86.444626)
-        mMap?.addMarker(MarkerOptions().position(ism).title(resources.getString(R.string.marker_heritage)))
-        mMap?.addMarker(MarkerOptions().position(ismGate).title(resources.getString(R.string.marker_main_entrance)))
-        mMap?.addMarker(MarkerOptions().position(Jasper).title(resources.getString(R.string.marker_jasper)).alpha(0.5f))
-        mMap?.addMarker(MarkerOptions().position(Ruby).title(resources.getString(R.string.marker_ruby)).alpha(0.5f))
+        val jasper = LatLng(23.817035, 86.440934)
+        val ruby = LatLng(23.813257, 86.444626)
+        mMap.addMarker(MarkerOptions().position(ism).title(resources.getString(R.string.marker_heritage)))
+        mMap.addMarker(MarkerOptions().position(ismGate).title(resources.getString(R.string.marker_main_entrance)))
+        mMap.addMarker(MarkerOptions().position(jasper).title(resources.getString(R.string.marker_jasper)).alpha(0.5f))
+        mMap.addMarker(MarkerOptions().position(ruby).title(resources.getString(R.string.marker_ruby)).alpha(0.5f))
         val sac = LatLng(23.817462, 86.437456)
-        mMap?.addMarker(MarkerOptions().position(sac).title(resources.getString(R.string.marker_sac)))
+        mMap.addMarker(MarkerOptions().position(sac).title(resources.getString(R.string.marker_sac)))
         val pm = LatLng(23.814902, 86.441178)
-        mMap?.addMarker(MarkerOptions().position(pm).title(resources.getString(R.string.marker_penman)))
+        mMap.addMarker(MarkerOptions().position(pm).title(resources.getString(R.string.marker_penman)))
         val hc = LatLng(23.811926, 86.439028)
-        mMap?.addMarker(MarkerOptions().position(hc).title(resources.getString(R.string.marker_hc)))
+        mMap.addMarker(MarkerOptions().position(hc).title(resources.getString(R.string.marker_hc)))
         val polyline1 = googleMap.addPolyline(PolylineOptions()
                 .clickable(true)
                 .add(
@@ -116,9 +112,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val width1 = resources.displayMetrics.widthPixels
         val height = resources.displayMetrics.heightPixels
         val padding = (width1 * 0.12).toInt() // offset from edges of the map 12% of screen
-        mMap?.moveCamera(CameraUpdateFactory.newLatLng(ism))
-        val update = CameraUpdateFactory.newLatLngBounds(LatLngBounds(LatLng(23.809756, 86.433533), LatLng(23.820778, 86.449679)), width1, height, padding)
-        mMap?.moveCamera(update)
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(ism))
+        val bound = LatLngBounds(LatLng(23.809756, 86.433533), LatLng(23.820778, 86.449679))
+        val update = CameraUpdateFactory.newLatLngBounds(bound, width1, height, padding)
+        mMap.moveCamera(update)
         mLocationRequest = LocationRequest()
 
         mLocationRequest.let {
@@ -129,16 +126,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         mLocationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
-                var locationList: List<Location> = ArrayList()
-                if (locationResult != null) locationList = locationResult.locations
-                if (locationList.size > 0) {
+                val locationList: List<Location> = locationResult.locations
+                if (locationList.isNotEmpty()) {
                     //The last location in the list is the newest
                     val location = locationList[locationList.size - 1]
                     mLastLocation = location
-
-                    if (mCurrLocationMarker != null) {
-                        mCurrLocationMarker.remove()
-                    }
+                    mCurrLocationMarker.remove()
 
                     //Place current location marker
                     val latLng = LatLng(location.latitude, location.longitude)
@@ -149,7 +142,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                         it.title(resources.getString(R.string.marker_title))
                         it.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA))
                     }
-                    mCurrLocationMarker = mMap!!.addMarker(markerOptions)
+                    mCurrLocationMarker = mMap.addMarker(markerOptions)
                 }
             }
         }
@@ -158,15 +151,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                             Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
                 //Location Permission already granted
-                mFusedLocationClient?.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
-                mMap?.isMyLocationEnabled = true
+                mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
+                mMap.isMyLocationEnabled = true
             } else {
                 //Request Location Permission
                 checkLocationPermission()
             }
         } else {
-            mFusedLocationClient?.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
-            mMap?.isMyLocationEnabled = true
+            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
+            mMap.isMyLocationEnabled = true
         }
     }
 
@@ -193,7 +186,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                                 MY_PERMISSIONS_REQUEST_LOCATION)
                     }
                 }
-                val alertDialog:AlertDialog = builder.create();
+                val alertDialog:AlertDialog = builder.create()
                 alertDialog.show()
 
             } else {
@@ -207,7 +200,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onRequestPermissionsResult(requestCode: Int,
                                             permissions: Array<String>, grantResults: IntArray) {
         if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) { // If request is cancelled, the result arrays are empty.
-            if (grantResults.size > 0
+            if (grantResults.isNotEmpty()
                     && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
                 // permission was granted, yay! Do the
@@ -215,8 +208,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (ContextCompat.checkSelfPermission(this,
                                 Manifest.permission.ACCESS_FINE_LOCATION)
                         == PackageManager.PERMISSION_GRANTED) {
-                    mFusedLocationClient?.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
-                    mMap?.isMyLocationEnabled = true
+                    mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
+                    mMap.isMyLocationEnabled = true
                 }
             } else {
                 // permission denied, boo! Disable the
@@ -234,8 +227,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun stylePolyline(polyline: Polyline) {
-
-
         polyline.endCap = RoundCap()
         polyline.width = POLYLINE_STROKE_WIDTH_PX.toFloat()
         polyline.color = R.color.map_lines
