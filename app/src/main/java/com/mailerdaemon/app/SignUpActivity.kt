@@ -41,7 +41,7 @@ class SignUpActivity : AppCompatActivity() {
             password = (login_password.text).toString()
             if (email.isNotEmpty()) {
                 if (password.isNotEmpty())
-                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task: Task<AuthResult?> ->
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                         if (task.isSuccessful)
                             saveUser((mAuth.currentUser))
                         else
