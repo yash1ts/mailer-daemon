@@ -15,7 +15,6 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.mailerdaemon.app.R
 import com.mailerdaemon.app.toast
@@ -31,14 +30,11 @@ class ContactDetailFragment : Fragment(), ContactFunction {
     private val adapter: ContactRecyclerAdapter = ContactRecyclerAdapter(this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        contactList = Gson().fromJson(loadJSONFromAsset(arguments
+        contactList = (Gson().fromJson(loadJSONFromAsset(arguments
                 ?.getString("type")), FacultyModel::class.java)
-                .contact as ArrayList<Contact>
+                .contact as? ArrayList<Contact> ?: ArrayList())
         val view = inflater.inflate(R.layout.fragment_contact_detail, container, false)
-        view.rv_contact_detail.let {
-            it.layoutManager = LinearLayoutManager(context)
-            it.adapter = adapter
-        }
+        view.rv_contact_detail.adapter = adapter
         adapter.data = contactList
         adapter.notifyDataSetChanged()
         setHasOptionsMenu(true)
@@ -46,8 +42,7 @@ class ContactDetailFragment : Fragment(), ContactFunction {
     }
 
     private fun updateRV(result: List<Contact>) {
-        val n = DiffUtilCallBack(adapter.data, result)
-        val diffResult = DiffUtil.calculateDiff(n)
+        val diffResult = DiffUtil.calculateDiff(DiffUtilCallBack(adapter.data, result))
         adapter.data = result
         diffResult.dispatchUpdatesTo(adapter)
     }
@@ -55,14 +50,14 @@ class ContactDetailFragment : Fragment(), ContactFunction {
     private fun loadJSONFromAsset(type: String?): String? {
         val json: String
         try {
-            val `is` = (activity)?.assets?.open("$type.json")
-            val size = `is`?.available()
-            val buffer = ByteArray(size!!)
-            `is`.let {
+            val inputStream = (activity)?.assets?.open("$type.json")
+            val size = inputStream?.available()
+            val buffer = size?.let { ByteArray(it) }
+            inputStream?.let {
                 it.read(buffer)
                 it.close()
             }
-            json = String(buffer, StandardCharsets.UTF_8)
+            json = buffer?.let { String(it, StandardCharsets.UTF_8) }.toString()
         } catch (ex: IOException) {
             ex.printStackTrace()
             return null
@@ -89,7 +84,7 @@ class ContactDetailFragment : Fragment(), ContactFunction {
                     } else {
                         val list = ArrayList<Contact>()
                         for (c in contactList) {
-                            if (c.name?.contains(newText.toLowerCase())!!)
+                            if (c.name?.contains(newText.toLowerCase()) == true)
                                 list.add(c)
                         }
                         updateRV(list)

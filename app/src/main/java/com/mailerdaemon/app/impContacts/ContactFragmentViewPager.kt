@@ -24,15 +24,15 @@ class ContactFragmentViewPager : Fragment() {
                 FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
             var s = arguments?.getStringArray("pages")
 
-            override fun getItem(position: Int) = getFragment(s!![position])
+            override fun getItem(position: Int) = getFragment(s?.get(position))
 
             override fun getCount() = s!!.size
 
-            override fun getPageTitle(position: Int) = tabs!![position]
+            override fun getPageTitle(position: Int) = tabs?.get(position)
         }
         return view
     }
-    private fun getFragment(s: String): Fragment {
+    private fun getFragment(s: String?): Fragment {
         val fragment = ContactDetailFragment()
         val bundle = Bundle()
         bundle.putString("type", s)
