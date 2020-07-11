@@ -23,5 +23,54 @@
   <string name="SignUpError">If you dont have a account please signup.</string>
   <string name="AuthFailed">Authentication failed.</string>
   <string name="EmailId">email</string>
+  <string name="Error">Error :</string>
+
+  <string name="email_not_available">Sorry email not available</string>
+  <string name="number_not_available">Sorry number not available</string>
+  <string name="title_activity_imp_contacts">Contacts</string>
+
+  <string-array name="pages">
+    <item>faculty_all</item>
+    <item>ACH</item>
+    <item>AGL</item>
+    <item>AGP</item>
+    <item>AM</item>
+    <item>AP</item>
+    <item>CHE</item>
+    <item>CIV</item>
+    <item>CSE</item>
+    <item>ECE</item>
+    <item>EE</item>
+    <item>ESE</item>
+    <item>FME</item>
+    <item>HSS</item>
+    <item>ME</item>
+    <item>MECH</item>
+    <item>MME</item>
+    <item>MS</item>
+    <item>PE</item>
+  </string-array>
+
+  <string-array name="tabs">
+    <item>All</item>
+    <item>ACH</item>
+    <item>AGL</item>
+    <item>AGP</item>
+    <item>MnC</item>
+    <item>AP</item>
+    <item>CHE</item>
+    <item>CIV</item>
+    <item>CSE</item>
+    <item>ECE</item>
+    <item>EE</item>
+    <item>ESE</item>
+    <item>FME</item>
+    <item>HSS</item>
+    <item>ME</item>
+    <item>MECH</item>
+    <item>MME</item>
+    <item>MS</item>
+    <item>PE</item>
+  </string-array>
 
 </resources>
