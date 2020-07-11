@@ -26,7 +26,7 @@ class ContactFragmentViewPager : Fragment() {
 
             override fun getItem(position: Int) = getFragment(s?.get(position))
 
-            override fun getCount() = s!!.size
+            override fun getCount() = s?.size ?: 0
 
             override fun getPageTitle(position: Int) = tabs?.get(position)
         }
