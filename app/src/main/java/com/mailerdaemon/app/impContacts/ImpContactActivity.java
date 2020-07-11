@@ -89,7 +89,7 @@ public class ImpContactActivity extends AppCompatActivity implements ContactFunc
     @Override
     public void onBackPressed() {
         if(getSupportFragmentManager().getFragments().isEmpty())
-            super.onBackPressed();
+        super.onBackPressed();
         else getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().getFragments().get(0)).commit();
     }
 
