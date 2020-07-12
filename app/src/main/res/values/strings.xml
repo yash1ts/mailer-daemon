@@ -27,6 +27,7 @@
   <string name="email_not_available">Sorry email not available</string>
   <string name="number_not_available">Sorry number not available</string>
   <string name="title_activity_imp_contacts">Contacts</string>
+  <string name="Error">Error: </string>
 
   <string-array name="pages">
     <item>faculty_all</item>
