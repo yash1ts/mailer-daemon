@@ -1,5 +1,13 @@
 package com.mailerdaemon.app
 
+const val INTRO = "intro"
+const val NAME = "Name"
+const val U_ID = "uid"
+const val GENERAL = "GENERAL"
+const val MAIN = "Main"
+const val CHANNEL_ID = "id123"
+const val FB_USER = "user"
+const val ACCESS = "Access"
 const val FB_CLUB = "club"
 const val FB_NOTICE = "Notices"
 const val FB_EVENT = "Events"

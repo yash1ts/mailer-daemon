@@ -1,8 +1,8 @@
-Fixes#
+**Fixes** #
 
 [//]: # (issue number)
 
-**Changes**
+[//]: # (**Changes**)
 
-**ScreenShots**
+[//]: # (**ScreenShots**)
 
