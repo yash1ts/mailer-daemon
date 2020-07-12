@@ -48,7 +48,7 @@ android {
         outputToConsole = true
         outputColorName = "RED"
         ignoreFailures = false
-        disabledRules = ["import-ordering"]
+        disabledRules = ["import-ordering","no-wildcard-imports"]
         reporters {
             reporter "plain"
             reporter "checkstyle"
