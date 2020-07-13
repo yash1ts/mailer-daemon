@@ -13,25 +13,24 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.google.android.gms.location.*
+import com.google.android.gms.location.* // ktlint-disable no-wildcard-imports
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.*
+import com.google.android.gms.maps.model.* // ktlint-disable no-wildcard-imports
 import com.mailerdaemon.app.R
 import com.mailerdaemon.app.toast
 import java.lang.ref.WeakReference
-import java.util.*
+import java.util.* // ktlint-disable no-wildcard-imports
 
 const val MY_PERMISSIONS_REQUEST_LOCATION = 99
 private const val COLOR_BLACK_ARGB = -0x1000000
 private const val POLYLINE_STROKE_WIDTH_PX = 2
 
-
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mLocationRequest: LocationRequest
-    private lateinit  var mLastLocation: Location
+    private lateinit var mLastLocation: Location
     private lateinit var mCurrLocationMarker: Marker
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private lateinit var mLocationCallback: LocationCallback
@@ -55,7 +54,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     public override fun onPause() {
         super.onPause()
-        //stop location updates when Activity is no longer active
+        // stop location updates when Activity is no longer active
         mFusedLocationClient.removeLocationUpdates(mLocationCallback)
     }
     /**
@@ -69,8 +68,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-
-        // Add a marker in Sydney and move the camera
         val ism = LatLng(23.814110, 86.441207)
         val ismGate = LatLng(23.809163, 86.442590)
         val jasper = LatLng(23.817035, 86.440934)
@@ -128,12 +125,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             override fun onLocationResult(locationResult: LocationResult) {
                 val locationList: List<Location> = locationResult.locations
                 if (locationList.isNotEmpty()) {
-                    //The last location in the list is the newest
+                    // The last location in the list is the newest
                     val location = locationList[locationList.size - 1]
                     mLastLocation = location
                     mCurrLocationMarker.remove()
 
-                    //Place current location marker
+                    // Place current location marker
                     val latLng = LatLng(location.latitude, location.longitude)
                     val markerOptions = MarkerOptions()
 
@@ -150,11 +147,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             if (ContextCompat.checkSelfPermission(this,
                             Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {
-                //Location Permission already granted
+                // Location Permission already granted
                 mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
                 mMap.isMyLocationEnabled = true
             } else {
-                //Request Location Permission
+                // Request Location Permission
                 checkLocationPermission()
             }
         } else {
@@ -175,20 +172,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
 
-                val builder = AlertDialog.Builder(this)
-                with(builder)
-                {
+                with(AlertDialog.Builder(this)) {
                     setTitle(resources.getString(R.string.dialog_title))
                     setMessage(resources.getString(R.string.dialog_message))
                     setPositiveButton("OK") { dialogInterface: DialogInterface?, i: Int ->
-                        //Prompt the user once explanation has been shown
+                        // Prompt the user once explanation has been shown
                         ActivityCompat.requestPermissions(this@MapsActivity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                                 MY_PERMISSIONS_REQUEST_LOCATION)
                     }
-                }
-                val alertDialog:AlertDialog = builder.create()
-                alertDialog.show()
-
+                }.show()
             } else {
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
@@ -197,17 +189,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int,
-                                            permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (requestCode == MY_PERMISSIONS_REQUEST_LOCATION) { // If request is cancelled, the result arrays are empty.
-            if (grantResults.isNotEmpty()
-                    && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // permission was granted, yay! Do the
                 // location-related task you need to do.
-                if (ContextCompat.checkSelfPermission(this,
-                                Manifest.permission.ACCESS_FINE_LOCATION)
-                        == PackageManager.PERMISSION_GRANTED) {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
                     mMap.isMyLocationEnabled = true
                 }
@@ -227,9 +214,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun stylePolyline(polyline: Polyline) {
-        polyline.endCap = RoundCap()
-        polyline.width = POLYLINE_STROKE_WIDTH_PX.toFloat()
-        polyline.color = R.color.map_lines
-        polyline.jointType = JointType.ROUND
+        polyline.apply {
+            endCap = RoundCap()
+            width = POLYLINE_STROKE_WIDTH_PX.toFloat()
+            color = R.color.map_lines
+            jointType = JointType.ROUND
+        }
     }
 }
