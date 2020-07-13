@@ -113,6 +113,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val bound = LatLngBounds(LatLng(23.809756, 86.433533), LatLng(23.820778, 86.449679))
         val update = CameraUpdateFactory.newLatLngBounds(bound, width1, height, padding)
         mMap.moveCamera(update)
+        locationRequest()
+    }
+
+    private fun locationRequest() {
         mLocationRequest = LocationRequest()
 
         mLocationRequest.let {
@@ -172,12 +176,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 // this thread waiting for the user's response! After the user
                 // sees the explanation, try again to request the permission.
 
+                val permission = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
                 with(AlertDialog.Builder(this)) {
                     setTitle(resources.getString(R.string.dialog_title))
                     setMessage(resources.getString(R.string.dialog_message))
                     setPositiveButton("OK") { dialogInterface: DialogInterface?, i: Int ->
-                        // Prompt the user once explanation has been shown
-                        ActivityCompat.requestPermissions(this@MapsActivity, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                        ActivityCompat.requestPermissions(this@MapsActivity, permission,
                                 MY_PERMISSIONS_REQUEST_LOCATION)
                     }
                 }.show()
@@ -194,7 +198,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // permission was granted, yay! Do the
                 // location-related task you need to do.
-                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                val permission = Manifest.permission.ACCESS_FINE_LOCATION
+                if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
                     mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
                     mMap.isMyLocationEnabled = true
                 }
