@@ -39,8 +39,11 @@ class LoginActivity : AppCompatActivity() {
         if (getSharedPreferences(MAIN, Context.MODE_PRIVATE).getBoolean(INTRO, true)) {
             startActivity(Intent(this, IntroActivity::class.java))
             finish()
-        } else
-            startMain()
+        } else{
+            val currentUser = mAuth.currentUser
+            if(currentUser!=null)
+                startMain(currentUser)
+        }
         setContentView(R.layout.activity_login)
         progress_bar.visibility = View.GONE
         forgot_password.setOnClickListener {
@@ -124,7 +127,7 @@ class LoginActivity : AppCompatActivity() {
             editor.putString(NAME, user.displayName).apply()
             if (user.uid == ADMIN_ID) editor.putBoolean(ACCESS, true).apply()
             else editor.putBoolean(ACCESS, false).apply()
-            startMain()
+            startMain(user)
         }
     }
 
@@ -170,7 +173,7 @@ class LoginActivity : AppCompatActivity() {
                 }
     }
 
-    private fun startMain() {
+    private fun startMain(FirebaseUser) {
         intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(intent)
         finish()
