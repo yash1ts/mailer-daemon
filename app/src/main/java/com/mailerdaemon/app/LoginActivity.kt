@@ -173,7 +173,7 @@ class LoginActivity : AppCompatActivity() {
                 }
     }
 
-    private fun startMain(FirebaseUser) {
+    private fun startMain(currentUser: FirebaseUser) {
         intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(intent)
         finish()
