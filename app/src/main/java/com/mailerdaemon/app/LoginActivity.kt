@@ -39,9 +39,9 @@ class LoginActivity : AppCompatActivity() {
         if (getSharedPreferences(MAIN, Context.MODE_PRIVATE).getBoolean(INTRO, true)) {
             startActivity(Intent(this, IntroActivity::class.java))
             finish()
-        } else{
+        } else {
             val currentUser = mAuth.currentUser
-            if(currentUser!=null)
+            if (currentUser != null)
                 startMain(currentUser)
         }
         setContentView(R.layout.activity_login)
