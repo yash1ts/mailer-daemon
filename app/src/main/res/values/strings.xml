@@ -38,5 +38,6 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="placement_daemon_adapter">Placement Daemon</string>
+    <string name="congratulations">Congratulations!</string>
 
 </resources>
