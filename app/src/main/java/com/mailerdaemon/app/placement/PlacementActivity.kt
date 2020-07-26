@@ -11,10 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.DiffUtil
 import com.mailerdaemon.app.ApplicationClass
+import com.mailerdaemon.app.PlacementFragment
 import com.mailerdaemon.app.R
 import com.mailerdaemon.app.toast
 import com.mailerdaemon.app.utils.AccessDatabase
 import kotlinx.android.synthetic.main.activity_placement.*
+import kotlinx.android.synthetic.main.fragment_placement.*
+import kotlinx.android.synthetic.main.item_posts.*
 import kotlinx.android.synthetic.main.shimmer_layout_posts.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -24,27 +27,28 @@ class PlacementActivity : AppCompatActivity(), AccessDatabase {
 
     private var access: Boolean? = null
     var data: List<PlacementModel>? = null
+    val fragment = PlacementFragment()
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_placement)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
-            it.title = "Placement Daemon"
+            it.title = resources.getString(R.string.title_activity_placement_daemon)
         }
         access = getSharedPreferences("GENERAL", Context.MODE_PRIVATE)
             .getBoolean("Access", false)
 
         if (PlacementAdapter.list.isEmpty())
             getDatabase()
-        rv_placement.adapter = PlacementAdapter
-        refresh.setOnRefreshListener {
-            getDatabase()
-            refresh.isRefreshing = false
-        }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+    override fun onResume() {
+        super.onResume()
+        getDatabase()
+    }
+
+   override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable("data", PlacementList(PlacementAdapter.list))
     }
@@ -73,6 +77,10 @@ class PlacementActivity : AppCompatActivity(), AccessDatabase {
                         PlacementAdapter.list = result
                         data = result
                         PlacementAdapter.notifyDataSetChanged()
+                        val bundle = Bundle()
+                        bundle.putParcelableArrayList("data", result as ArrayList<PlacementModel>)
+                        fragment.setArguments(bundle)
+                        supportFragmentManager.beginTransaction().replace(R.id.container, fragment).commit()
                     } else
                         baseContext.toast("Error")
                 }
