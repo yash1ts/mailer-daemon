@@ -5,7 +5,7 @@ import androidx.recyclerview.widget.DiffUtil
 class DiffUtilCallBack(
     private val mOldEmployeeList: List<Contact>,
     private val mNewEmployeeList: List<Contact>
-    ) : DiffUtil.Callback() {
+) : DiffUtil.Callback() {
 
     override fun getOldListSize() = mOldEmployeeList.size
 
