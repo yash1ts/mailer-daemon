@@ -21,7 +21,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
         reportBug?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             val tab = ChromeTab(activity)
-            tab.openTab("https://docs.google.com/forms/d/e/1FAIpQLScrYmD4pCmBc35QkkebFC9AC-HT45t-r5SAzsYja6-TleSVAQ/viewf̥orm?usp=sf_link")
+            tab.openTab("https://docs.google.com/forms/d/e/1FAIpQLScrYmD4pCmBc35QkkebFC9AC" +
+                "-HT45t-r5SAzsYja6-TleSVAQ/viewf̥orm?usp=sf_link")
             true
         }
         logout?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
