@@ -8,6 +8,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import kotlinx.android.synthetic.main.activity_settings.*
+import java.io.IOException
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,7 +32,7 @@ class SettingsActivity : AppCompatActivity() {
             likeIng.setPackage("com.facebook.katana")
             try {
                 startActivity(likeIng)
-            } catch (e: Exception) {
+            } catch (e : IOException) {
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
         }
@@ -41,7 +42,7 @@ class SettingsActivity : AppCompatActivity() {
             likeIng.setPackage("com.instagram.android")
             try {
                 startActivity(likeIng)
-            } catch (e: Exception) {
+            } catch (e: IOException) {
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
         }
