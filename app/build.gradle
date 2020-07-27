@@ -36,10 +36,8 @@ android {
     detekt {
         failFast = true // fail build on any finding
         buildUponDefaultConfig = true // preconfigure defaults
-        config = files("$projectDir/config/detekt.yml")
-        // point to your custom config defining rules to run, overwriting default behavior
-        baseline = file("$projectDir/config/baseline.xml")
-        // a way of suppressing issues before introducing detekt
+        config = files("$projectDir/config/detekt.yml") // point to your custom config defining rules to run, overwriting default behavior
+        baseline = file("$projectDir/config/baseline.xml") // a way of suppressing issues before introducing detekt
 
         reports {
             html.enabled = true // observe findings in your browser with structure and code snippets
@@ -50,7 +48,7 @@ android {
         outputToConsole = true
         outputColorName = "RED"
         ignoreFailures = false
-        disabledRules = ["import-ordering", "no-wildcard-imports"]
+        disabledRules = ["import-ordering","no-wildcard-imports"]
         reporters {
             reporter "plain"
             reporter "checkstyle"
