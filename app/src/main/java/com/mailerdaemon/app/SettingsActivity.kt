@@ -32,7 +32,7 @@ class SettingsActivity : AppCompatActivity() {
             likeIng.setPackage("com.facebook.katana")
             try {
                 startActivity(likeIng)
-            } catch (e : IOException) {
+            } catch (e: IOException) {
                 startActivity(Intent(Intent.ACTION_VIEW, uri))
             }
         }
