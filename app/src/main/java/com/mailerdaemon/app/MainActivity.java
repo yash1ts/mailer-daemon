@@ -116,15 +116,9 @@ public class MainActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         switch (id) {
-          case R.id.action_logout:
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-            firebaseAuth.signOut();
-            LoginManager.getInstance().logOut();
-            startActivity(new Intent(this, LoginActivity.class));
-            finish();
-              break;
-            case R.id.action_contact_us:
-                startActivity(new Intent(this,ContactUsActivity.class));
+            case R.id.action_settings:
+                startActivity(new Intent(this,SettingsActivity.class));
+                break;
             default:  return super.onOptionsItemSelected(item);
 
         }
