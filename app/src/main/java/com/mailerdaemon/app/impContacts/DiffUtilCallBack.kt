@@ -15,9 +15,7 @@ class DiffUtilCallBack(
         (mOldEmployeeList[oldItemPosition].name == mNewEmployeeList[newItemPosition].name)
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        val (_, _, _, name) = mOldEmployeeList[oldItemPosition]
-        val (_, _, _, name1) = mNewEmployeeList[newItemPosition]
-        return name == name1
+        return mOldEmployeeList[oldItemPosition] == mNewEmployeeList[newItemPosition]
     }
 
     override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int) =

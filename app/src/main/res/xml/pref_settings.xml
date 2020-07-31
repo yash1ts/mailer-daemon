@@ -7,7 +7,7 @@
             app:iconSpaceReserved="false">
 
             <Preference android:title="Fill a google form"
-                android:key="report_bug"
+                android:key="@string/pref_key_report"
                 app:iconSpaceReserved="false"
                 android:summary="@string/report_bug_summary"></Preference>
 
@@ -19,7 +19,7 @@
         app:iconSpaceReserved="false">
 
         <Preference
-            android:key="logout"
+            android:key="@string/pref_key_logout"
             android:summary="@string/logout_summary"
             android:title="Logout"
             app:iconSpaceReserved="false"
@@ -35,7 +35,7 @@
         app:iconSpaceReserved="false">
 
         <Preference android:title="Privacy Policy"
-            android:key="privacy_policy"
+            android:key="@string/pref_key_privacy_policy"
             app:iconSpaceReserved="false"
             android:summary="@string/privacy_policy_summary"></Preference>
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,64 +7,85 @@
     android:orientation="vertical"
     tools:context=".SettingsActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        app:elevation="0dp">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/toolbar_bg"
-            android:elevation="3dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="8dp"
-            app:menu="@menu/main"
-            app:title="Settings"
-            app:titleMarginStart="16dp"
-            app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            app:titleTextColor="@android:color/white" />
-    </com.google.android.material.appbar.AppBarLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-    <FrameLayout
-        android:id="@+id/frag_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></FrameLayout>
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                app:elevation="0dp">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/toolbar_bg"
+                    android:elevation="3dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="8dp"
+                    app:menu="@menu/main"
+                    app:title="Settings"
+                    app:titleMarginStart="16dp"
+                    app:titleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+                    app:titleTextColor="@android:color/white" />
+            </com.google.android.material.appbar.AppBarLayout>
 
-        <ImageButton
-            android:id="@+id/contact_fb"
-            android:layout_width="@dimen/default_icon_size"
-            android:layout_height="48dp"
-            android:layout_margin="8dp"
-            android:background="?attr/selectableItemBackground"
-            android:src="@drawable/vector_drawable_icons__facebook_filled" />
+            <FrameLayout
+                android:id="@+id/frag_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/contact_insta"
-            android:layout_width="@dimen/default_icon_size"
-            android:layout_height="@dimen/default_icon_size"
-            android:layout_margin="8dp"
-            android:background="?attr/selectableItemBackground"
-            android:src="@drawable/vector_drawable_icons__instagram___" />
+                <fragment
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/settings_frag"
+                    android:name="com.mailerdaemon.app.SettingsFragment" />
+            </FrameLayout>
 
-        <ImageView
-            android:id="@+id/contact_email2"
-            android:layout_width="@dimen/default_icon_size"
-            android:layout_height="@dimen/default_icon_size"
-            android:layout_margin="8dp"
-            android:background="?attr/selectableItemBackground"
-            android:src="@drawable/email" />
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/contact_fb"
+                    android:layout_width="@dimen/default_icon_size"
+                    android:layout_height="48dp"
+                    android:layout_margin="8dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:src="@drawable/vector_drawable_icons__facebook_filled" />
+
+                <ImageView
+                    android:id="@+id/contact_insta"
+                    android:layout_width="@dimen/default_icon_size"
+                    android:layout_height="@dimen/default_icon_size"
+                    android:layout_margin="8dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:src="@drawable/vector_drawable_icons__instagram___" />
+
+                <ImageView
+                    android:id="@+id/contact_email2"
+                    android:layout_width="@dimen/default_icon_size"
+                    android:layout_height="@dimen/default_icon_size"
+                    android:layout_margin="8dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:src="@drawable/email" />
+            </LinearLayout>
 
 
-</LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
