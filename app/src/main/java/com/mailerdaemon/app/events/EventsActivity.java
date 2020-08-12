@@ -19,6 +19,7 @@ import com.google.firebase.firestore.Query;
 import com.google.gson.Gson;
 import com.mailerdaemon.app.ConstantsKt;
 import com.mailerdaemon.app.R;
+import com.mailerdaemon.app.ShowData;
 import com.mailerdaemon.app.utils.AccessDatabase;
 import com.mailerdaemon.app.utils.DialogOptions;
 
@@ -89,6 +90,11 @@ public class EventsActivity extends AppCompatActivity implements AccessDatabase,
         shimmerViewContainer.setVisibility(View.GONE);
       }
     });
+  }
+
+  @Override
+  public void getData(ShowData showData) {
+
   }
 
 

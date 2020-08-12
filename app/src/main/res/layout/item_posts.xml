@@ -29,11 +29,13 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/congrats"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
         android:hint="@string/congratulations"
         android:padding="8dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/daemon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/post_message" />
@@ -45,7 +47,6 @@
         android:padding="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="daemon"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -57,7 +58,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:padding="8dp"
-        android:text="Time"
         android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
