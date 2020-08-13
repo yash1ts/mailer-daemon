@@ -3,13 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
   >
   <item
-    android:id="@+id/action_contact_us"
+    android:id="@+id/action_settings"
     android:icon="@drawable/ic_settings_black_24dp"
     android:title="Contact Us"
-    app:showAsAction="never"/>
-  <item
-    android:id="@+id/action_logout"
-    android:icon="@drawable/ic_settings_black_24dp"
-    android:title="Log out"
-    app:showAsAction="never"/>
+    app:showAsAction="always|collapseActionView"/>
+
 </menu>
