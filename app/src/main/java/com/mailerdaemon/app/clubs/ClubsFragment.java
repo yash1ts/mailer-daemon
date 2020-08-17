@@ -20,7 +20,6 @@ import com.google.firebase.firestore.Query;
 import com.google.gson.GsonBuilder;
 import com.mailerdaemon.app.ConstantsKt;
 import com.mailerdaemon.app.R;
-import com.mailerdaemon.app.ShowData;
 import com.mailerdaemon.app.events.PostModel;
 import com.mailerdaemon.app.utils.AccessDatabase;
 import com.mailerdaemon.app.utils.DialogOptions;
