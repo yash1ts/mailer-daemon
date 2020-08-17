@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DiffUtil
 import com.mailerdaemon.app.R.layout
+import com.mailerdaemon.app.placement.DiffUtilCallback
 import com.mailerdaemon.app.placement.PlacementActivity
 import com.mailerdaemon.app.placement.PlacementAdapter
 import com.mailerdaemon.app.placement.PlacementModel
@@ -34,7 +36,12 @@ class PlacementFragment : Fragment(), ShowData {
     }
 
     override fun showData(list: MutableList<PlacementModel>?) {
+        val n = DiffUtilCallback(data, list as List<PlacementModel>)
+        val diffResult = DiffUtil.calculateDiff(n)
+        data = list
         adapter = PlacementAdapter(list as List<PlacementModel>)
+        adapter.notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(adapter)
         rv_placement.adapter = adapter
         refresh.isRefreshing = false
     }

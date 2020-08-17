@@ -93,12 +93,6 @@ public class EventsActivity extends AppCompatActivity implements AccessDatabase,
   }
 
   @Override
-  public void getData(ShowData showData) {
-
-  }
-
-
-  @Override
   public void showOptions(PostModel model, String path) {
     Bundle bundle=new Bundle();
     bundle.putString("model",new Gson().toJson(model));

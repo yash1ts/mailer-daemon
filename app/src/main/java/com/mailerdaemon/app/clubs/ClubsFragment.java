@@ -98,10 +98,6 @@ public class ClubsFragment extends Fragment implements AccessDatabase, DialogOpt
         }
     }
 
-    @Override
-    public void getData(ShowData showData) {
-
-    }
 
     @Override
     public void showOptions(PostModel model, String path) {

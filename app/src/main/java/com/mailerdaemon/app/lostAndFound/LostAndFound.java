@@ -118,11 +118,6 @@ public class LostAndFound extends AppCompatActivity implements AccessDatabase {
     }
 
     @Override
-    public void getData(ShowData showData) {
-
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId()==android.R.id.home)
             onBackPressed();
