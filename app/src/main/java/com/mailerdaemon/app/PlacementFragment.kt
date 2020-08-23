@@ -29,6 +29,7 @@ class PlacementFragment : Fragment(), ShowData {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        adapter = PlacementAdapter(data)
         (activity as PlacementActivity).getData(this)
            view.refresh.setOnRefreshListener {
             (activity as PlacementActivity).getData(this)
@@ -39,7 +40,7 @@ class PlacementFragment : Fragment(), ShowData {
         val n = DiffUtilCallback(data, list as List<PlacementModel>)
         val diffResult = DiffUtil.calculateDiff(n)
         data = list
-        adapter = PlacementAdapter(list as List<PlacementModel>)
+        adapter.list = data
         adapter.notifyDataSetChanged()
         diffResult.dispatchUpdatesTo(adapter)
         rv_placement.adapter = adapter

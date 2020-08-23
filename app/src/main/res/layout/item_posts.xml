@@ -16,26 +16,45 @@
     app:layout_constraintTop_toTopOf="parent">
 
     <TextView
-        android:id="@+id/post_message"
+        android:id="@+id/post_title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:padding="8dp"
+        android:textSize="@dimen/text_size_17"
+        android:textColor="@color/colorTextDarkBlack"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/guideline"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/post_message"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="8dp"
+        android:textColor="@color/colorPlacementText"
+        android:textSize="@dimen/text_size_14"
+        app:layout_constraintEnd_toStartOf="@id/guideline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/post_title" />
+
+    <TextView
         android:id="@+id/congrats"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:hint="@string/congratulations"
         android:padding="8dp"
         android:visibility="gone"
+        android:text="@string/congrats"
+        android:textSize="@dimen/text_size_14"
+        android:textColor="@color/congratulations"
         app:layout_constraintBottom_toTopOf="@+id/daemon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/post_message" />
@@ -47,8 +66,8 @@
         android:padding="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textSize="12sp"
-        android:textStyle="bold"
+        android:textSize="@dimen/text_size_12"
+        android:textColor="@color/colorPlacementText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -58,8 +77,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:padding="8dp"
-        android:textSize="12sp"
-        android:textStyle="bold"
+        android:textSize="@dimen/text_size_12"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/daemon" />
 
@@ -75,7 +93,7 @@
         android:id="@+id/background"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#98DDFF"
+        android:background="@color/placementView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -87,6 +105,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:padding="4dp"
         app:layout_constraintBottom_toTopOf="@+id/imageViewFacebook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -99,7 +118,6 @@
         android:layout_height="24dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:alpha="100"
         app:layout_constraintBottom_toTopOf="@+id/imageViewShare"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -112,25 +130,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/imageViewLanguage"
+        android:padding="4dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/imageViewFacebook"
         app:srcCompat="@drawable/ic_outline_share_24" />
 
-    <ImageView
-        android:id="@+id/imageViewLanguage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewShare"
-        app:srcCompat="@drawable/ic_outline_language_24" />
-
   </androidx.constraintlayout.widget.ConstraintLayout>
-
 </com.google.android.material.card.MaterialCardView>

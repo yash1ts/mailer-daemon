@@ -46,8 +46,7 @@ class PlacementActivity : AppCompatActivity(), GetPlacementData {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        data =
-            savedInstanceState.getParcelable<PlacementList>("data")?.list ?: emptyList()
+        data = savedInstanceState.getParcelable<PlacementList>("data")?.list ?: emptyList()
     }
 
     override fun getData(showData: ShowData) {
