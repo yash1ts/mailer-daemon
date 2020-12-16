@@ -115,7 +115,9 @@
       android:theme="@style/AppTheme.TransparentActionBar"/>
     <activity android:name=".ContactUsActivity"
       android:theme="@style/AppTheme.NoActionBar"/>
-    <activity android:name=".IntroActivity"
+      <activity android:name=".SettingsActivity"
+          android:theme="@style/AppTheme.NoActionBar" />
+      <activity android:name=".IntroActivity"
 
       android:theme="@style/AppTheme.NoActionBar.NoStatusColor"/>
     <activity android:name=".UpdateActivity"

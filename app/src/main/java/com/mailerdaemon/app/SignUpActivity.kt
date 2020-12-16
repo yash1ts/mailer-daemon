@@ -8,8 +8,11 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+<<<<<<< HEAD
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
+=======
+>>>>>>> upstream/develop
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
