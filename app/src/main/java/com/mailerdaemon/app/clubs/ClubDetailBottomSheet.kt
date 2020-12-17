@@ -43,7 +43,7 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
         if (BuildConfig.DEBUG && arguments == null) {
             error("Assertion failed")
         }
-        i = arguments!!.getInt("club_id")
+        i = requireArguments().getInt("club_id")
         getJson(view)
         return view
     }
@@ -99,7 +99,7 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
                 view.club_web.visibility = View.VISIBLE
                 view.club_web.setOnClickListener { chromeTab!!.openTab(`object`.getString("web")) }
             }
-            setposts(page =`object`.getString("fb"),view = view)
+            setposts(page = `object`.getString("fb"), view = view)
         } catch (jsonException: JSONException) {
             jsonException.printStackTrace()
         } catch (jsonException: IOException) {
@@ -108,16 +108,16 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun setposts(page: String?,view: View) {
+    private fun setposts(page: String?, view: View) {
         if (page!!.isEmpty()) return
-        //webView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+        // webView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
 //        @Override
 //        public void onGlobalLayout() {
         var site = page
         if (page.length > 25) site = site.substring(25)
         //          int x=webView.getMeasuredWidth()-657;
 //          int y=webView.getMeasuredHeight();
-        //webView.getViewTreeObserver().removeOnGlobalLayoutListener(this::onGlobalLayout);
+        // webView.getViewTreeObserver().removeOnGlobalLayoutListener(this::onGlobalLayout);
 
 //          String s="<!DOCTYPE html>\n" +
 //                  "<html>\n" +
@@ -135,11 +135,16 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
 //                  "\t//document.write(s.innerHTML);\n" +
 //                  "</script>\n" +
 //                  "</html>\n";
-        val s = "<iframe src=\"https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F$site&tabs=timeline&width=350&height=700&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId=384900825472866\" width=\"100%\" height=\"100%\" style=\"border:none;overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\" allow=\"encrypted-media\"></iframe>"
+        val s = "<iframe src=\"https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F" +
+            "$site&tabs=timeline&width=350&height=700&small_header=true&adapt_container_width=true&hide_cover=true&" +
+            "show_facepile=false&appId=384900825472866\" width=\"100%\" height=\"100%\" style=\"border:none;" +
+            "overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\"" +
+            " allow=\"encrypted-media\"></iframe>"
         view.web.loadHtml(s)
-        //}
-        //});
-        view.web.setOnTouchListener { _: View?, event: MotionEvent -> if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) event.action == ACTION_BUTTON_PRESS else {
+        // }
+        // });
+        view.web.setOnTouchListener { _: View?, event: MotionEvent ->
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) event.action == ACTION_BUTTON_PRESS else {
             TODO("VERSION.SDK_INT < M")
         }
         }

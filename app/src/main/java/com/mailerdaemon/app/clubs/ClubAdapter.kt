@@ -12,7 +12,8 @@ import com.mailerdaemon.app.utils.DialogOptions
 import java.util.*
 
 @Suppress("DEPRECATION")
-class ClubAdapter internal constructor(context: Context, options: DialogOptions) : RecyclerView.Adapter<ClubAdapter.Holder>() {
+class ClubAdapter internal constructor(context: Context, options: DialogOptions) :
+    RecyclerView.Adapter<ClubAdapter.Holder>() {
     private var iconModel: List<ClubIconModel> = ArrayList()
     private var drawable: CircularProgressDrawable
     private val options: DialogOptions
