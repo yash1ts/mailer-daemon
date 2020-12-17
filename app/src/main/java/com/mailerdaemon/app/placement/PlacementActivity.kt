@@ -9,53 +9,47 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.DiffUtil
 import com.mailerdaemon.app.ApplicationClass
+import com.mailerdaemon.app.GetPlacementData
+import com.mailerdaemon.app.PlacementFragment
 import com.mailerdaemon.app.R
+import com.mailerdaemon.app.ShowData
 import com.mailerdaemon.app.toast
-import com.mailerdaemon.app.utils.AccessDatabase
 import kotlinx.android.synthetic.main.activity_placement.*
+import kotlinx.android.synthetic.main.fragment_placement.*
+import kotlinx.android.synthetic.main.item_posts.*
 import kotlinx.android.synthetic.main.shimmer_layout_posts.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PlacementActivity : AppCompatActivity(), AccessDatabase {
+class PlacementActivity : AppCompatActivity(), GetPlacementData {
 
-    private var access: Boolean? = null
-    var data: List<PlacementModel>? = null
+    var data = emptyList<PlacementModel>()
+    val fragment = PlacementFragment()
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_placement)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
-            it.title = "Placement Daemon"
+            it.title = resources.getString(R.string.title_activity_placement_daemon)
         }
-        access = getSharedPreferences("GENERAL", Context.MODE_PRIVATE)
-            .getBoolean("Access", false)
 
-        if (PlacementAdapter.list.isEmpty())
-            getDatabase()
-        rv_placement.adapter = PlacementAdapter
-        refresh.setOnRefreshListener {
-            getDatabase()
-            refresh.isRefreshing = false
-        }
+        supportFragmentManager.beginTransaction().add(R.id.container, fragment).commit()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+   override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable("data", PlacementList(PlacementAdapter.list))
+        outState.putParcelable("data", PlacementList(data))
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        PlacementAdapter.list =
-            savedInstanceState.getParcelable<PlacementList>("data")?.list ?: emptyList()
+        data = savedInstanceState.getParcelable<PlacementList>("data")?.list ?: emptyList()
     }
 
-    override fun getDatabase() {
+    override fun getData(showData: ShowData) {
         shimmer_view_container.visibility = View.VISIBLE
         (application as ApplicationClass).repository.getPlacementPosts()
             ?.enqueue(object : Callback<List<PlacementModel>?> {
@@ -70,9 +64,8 @@ class PlacementActivity : AppCompatActivity(), AccessDatabase {
                     val result = response.body()
                     if (response.isSuccessful && result != null) {
                         shimmer_view_container.visibility = View.GONE
-                        PlacementAdapter.list = result
                         data = result
-                        PlacementAdapter.notifyDataSetChanged()
+                        showData.showData(data)
                     } else
                         baseContext.toast("Error")
                 }
@@ -93,19 +86,19 @@ class PlacementActivity : AppCompatActivity(), AccessDatabase {
         searchView.queryHint = "Search"
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                rv_placement.scrollToPosition(0)
+                fragment.rv_placement.scrollToPosition(0)
                 searchView.clearFocus()
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText == "") {
-                    updateRV(data ?: emptyList())
+                if (newText == "" || newText == null) {
+                    fragment.showData(data as MutableList<PlacementModel>)
                 } else {
-                    val list = data?.filter {
-                        it.message.contains(newText!!, true)
+                    val list = data.filter {
+                        it.message.contains(newText, true)
                     } ?: emptyList()
-                    updateRV(list)
+                    fragment.showData(list as MutableList<PlacementModel>)
                 }
                 return true
             }
@@ -121,14 +114,6 @@ class PlacementActivity : AppCompatActivity(), AccessDatabase {
             searchManager.getSearchableInfo(componentName)
         )
         searchView.setIconifiedByDefault(false)
-
         return true
-    }
-
-    private fun updateRV(result: List<PlacementModel>) {
-        val n = DiffUtilCallback(PlacementAdapter.list, result)
-        val diffResult = DiffUtil.calculateDiff(n)
-        PlacementAdapter.list = result
-        diffResult.dispatchUpdatesTo(PlacementAdapter)
     }
 }

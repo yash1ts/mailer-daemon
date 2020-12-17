@@ -1,12 +1,44 @@
 <resources>
-  <string name="app_name">MailerDaemon</string>
-  <string name="navigation_drawer_open">Open navigation drawer</string>
-  <string name="navigation_drawer_close">Close navigation drawer</string>
-  <string name="nav_header_title">Mailer Daemon</string>
-  <string name="nav_header_subtitle">android.studio@android.com</string>
-  <string name="nav_header_desc">Navigation header</string>
-  <string name="action_settings">Settings</string>
+    <string name="app_name">MailerDaemon</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Mailer Daemon</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
 
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="facebook_app_id">384900825472866</string>
+    <string name="fb_login_protocol_scheme">fb384900825472866</string>
+    <string name="campus_map">Campus Map</string>
+    <string name="dialog_title">Location Permission Needed</string>
+    <string name="dialog_message">This app needs the Location permission, please accept to use location functionality</string>
+    <string name="marker_title">Current Position</string>
+
+    <string name="marker_jasper">Jasper</string>
+    <string name="marker_ruby">Ruby</string>
+    <string name="marker_heritage">Heritage Building</string>
+    <string name="marker_main_entrance">Main Entrance</string>
+    <string name="marker_penman">Penman Autitorium</string>
+    <string name="marker_sac">SAC</string>
+    <string name="marker_hc">Health Center</string>
+
+    <string name="label_1">Both</string>
+    <string name="label_2">On Campus</string>
+    <string name="label_3">Off Campus</string>
+
+    <string name="title_activity_placement_daemon">Placement Daemon</string>
+
+    <string name="title_activity_maps">Map</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="placement_daemon_adapter">Placement Daemon</string>
+    <string name="congrats">Congratulations!</string>
   <string name="menu_home">Home</string>
   <string name="menu_gallery">Gallery</string>
   <string name="menu_slideshow">Slideshow</string>

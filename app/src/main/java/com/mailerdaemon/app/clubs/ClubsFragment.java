@@ -97,6 +97,7 @@ public class ClubsFragment extends Fragment implements AccessDatabase, DialogOpt
         }
     }
 
+
     @Override
     public void showOptions(PostModel model, String path) {
 
