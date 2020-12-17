@@ -35,19 +35,12 @@
   <string name="SignUpError">If you dont have a account please signup.</string>
   <string name="AuthFailed">Authentication failed.</string>
   <string name="EmailId">email</string>
-<<<<<<< HEAD
-  <string name="Error">Error :</string>
-=======
->>>>>>> upstream/develop
 
   <string name="email_not_available">Sorry email not available</string>
   <string name="number_not_available">Sorry number not available</string>
   <string name="title_activity_imp_contacts">Contacts</string>
-<<<<<<< HEAD
-=======
   <string name="Error">Error: </string>
   <string name="EmailSent">Email has been Sent</string>
->>>>>>> upstream/develop
 
   <string-array name="pages">
     <item>faculty_all</item>
@@ -92,8 +85,6 @@
     <item>MS</item>
     <item>PE</item>
   </string-array>
-<<<<<<< HEAD
-=======
 
   <string name="report_bug_summary">Found a bug?\nDo tell us at above contacts. We will be pleased to hear you.</string>
   <string name="logout_summary">Logout from this account</string>
@@ -101,6 +92,5 @@
   <string name="pref_key_logout">logout</string>
   <string name="pref_key_privacy_policy">privacy_policy</string>
   <string name="pref_key_report">report_bug</string>
->>>>>>> upstream/develop
 
 </resources>
