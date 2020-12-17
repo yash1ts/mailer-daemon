@@ -10,8 +10,8 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:4.0.0'
-        classpath 'com.google.gms:google-services:4.3.3'
+        classpath 'com.android.tools.build:gradle:4.1.1'
+        classpath 'com.google.gms:google-services:4.3.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "org.jlleitschuh.gradle:ktlint-gradle:9.2.1"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.8.0"
