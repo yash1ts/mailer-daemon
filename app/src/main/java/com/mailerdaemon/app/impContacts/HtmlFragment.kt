@@ -20,7 +20,7 @@ class HtmlFragment : Fragment() {
             it.settings.setSupportZoom(true)
             it.settings.builtInZoomControls = true
             it.settings.displayZoomControls = false
-            it.loadUrl(arguments?.getString("url"))
+            it.loadUrl(arguments?.getString("url").toString())
         }
         return view
     }
