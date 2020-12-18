@@ -10,20 +10,16 @@ import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import com.mailerdaemon.app.ApplicationClass
-import com.mailerdaemon.app.GetPlacementData
 import com.mailerdaemon.app.PlacementFragment
 import com.mailerdaemon.app.R
-import com.mailerdaemon.app.ShowData
 import com.mailerdaemon.app.toast
-import kotlinx.android.synthetic.main.activity_placement.*
 import kotlinx.android.synthetic.main.fragment_placement.*
-import kotlinx.android.synthetic.main.item_posts.*
 import kotlinx.android.synthetic.main.shimmer_layout_posts.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PlacementActivity : AppCompatActivity(), GetPlacementData {
+class PlacementActivity : AppCompatActivity(){
 
     var data = emptyList<PlacementModel>()
     val fragment = PlacementFragment()
@@ -41,15 +37,15 @@ class PlacementActivity : AppCompatActivity(), GetPlacementData {
 
    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable("data", PlacementList(data))
+        outState.putParcelable(placementData, PlacementList(data))
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        data = savedInstanceState.getParcelable<PlacementList>("data")?.list ?: emptyList()
+        data = savedInstanceState.getParcelable<PlacementList>(placementData)?.list ?: emptyList()
     }
 
-    override fun getData(showData: ShowData) {
+    fun getData(showData: ShowData) {
         shimmer_view_container.visibility = View.VISIBLE
         (application as ApplicationClass).repository.getPlacementPosts()
             ?.enqueue(object : Callback<List<PlacementModel>?> {
@@ -97,7 +93,7 @@ class PlacementActivity : AppCompatActivity(), GetPlacementData {
                 } else {
                     val list = data.filter {
                         it.message.contains(newText, true)
-                    } ?: emptyList()
+                    }
                     fragment.showData(list as MutableList<PlacementModel>)
                 }
                 return true
@@ -115,5 +111,13 @@ class PlacementActivity : AppCompatActivity(), GetPlacementData {
         )
         searchView.setIconifiedByDefault(false)
         return true
+    }
+
+    companion object{
+        interface ShowData {
+            fun showData(list: List<PlacementModel>)
+        }
+
+        val placementData = "placement"
     }
 }

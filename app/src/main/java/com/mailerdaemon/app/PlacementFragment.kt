@@ -1,6 +1,7 @@
 package com.mailerdaemon.app
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_placement.*
 import kotlinx.android.synthetic.main.fragment_placement.*
 import kotlinx.android.synthetic.main.fragment_placement.view.*
 
-class PlacementFragment : Fragment(), ShowData {
+class PlacementFragment : Fragment(), PlacementActivity.Companion.ShowData {
     var data = emptyList<PlacementModel>()
     private lateinit var adapter: PlacementAdapter
 
@@ -36,10 +37,11 @@ class PlacementFragment : Fragment(), ShowData {
         }
     }
 
-    override fun showData(list: MutableList<PlacementModel>?) {
-        val n = DiffUtilCallback(data, list as List<PlacementModel>)
+    override fun showData(list: List<PlacementModel>) {
+        val n = DiffUtilCallback(data, list )
         val diffResult = DiffUtil.calculateDiff(n)
         data = list
+        Log.d("update_list","okok")
         adapter.list = data
         adapter.notifyDataSetChanged()
         diffResult.dispatchUpdatesTo(adapter)

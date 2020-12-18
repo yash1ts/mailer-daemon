@@ -58,8 +58,9 @@ class IntroActivity : AppCompatActivity() {
     }
 
     private fun skipIntro() {
-        getSharedPreferences("MAIN", MODE_PRIVATE).edit().putBoolean("intro", false).apply()
+        getSharedPreferences(MAIN, MODE_PRIVATE).edit().putBoolean(INTRO, false).apply()
         startActivity(Intent(this, LoginActivity::class.java))
+        finish()
     }
 
     private fun updateIndicators(position: Int) =

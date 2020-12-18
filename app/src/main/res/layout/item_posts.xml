@@ -2,7 +2,6 @@
 <com.google.android.material.card.MaterialCardView
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:app="http://schemas.android.com/apk/res-auto"
-  xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:layout_margin="16dp"
@@ -23,7 +22,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:padding="8dp"
-        android:textSize="@dimen/text_size_17"
+        android:textSize="@dimen/text_size_16"
         android:textColor="@color/colorTextDarkBlack"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@id/guideline"
@@ -87,7 +86,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.85" />
+        app:layout_constraintGuide_percent="1"/>
+    <androidx.constraintlayout.widget.Group
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        app:constraint_referenced_ids="background,imageViewBookmark,imageViewFacebook,imageViewShare"/>
 
     <View
         android:id="@+id/background"
