@@ -1,7 +1,6 @@
 package com.mailerdaemon.app.clubs
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -12,6 +11,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mailerdaemon.app.BuildConfig
 import com.mailerdaemon.app.R
+import com.mailerdaemon.app.club_id
 import com.mailerdaemon.app.utils.ChromeTab
 import kotlinx.android.synthetic.main.fragment_club_detail.view.club_des
 import kotlinx.android.synthetic.main.fragment_club_detail.view.club_fb
@@ -44,7 +44,7 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
         if (BuildConfig.DEBUG && arguments == null) {
             error("Assertion failed")
         }
-        selectedclub = requireArguments().getInt(R.string.club_id.toString())
+        selectedclub = requireArguments().getInt(club_id)
         getJson()
         setView(view)
         return view
@@ -108,12 +108,8 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
             " allow=\"encrypted-media\"></iframe>"
         view.web.loadHtml(s)
         view.web.setOnTouchListener { _: View?, event: MotionEvent ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                event.action == ACTION_BUTTON_PRESS
-            } else {
-                TODO("VERSION.SDK_INT < M")
-            }
-        }
+                event.action == ACTION_BUTTON_PRESS }
     }
 }
+
 
