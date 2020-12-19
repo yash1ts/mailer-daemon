@@ -91,7 +91,6 @@ public class EventsActivity extends AppCompatActivity implements AccessDatabase,
     });
   }
 
-
   @Override
   public void showOptions(PostModel model, String path) {
     Bundle bundle=new Bundle();
