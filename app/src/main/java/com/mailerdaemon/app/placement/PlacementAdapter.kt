@@ -13,7 +13,7 @@ import org.ocpsoft.prettytime.PrettyTime
 class PlacementAdapter(var list: List<PlacementModel>) : RecyclerView.Adapter<PlacementAdapter.Holder>() {
     val p = PrettyTime()
     val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)
-    lateinit var title : String
+    lateinit var title: String
     lateinit var post : String
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView)
