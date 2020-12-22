@@ -32,16 +32,16 @@ class PlacementFragment : Fragment(), PlacementActivity.Companion.ShowData {
         super.onViewCreated(view, savedInstanceState)
         adapter = PlacementAdapter(data)
         (activity as PlacementActivity).getData(this)
-           view.refresh.setOnRefreshListener {
-            (activity as PlacementActivity).getData(this)
-        }
+        view.refresh.setOnRefreshListener {
+               (activity as PlacementActivity).getData(this)
+               }
     }
 
     override fun showData(list: List<PlacementModel>) {
-        val n = DiffUtilCallback(data, list )
+        val n = DiffUtilCallback(data, list)
         val diffResult = DiffUtil.calculateDiff(n)
         data = list
-        Log.d("update_list","okok")
+        Log.d("update_list", "okok")
         adapter.list = data
         adapter.notifyDataSetChanged()
         diffResult.dispatchUpdatesTo(adapter)
