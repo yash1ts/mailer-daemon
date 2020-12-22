@@ -28,7 +28,7 @@ import java.util.Calendar
 
 class LoginActivity : AppCompatActivity() {
 
-    private val RC_SIGNIN = 234
+    private val RCSIGNIN = 234
     private lateinit var mAuth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
 
@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
         } else {
             val currentUser = mAuth.currentUser
             if (currentUser != null)
-                startMain(currentUser)
+                startMain()
         }
         setContentView(R.layout.activity_login)
         progress_bar.visibility = View.GONE
@@ -84,18 +84,18 @@ class LoginActivity : AppCompatActivity() {
         login_facebook.setOnClickListener {
             progress_bar.visibility = View.VISIBLE
             LoginManager.getInstance().logInWithReadPermissions(
-                    this@LoginActivity,
-                    listOf(getString(R.string.EmailId))
+                this@LoginActivity,
+                listOf(getString(R.string.EmailId))
             )
         }
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         google_signin.setOnClickListener {
             progress_bar.visibility = View.VISIBLE
-            startActivityForResult(mGoogleSignInClient.signInIntent, RC_SIGNIN)
+            startActivityForResult(mGoogleSignInClient.signInIntent, RCSIGNIN)
         }
     }
 
@@ -103,12 +103,12 @@ class LoginActivity : AppCompatActivity() {
         if (accessToken != null) {
             val credential = FacebookAuthProvider.getCredential(accessToken.token)
             mAuth.signInWithCredential(credential)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful)
-                            saveUser(mAuth.currentUser)
-                        else
-                            this.toast(getString(R.string.AuthFailed) + task.exception)
-                    }
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful)
+                        saveUser(mAuth.currentUser)
+                    else
+                        this.toast(getString(R.string.AuthFailed) + task.exception)
+                }
         } else
             this.toast(getString(R.string.AuthFailed))
     }
@@ -127,7 +127,7 @@ class LoginActivity : AppCompatActivity() {
             editor.putString(NAME, user.displayName).apply()
             if (user.uid == ADMIN_ID) editor.putBoolean(ACCESS, true).apply()
             else editor.putBoolean(ACCESS, false).apply()
-            startMain(user)
+            startMain()
         }
     }
 
@@ -145,7 +145,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RC_SIGNIN) {
+        if (requestCode == RCSIGNIN) {
             progress_bar.visibility = View.GONE
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
@@ -164,16 +164,16 @@ class LoginActivity : AppCompatActivity() {
 
         // Now using firebase we are signing in the user here
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful)
-                        saveUser(mAuth.currentUser)
-                    else
-                    // If sign in fails, display a message to the user.
-                        this.toast(getString(R.string.AuthFailed))
-                }
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful)
+                    saveUser(mAuth.currentUser)
+                else
+                // If sign in fails, display a message to the user.
+                    this.toast(getString(R.string.AuthFailed))
+            }
     }
 
-    private fun startMain(currentUser: FirebaseUser) {
+    private fun startMain() {
         intent = Intent(applicationContext, MainActivity::class.java)
         startActivity(intent)
         finish()

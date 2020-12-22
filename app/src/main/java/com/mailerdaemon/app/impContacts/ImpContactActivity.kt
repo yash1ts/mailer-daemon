@@ -45,7 +45,7 @@ class ImpContactActivity : AppCompatActivity(), ContactFunction {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId === android.R.id.home) onBackPressed()
+        if (item.itemId == android.R.id.home) onBackPressed()
         return true
     }
 

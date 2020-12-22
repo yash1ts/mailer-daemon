@@ -39,7 +39,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
-        Objects.requireNonNull(supportActionBar)?.setDisplayShowHomeEnabled(true)
+        (supportActionBar)!!.setDisplayShowHomeEnabled(true)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = (supportFragmentManager
                 .findFragmentById(R.id.map) as? SupportMapFragment?)
@@ -180,7 +180,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 with(AlertDialog.Builder(this)) {
                     setTitle(resources.getString(R.string.dialog_title))
                     setMessage(resources.getString(R.string.dialog_message))
-                    setPositiveButton("OK") { dialogInterface: DialogInterface?, i: Int ->
+                    setPositiveButton("OK") { _: DialogInterface?, _: Int ->
                         ActivityCompat.requestPermissions(this@MapsActivity, permission,
                                 MY_PERMISSIONS_REQUEST_LOCATION)
                     }
