@@ -27,13 +27,12 @@ import org.json.JSONObject
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 
-
 @Suppress("DEPRECATION")
 class ClubDetailBottomSheet : BottomSheetDialogFragment() {
 
     private var selectedclub = 0
     private var selectedtag = 0
-    private lateinit var chromeTab: ChromeTab
+    private lateinit var chromeTab : ChromeTab
     private lateinit var ob : JSONObject
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -69,7 +68,6 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
             view.club_web.setOnClickListener { chromeTab.openTab(ob.getString("web")) }
         }
         setposts(page = ob.getString("fb"), view = view)
-
     }
 
     private fun getJson() {
@@ -84,17 +82,14 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
             val jsonObject = JSONObject(json)
             ob = jsonObject.getJSONArray("modelList").getJSONObject(selectedclub - 1)
             val logo = resources.obtainTypedArray(R.array.clubs_logo)
-            selectedtag = logo.getResourceId(ob.getInt("tag"),0)
+            selectedtag = logo.getResourceId(ob.getInt("tag"), 0)
             logo.recycle()
-
         } catch (jsonException: JSONException) {
             jsonException.printStackTrace()
         } catch (jsonException: IOException) {
             jsonException.printStackTrace()
         }
     }
-
-
 
     @SuppressLint("ClickableViewAccessibility")
     private fun setposts(page: String?, view: View) {
@@ -111,5 +106,3 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
                 event.action == ACTION_BUTTON_PRESS }
     }
 }
-
-
