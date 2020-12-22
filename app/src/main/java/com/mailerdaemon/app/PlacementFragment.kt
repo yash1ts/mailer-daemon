@@ -33,8 +33,8 @@ class PlacementFragment : Fragment(), PlacementActivity.Companion.ShowData {
         adapter = PlacementAdapter(data)
         (activity as PlacementActivity).getData(this)
         view.refresh.setOnRefreshListener {
-               (activity as PlacementActivity).getData(this)
-               }
+            (activity as PlacementActivity).getData(this)
+            }
     }
 
     override fun showData(list: List<PlacementModel>) {
