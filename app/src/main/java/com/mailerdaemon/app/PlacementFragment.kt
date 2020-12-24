@@ -34,8 +34,8 @@ class PlacementFragment : Fragment(), PlacementActivity.Companion.ShowData {
         (activity as PlacementActivity).getData(this)
         view.refresh.setOnRefreshListener {
                 refresh.visibility = View.GONE
-               (activity as PlacementActivity).getData(this)
-               }
+                    (activity as PlacementActivity).getData(this)
+        }
     }
 
     override fun showData(list: List<PlacementModel>) {
