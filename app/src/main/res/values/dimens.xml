@@ -8,6 +8,8 @@
     <dimen name="text_size_16">16sp</dimen>
     <dimen name="text_size_12">12sp</dimen>
     <dimen name="text_size_8">8sp</dimen>
+    <dimen name="text_size_14">14sp</dimen>
+    <dimen name="text_size_17">17sp</dimen>
     <dimen name="icon_height">16dp</dimen>
     <dimen name="icon_width">16dp</dimen>
   <dimen name="activityPadding">16dp</dimen>

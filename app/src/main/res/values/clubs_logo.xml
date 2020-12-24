@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer-array name="clubs_logo">
+
+        <item>@drawable/md_logo</item>
+        <item>@drawable/litc_logo</item>
+        <item>@drawable/mechismu_logo</item>
+        <item>@drawable/cyberlabs_logo</item>
+        <item>@drawable/chayanika_logo</item>
+        <item>@drawable/ecell_logo</item>
+        <item>@drawable/arka_logo</item>
+        <item>@drawable/quiz_logo</item>
+        <item>@drawable/udaan_logo</item>
+        <item>@drawable/toastmaster_logo</item>
+        <item>@drawable/ffi_logo</item>
+        <item>@drawable/wtc_logo</item>
+        <item>@drawable/kartavya_logo</item>
+        <item>@drawable/rythm_logo</item>
+        <item>@drawable/litm_logo</item>
+        <item>@drawable/lci_logo</item>
+        <item>@drawable/ff_logo</item>
+        <item>@drawable/roboism_logo</item>
+        <item>@drawable/manthan_logo</item>
+        <item>@drawable/adc_logo</item>
+        <item>@drawable/art_logo</item>
+
+    </integer-array>
+</resources>

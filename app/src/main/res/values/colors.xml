@@ -20,4 +20,7 @@
   <color name="intro_2">#89B1E9</color>
   <color name="intro_3">#A9E66C</color>
   <color name="indicator_unselected">#000</color>
+    <color name="colorPlacementText">#797979</color>
+    <color name="congratulations">#B4ADAD</color>
+    <color name="placementView">#98DDFF</color>
 </resources>
