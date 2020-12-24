@@ -33,6 +33,7 @@ class PlacementFragment : Fragment(), PlacementActivity.Companion.ShowData {
         adapter = PlacementAdapter(data)
         (activity as PlacementActivity).getData(this)
         view.refresh.setOnRefreshListener {
+                refresh.visibility = View.GONE
                (activity as PlacementActivity).getData(this)
                }
     }

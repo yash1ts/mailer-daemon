@@ -60,6 +60,7 @@ class PlacementActivity : AppCompatActivity() {
                     val result = response.body()
                     if (response.isSuccessful && result != null) {
                         shimmer_view_container.visibility = View.GONE
+                        refresh.visibility = View.VISIBLE
                         data = result
                         showData.showData(data)
                     } else
