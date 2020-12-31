@@ -5,13 +5,14 @@
   android:layout_height="wrap_content"
   android:orientation="vertical">
   <com.facebook.drawee.view.SimpleDraweeView
-    android:id="@+id/club_icon"
-    android:layout_width="@dimen/icon_size_med"
-    android:layout_height="@dimen/icon_size_med"
-    android:layout_margin="8dp"
-    android:tag="1"
-    app:roundAsCircle="true"
-    app:roundingBorderColor="@android:color/black"
-    app:roundingBorderWidth="0.5dp"
-    />
+      android:id="@+id/club_icon"
+      android:layout_width="@dimen/icon_size_med"
+      android:layout_height="@dimen/icon_size_med"
+      android:layout_margin="8dp"
+      android:tag="1"
+      android:scaleType="fitXY"
+      app:roundAsCircle="true"
+      app:roundingBorderColor="@android:color/black"
+      app:roundingBorderWidth="0.5dp"
+      />
 </LinearLayout>

@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-    android:layout_height="match_parent"
-  >
-
-  <RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/lay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="36dp"
     android:background="@drawable/bottom_sheet"
     android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:theme="@style/AppTheme">
+    android:paddingEnd="16dp">
 
-    <TextView
-      android:id="@+id/club_name"
-      style="@style/TextAppearance.AppCompat.Headline"
+  <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:layout_marginEnd="108dp"
-      android:padding="@dimen/padding_8"
-      android:textColor="@color/text_blue_black"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      android:orientation="horizontal"
+      android:id="@+id/lay1"
+      android:layout_marginTop="8dp"
+      android:layout_marginBottom="8dp">
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/club_icon"
+        android:layout_width="@dimen/icon_size_big"
+        android:layout_height="@dimen/icon_size_big"
+        android:background="@drawable/circular_drawable"
+        android:scaleType="fitXY"
+        app:roundAsCircle="true"/>
+
+    <TextView
+        android:id="@+id/club_name"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:textSize="20sp"
+        android:padding="@dimen/padding_8"
+        android:textColor="@color/text_blue_black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+  </LinearLayout>
 
     <LinearLayout
       android:id="@+id/lay_icons"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/club_name"
+      android:layout_below="@+id/lay1"
       android:orientation="horizontal">
 
       <ImageButton
@@ -71,15 +83,6 @@
         android:src="@drawable/vector_drawable_www"
         android:visibility="gone"
         />
-      <ImageView
-        android:id="@+id/club_edit"
-        android:layout_width="@dimen/default_icon_size"
-        android:layout_height="@dimen/default_icon_size"
-        android:layout_margin="8dp"
-        android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_create_black_24dp"
-        android:visibility="gone"
-        />
     </LinearLayout>
     <ScrollView
       android:layout_width="match_parent"
@@ -90,14 +93,49 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       >
-    <TextView
-      android:id="@+id/club_des"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:maxLines="10"
-      android:padding="@dimen/padding_8"
-      android:textColor="@color/colorTextBlack"
-      android:textSize="12sp" />
+
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:id="@+id/layout1">
+          <TextView
+              android:id="@+id/des"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="4dp"
+              android:textColor="@color/colorTextBlack"
+              android:textSize="18sp"
+              android:text="@string/description"
+              android:textAllCaps="true"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_description"
+            android:id="@+id/ic_open"
+            android:visibility="visible"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_description_close"
+            android:visibility="gone"
+            android:id="@+id/ic_close"/>
+
+      </LinearLayout>
+
+      <TextView
+          android:id="@+id/club_des"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="@dimen/padding_8"
+          android:textColor="@color/colorTextBlack"
+          android:textSize="12sp"
+          android:maxLines="10"
+          android:text="Club Description"
+          android:layout_below="@id/layout1"
+          android:visibility="gone"/>
 
     <TextView
       android:id="@+id/tv_heading_senior_mem"
@@ -112,7 +150,7 @@
       android:id="@+id/club_members"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/tv_heading_senior_mem"
+      android:layout_below="@id/tv_heading_senior_mem"
       android:visibility="gone" />
     <vcm.github.webkit.proview.ProWebView
       android:id="@+id/web"
@@ -132,17 +170,4 @@
     </RelativeLayout>
     </ScrollView>
   </RelativeLayout>
-  <com.facebook.drawee.view.SimpleDraweeView
-    android:id="@+id/club_icon"
-    android:layout_width="@dimen/icon_size_big"
-    android:layout_height="@dimen/icon_size_big"
-    android:layout_marginEnd="36dp"
-    android:background="@drawable/circular_drawable"
-    android:elevation="4dp"
-    android:scaleType="centerCrop"
-    app:layout_anchor="@id/lay"
-    app:layout_anchorGravity="end"
-    app:roundAsCircle="true"
-    />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
