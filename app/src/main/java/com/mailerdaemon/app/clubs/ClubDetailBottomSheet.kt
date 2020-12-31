@@ -56,20 +56,18 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
     override fun getTheme(): Int = R.style.BottomSheetDialogTheme
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = BottomSheetDialog(requireContext(), theme)
 
-
     private fun setView(view: View) {
         view.club_name.text = ob.getString("name")
         view.club_icon.setActualImageResource(selectedtag)
         view.club_members.text = ob.getString("members")
         view.club_fb.setOnClickListener { chromeTab.openTab(ob.getString("fb")) }
         view.des.setOnClickListener {
-            if(view.ic_open.visibility == View.VISIBLE) {
+            if (view.ic_open.visibility == View.VISIBLE) {
                 view.ic_open.visibility = View.GONE
                 view.ic_close.visibility = View.VISIBLE
                 view.club_des.visibility = View.VISIBLE
                 view.club_des.text = ob.getString("description")
-            }
-            else {
+            }else {
                 view.ic_open.visibility = View.VISIBLE
                 view.ic_close.visibility = View.GONE
                 view.club_des.visibility = View.GONE
@@ -113,7 +111,7 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
             val jsonObject = JSONObject(json)
             ob = jsonObject.getJSONArray("modelList").getJSONObject(selectedclub - 1)
             val logo = resources.obtainTypedArray(R.array.clubs_logo)
-            selectedtag = logo.getResourceId(ob.getInt("tag")-1,0)
+            selectedtag = logo.getResourceId(ob.getInt("tag") - 1, 0)
             logo.recycle()
         } catch (jsonException: JSONException) {
             jsonException.printStackTrace()
