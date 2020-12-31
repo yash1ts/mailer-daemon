@@ -19,7 +19,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PlacementActivity : AppCompatActivity(){
+class PlacementActivity : AppCompatActivity() {
 
     var data = emptyList<PlacementModel>()
     val fragment = PlacementFragment()
@@ -35,10 +35,10 @@ class PlacementActivity : AppCompatActivity(){
         supportFragmentManager.beginTransaction().add(R.id.container, fragment).commit()
     }
 
-   override fun onSaveInstanceState(outState: Bundle) {
+    override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(placementData, PlacementList(data))
-    }
+        }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
@@ -113,7 +113,7 @@ class PlacementActivity : AppCompatActivity(){
         return true
     }
 
-    companion object{
+    companion object {
         interface ShowData {
             fun showData(list: List<PlacementModel>)
         }

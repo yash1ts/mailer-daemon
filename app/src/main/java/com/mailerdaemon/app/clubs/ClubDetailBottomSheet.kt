@@ -37,7 +37,7 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
     private var selectedclub = 0
     private var selectedtag = 0
     private lateinit var chromeTab: ChromeTab
-    private lateinit var ob : JSONObject
+    private lateinit var ob: JSONObject
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_club_detail, container, false)
@@ -99,7 +99,6 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
             view.club_web.setOnClickListener { chromeTab.openTab(ob.getString("web")) }
         }
         setposts(page = ob.getString("fb"), view = view)
-
     }
 
     private fun getJson() {
@@ -138,5 +137,3 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
                 event.action == ACTION_BUTTON_PRESS }
     }
 }
-
-
