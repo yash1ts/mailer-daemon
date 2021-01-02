@@ -84,6 +84,7 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
             view.ic_close.visibility = View.GONE
             view.club_des.visibility = View.GONE
         }
+
         if (ob.getString("insta").isNotEmpty()) {
             view.club_insta.visibility = View.VISIBLE
             view.club_insta.setOnClickListener { chromeTab.openTab(ob.getString("insta")) }
