@@ -16,6 +16,19 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    flavorDimensions "default"
+
+    productFlavors{
+        student{
+            buildConfigField 'boolean', 'IS_ADMIN', 'false'
+            //  applicationId "com.mailerdeamon.app.student"
+        }
+        admin{
+            buildConfigField 'boolean', 'IS_ADMIN', 'true'
+            // applicationId "com.mailerdeamon.app.admin"
+        }
+    }
+
     ndkVersion "21.3.6528147"
 
     compileOptions {
