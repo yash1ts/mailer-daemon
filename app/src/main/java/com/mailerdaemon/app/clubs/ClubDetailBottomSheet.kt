@@ -67,7 +67,7 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
                 view.ic_close.visibility = View.VISIBLE
                 view.club_des.visibility = View.VISIBLE
                 view.club_des.text = ob.getString("description")
-            }else {
+            } else {
                 view.ic_open.visibility = View.VISIBLE
                 view.ic_close.visibility = View.GONE
                 view.club_des.visibility = View.GONE
