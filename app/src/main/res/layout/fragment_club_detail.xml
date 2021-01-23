@@ -17,8 +17,8 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/club_icon"
-        android:layout_width="@dimen/icon_size_big"
-        android:layout_height="@dimen/icon_size_big"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:background="@drawable/circular_drawable"
         android:scaleType="fitXY"
         app:roundAsCircle="true"
@@ -104,16 +104,16 @@
 
       <ImageButton
         android:id="@+id/club_fb"
-        android:layout_width="@dimen/default_icon_size"
-        android:layout_height="@dimen/default_icon_size"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="?attr/selectableItemBackground"
           android:layout_marginEnd="19.6dp"
         android:src="@drawable/vector_drawable_icons__facebook_filled" />
 
       <ImageView
         android:id="@+id/club_insta"
-        android:layout_width="@dimen/default_icon_size"
-        android:layout_height="@dimen/default_icon_size"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
         android:background="?attr/selectableItemBackground"
         android:src="@drawable/vector_drawable_icons__instagram___"
           android:layout_marginEnd="19.6dp"
@@ -121,8 +121,8 @@
 
       <ImageView
         android:id="@+id/club_youtube"
-        android:layout_width="@dimen/default_icon_size"
-        android:layout_height="@dimen/default_icon_size"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
         android:background="?attr/selectableItemBackground"
         android:src="@drawable/vector_drawable__ionicons_svg_logo_youtube"
           android:layout_marginEnd="19.6dp"
@@ -131,8 +131,8 @@
 
       <ImageView
           android:id="@+id/club_web"
-          android:layout_width="@dimen/default_icon_size"
-          android:layout_height="@dimen/default_icon_size"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
           android:background="?attr/selectableItemBackground"
           android:src="@drawable/vector_drawable_www"
           android:layout_marginEnd="19.6dp"
