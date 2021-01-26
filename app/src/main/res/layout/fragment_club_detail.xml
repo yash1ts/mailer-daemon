@@ -1,85 +1,142 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:layout_width="match_parent"
-    android:layout_height="match_parent"
-  >
-
-  <RelativeLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/lay"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="36dp"
-    android:background="@drawable/bottom_sheet"
-    android:paddingStart="16dp"
-    android:paddingEnd="16dp"
-    android:theme="@style/AppTheme">
+    android:background="@drawable/bottom_sheet">
 
-    <TextView
-      android:id="@+id/club_name"
-      style="@style/TextAppearance.AppCompat.Headline"
+  <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginTop="16dp"
-      android:layout_marginEnd="108dp"
-      android:padding="@dimen/padding_8"
-      android:textColor="@color/text_blue_black"
-      app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toTopOf="parent" />
+      android:orientation="horizontal"
+      android:id="@+id/lay1"
+      android:animateLayoutChanges="true"
+      android:layout_marginBottom="12dp">
 
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/club_icon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/circular_drawable"
+        android:scaleType="fitXY"
+        app:roundAsCircle="true"
+        android:layout_marginTop="24dp"
+        android:layout_marginStart="27dp"/>
+
+    <TextView
+        android:id="@+id/club_name"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:textStyle="bold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mailer Daemon"
+        android:textSize="17sp"
+        android:padding="@dimen/padding_8"
+        android:textColor="@color/text_blue_black"
+        android:layout_marginTop="38dp"
+        android:layout_marginStart="20dp"/>
+
+  </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/lay1"
+        android:animateLayoutChanges="true"
+        android:id="@+id/desp_lay">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:id="@+id/layout1"
+          android:layout_marginStart="20dp"
+          android:layout_marginEnd="20dp"
+          android:animateLayoutChanges="true">
+        <TextView
+            android:id="@+id/des"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTextBlack"
+            android:textSize="14sp"
+            android:text="@string/description"
+            android:textAllCaps="true"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_description"
+            android:id="@+id/ic_open"
+            android:visibility="visible" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_description_close"
+            android:visibility="gone"
+            android:id="@+id/ic_close" />
+
+      </LinearLayout>
+
+      <TextView
+          android:layout_marginStart="27dp"
+          android:layout_marginEnd="27dp"
+          android:id="@+id/club_des"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:padding="@dimen/padding_8"
+          android:textColor="@color/colorTextBlack"
+          android:textSize="14sp"
+          android:maxLines="10"
+          android:text="Club Description"
+          android:layout_below="@id/layout1"
+          android:visibility="gone"/>
+    </LinearLayout>
     <LinearLayout
       android:id="@+id/lay_icons"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/club_name"
-      android:orientation="horizontal">
+      android:layout_below="@+id/desp_lay"
+      android:orientation="horizontal"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp">
 
       <ImageButton
         android:id="@+id/club_fb"
-        android:layout_width="@dimen/default_icon_size"
-        android:layout_height="@dimen/default_icon_size"
-        android:layout_margin="8dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:background="?attr/selectableItemBackground"
+          android:layout_marginEnd="19.6dp"
         android:src="@drawable/vector_drawable_icons__facebook_filled" />
 
       <ImageView
         android:id="@+id/club_insta"
-        android:layout_width="@dimen/default_icon_size"
-        android:layout_height="@dimen/default_icon_size"
-        android:layout_margin="8dp"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
         android:background="?attr/selectableItemBackground"
         android:src="@drawable/vector_drawable_icons__instagram___"
+          android:layout_marginEnd="19.6dp"
         android:visibility="gone" />
 
       <ImageView
         android:id="@+id/club_youtube"
-        android:layout_width="@dimen/default_icon_size"
-        android:layout_height="@dimen/default_icon_size"
-        android:layout_margin="8dp"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
         android:background="?attr/selectableItemBackground"
         android:src="@drawable/vector_drawable__ionicons_svg_logo_youtube"
+          android:layout_marginEnd="19.6dp"
         android:visibility="gone"
         />
 
       <ImageView
-        android:id="@+id/club_web"
-        android:layout_width="@dimen/default_icon_size"
-        android:layout_height="@dimen/default_icon_size"
-        android:layout_margin="8dp"
-        android:background="?attr/selectableItemBackground"
-        android:src="@drawable/vector_drawable_www"
-        android:visibility="gone"
-        />
-      <ImageView
-        android:id="@+id/club_edit"
-        android:layout_width="@dimen/default_icon_size"
-        android:layout_height="@dimen/default_icon_size"
-        android:layout_margin="8dp"
-        android:background="?attr/selectableItemBackground"
-        android:src="@drawable/ic_create_black_24dp"
-        android:visibility="gone"
-        />
+          android:id="@+id/club_web"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:background="?attr/selectableItemBackground"
+          android:src="@drawable/vector_drawable_www"
+          android:layout_marginEnd="19.6dp"
+          android:visibility="gone" />
     </LinearLayout>
     <ScrollView
       android:layout_width="match_parent"
@@ -89,21 +146,13 @@
     <RelativeLayout
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
       >
-    <TextView
-      android:id="@+id/club_des"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:maxLines="10"
-      android:padding="@dimen/padding_8"
-      android:textColor="@color/colorTextBlack"
-      android:textSize="12sp" />
 
     <TextView
       android:id="@+id/tv_heading_senior_mem"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:layout_below="@id/club_des"
       android:layout_marginTop="16dp"
       android:text="Senior members"
       android:visibility="gone" />
@@ -112,16 +161,18 @@
       android:id="@+id/club_members"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_below="@+id/tv_heading_senior_mem"
+      android:layout_below="@id/tv_heading_senior_mem"
       android:visibility="gone" />
-    <vcm.github.webkit.proview.ProWebView
-      android:id="@+id/web"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_below="@+id/tv_heading_senior_mem"
-      android:layout_marginTop="10dp"
-      app:javascriptEnabled="true"
-      app:nestedScrollingEnabled="true"/>
+
+      <vcm.github.webkit.proview.ProWebView
+          android:id="@+id/web"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_below="@+id/tv_heading_senior_mem"
+          android:layout_marginStart="10dp"
+          android:layout_marginEnd="10dp"
+          app:javascriptEnabled="true"
+          app:nestedScrollingEnabled="true" />
     <include android:id="@+id/shimmer_view_container"
       layout="@layout/post_place_holder"
       android:layout_width="match_parent"
@@ -132,17 +183,4 @@
     </RelativeLayout>
     </ScrollView>
   </RelativeLayout>
-  <com.facebook.drawee.view.SimpleDraweeView
-    android:id="@+id/club_icon"
-    android:layout_width="@dimen/icon_size_big"
-    android:layout_height="@dimen/icon_size_big"
-    android:layout_marginEnd="36dp"
-    android:background="@drawable/circular_drawable"
-    android:elevation="4dp"
-    android:scaleType="centerCrop"
-    app:layout_anchor="@id/lay"
-    app:layout_anchorGravity="end"
-    app:roundAsCircle="true"
-    />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>

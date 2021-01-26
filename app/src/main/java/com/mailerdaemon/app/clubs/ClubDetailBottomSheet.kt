@@ -1,6 +1,7 @@
 package com.mailerdaemon.app.clubs
 
 import android.annotation.SuppressLint
+import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -8,6 +9,7 @@ import android.view.MotionEvent.ACTION_BUTTON_PRESS
 import android.view.View
 import android.view.ViewGroup
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mailerdaemon.app.BuildConfig
 import com.mailerdaemon.app.R
@@ -21,19 +23,21 @@ import kotlinx.android.synthetic.main.fragment_club_detail.view.club_members
 import kotlinx.android.synthetic.main.fragment_club_detail.view.club_name
 import kotlinx.android.synthetic.main.fragment_club_detail.view.club_web
 import kotlinx.android.synthetic.main.fragment_club_detail.view.club_youtube
+import kotlinx.android.synthetic.main.fragment_club_detail.view.des
+import kotlinx.android.synthetic.main.fragment_club_detail.view.ic_close
+import kotlinx.android.synthetic.main.fragment_club_detail.view.ic_open
 import kotlinx.android.synthetic.main.fragment_club_detail.view.web
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 
-@Suppress("DEPRECATION")
 class ClubDetailBottomSheet : BottomSheetDialogFragment() {
 
     private var selectedclub = 0
     private var selectedtag = 0
-    private lateinit var chromeTab : ChromeTab
-    private lateinit var ob : JSONObject
+    private lateinit var chromeTab: ChromeTab
+    private lateinit var ob: JSONObject
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_club_detail, container, false)
@@ -49,12 +53,38 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
         return view
     }
 
+    override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = BottomSheetDialog(requireContext(), theme)
+
     private fun setView(view: View) {
-        view.club_des.text = ob.getString("description")
         view.club_name.text = ob.getString("name")
-        view.club_icon.setImageResource(selectedtag)
+        view.club_icon.setActualImageResource(selectedtag)
         view.club_members.text = ob.getString("members")
         view.club_fb.setOnClickListener { chromeTab.openTab(ob.getString("fb")) }
+        view.des.setOnClickListener {
+            if (view.ic_open.visibility == View.VISIBLE) {
+                view.ic_open.visibility = View.GONE
+                view.ic_close.visibility = View.VISIBLE
+                view.club_des.visibility = View.VISIBLE
+                view.club_des.text = ob.getString("description")
+            } else {
+                view.ic_open.visibility = View.VISIBLE
+                view.ic_close.visibility = View.GONE
+                view.club_des.visibility = View.GONE
+            }
+        }
+        view.ic_open.setOnClickListener {
+            view.ic_open.visibility = View.GONE
+            view.ic_close.visibility = View.VISIBLE
+            view.club_des.visibility = View.VISIBLE
+            view.club_des.text = ob.getString("description")
+        }
+        view.ic_close.setOnClickListener {
+            view.ic_open.visibility = View.VISIBLE
+            view.ic_close.visibility = View.GONE
+            view.club_des.visibility = View.GONE
+        }
+
         if (ob.getString("insta").isNotEmpty()) {
             view.club_insta.visibility = View.VISIBLE
             view.club_insta.setOnClickListener { chromeTab.openTab(ob.getString("insta")) }
@@ -82,7 +112,7 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
             val jsonObject = JSONObject(json)
             ob = jsonObject.getJSONArray("modelList").getJSONObject(selectedclub - 1)
             val logo = resources.obtainTypedArray(R.array.clubs_logo)
-            selectedtag = logo.getResourceId(ob.getInt("tag"), 0)
+            selectedtag = logo.getResourceId(ob.getInt("tag") - 1, 0)
             logo.recycle()
         } catch (jsonException: JSONException) {
             jsonException.printStackTrace()

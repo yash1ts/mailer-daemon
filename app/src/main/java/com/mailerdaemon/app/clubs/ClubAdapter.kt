@@ -11,7 +11,6 @@ import com.mailerdaemon.app.R
 import com.mailerdaemon.app.utils.DialogOptions
 import java.util.*
 
-@Suppress("DEPRECATION")
 class ClubAdapter internal constructor(context: Context, options: DialogOptions) :
     RecyclerView.Adapter<ClubAdapter.Holder>() {
     private var iconModel: List<ClubIconModel> = ArrayList()
@@ -25,7 +24,7 @@ class ClubAdapter internal constructor(context: Context, options: DialogOptions)
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val (url, tag) = iconModel[position]
         if (url == null) {
-            holder.icon.setImageResource(R.drawable.ic_account_circle_black_24dp)
+            holder.icon.setActualImageResource(R.drawable.ic_account_circle_black_24dp)
         } else {
             var id = 0
             when (tag) {
@@ -51,7 +50,7 @@ class ClubAdapter internal constructor(context: Context, options: DialogOptions)
                 20 -> id = R.drawable.adc_logo
                 21 -> id = R.drawable.art_logo
             }
-            holder.icon.setImageResource(id)
+            holder.icon.setActualImageResource(id)
         }
         holder.icon.setOnClickListener { options.showDialog(Objects.requireNonNull(tag).toString()) }
     }

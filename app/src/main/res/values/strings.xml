@@ -101,5 +101,6 @@
   <string name="pref_key_logout">logout</string>
   <string name="pref_key_privacy_policy">privacy_policy</string>
   <string name="pref_key_report">report_bug</string>
+    <string name="description">Description</string>
 
 </resources>

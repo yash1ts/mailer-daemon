@@ -12,7 +12,6 @@ import com.mailerdaemon.app.placement.DiffUtilCallback
 import com.mailerdaemon.app.placement.PlacementActivity
 import com.mailerdaemon.app.placement.PlacementAdapter
 import com.mailerdaemon.app.placement.PlacementModel
-import kotlinx.android.synthetic.main.activity_placement.*
 import kotlinx.android.synthetic.main.fragment_placement.*
 import kotlinx.android.synthetic.main.fragment_placement.view.*
 
@@ -33,8 +32,8 @@ class PlacementFragment : Fragment(), PlacementActivity.Companion.ShowData {
         adapter = PlacementAdapter(data)
         (activity as PlacementActivity).getData(this)
         view.refresh.setOnRefreshListener {
-               (activity as PlacementActivity).getData(this)
-               }
+            (activity as PlacementActivity).getData(this)
+            }
     }
 
     override fun showData(list: List<PlacementModel>) {

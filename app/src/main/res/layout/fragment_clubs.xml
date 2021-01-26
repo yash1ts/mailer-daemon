@@ -27,17 +27,6 @@
       android:textSize="20sp"
       android:textStyle="bold" />
 
-    <ImageButton
-      android:id="@+id/add_club"
-      android:layout_width="24dp"
-      android:layout_height="24dp"
-      android:layout_alignTop="@+id/group_name"
-      android:layout_marginStart="-48dp"
-      android:layout_marginTop="5dp"
-      android:layout_toEndOf="@+id/group_name"
-      android:src="@drawable/ic_add_box_white_24dp"
-      android:visibility="gone" />
-
     <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/rv_clubs"
       android:layout_width="match_parent"

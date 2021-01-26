@@ -14,7 +14,7 @@ class PlacementAdapter(var list: List<PlacementModel>) : RecyclerView.Adapter<Pl
     val p = PrettyTime()
     val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)
     lateinit var title: String
-    lateinit var post : String
+    lateinit var post: String
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
