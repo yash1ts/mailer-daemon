@@ -20,7 +20,12 @@ class HtmlFragment : Fragment() {
             it.settings.setSupportZoom(true)
             it.settings.builtInZoomControls = true
             it.settings.displayZoomControls = false
-            it.loadUrl(arguments?.getString("url").toString())
+            val url = arguments?.getString("url")
+            if (url != null) {
+                it.loadUrl(url)
+            } else {
+                it.loadData("<body>NOT FOUND</body>", "text/html", "UTF-8")
+            }
         }
         return view
     }

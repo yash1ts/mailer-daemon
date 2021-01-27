@@ -3,6 +3,7 @@ package com.mailerdaemon.app
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 
 import androidx.appcompat.app.AppCompatActivity
@@ -37,8 +38,20 @@ class SettingsActivity : AppCompatActivity() {
         }
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        // Inflate the menu; this adds items to the action bar if it is present.
+        if (BuildConfig.IS_ADMIN)
+        menuInflater.inflate(R.menu.settings, menu)
+
+        return true
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) onBackPressed()
+        if (item.itemId == R.id.admin) {
+            startActivity(Intent(this, classLoader.loadClass("com.mailerdaemon.app.admin.AdminActivity")))
+        }
         return true
     }
 }
