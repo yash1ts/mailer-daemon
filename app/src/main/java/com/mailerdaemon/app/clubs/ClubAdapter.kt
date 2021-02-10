@@ -1,21 +1,18 @@
 package com.mailerdaemon.app.clubs
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.facebook.drawee.view.SimpleDraweeView
 import com.mailerdaemon.app.R
 import com.mailerdaemon.app.utils.DialogOptions
 import java.util.*
 
-class ClubAdapter internal constructor(context: Context, options: DialogOptions) :
+class ClubAdapter internal constructor(options: DialogOptions) :
     RecyclerView.Adapter<ClubAdapter.Holder>() {
     private var iconModel: List<ClubIconModel> = ArrayList()
-    private var drawable: CircularProgressDrawable
-    private val options: DialogOptions
+    private val options = options
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_club, parent, false)
         return Holder(view)
@@ -65,15 +62,5 @@ class ClubAdapter internal constructor(context: Context, options: DialogOptions)
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var icon: SimpleDraweeView = itemView.findViewById(R.id.club_icon)
-
-        init {
-            drawable = CircularProgressDrawable(itemView.context)
-            icon.hierarchy.setProgressBarImage(drawable)
-        }
-    }
-
-    init {
-        drawable = CircularProgressDrawable(context)
-        this.options = options
     }
 }

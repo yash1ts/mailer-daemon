@@ -10,7 +10,7 @@
       android:layout_height="@dimen/icon_size_med"
       android:layout_margin="8dp"
       android:tag="1"
-      android:scaleType="fitXY"
+      app:actualImageScaleType="fitXY"
       app:roundAsCircle="true"
       app:roundingBorderColor="@android:color/black"
       app:roundingBorderWidth="0.5dp"

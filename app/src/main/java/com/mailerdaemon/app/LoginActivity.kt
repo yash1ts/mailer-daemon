@@ -28,7 +28,7 @@ import java.util.Calendar
 
 class LoginActivity : AppCompatActivity() {
 
-    private val RCSIGNIN = 234
+    private val RC_SIGNIN = 234
     private lateinit var mAuth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
 
@@ -40,9 +40,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, IntroActivity::class.java))
             finish()
         } else {
-            val currentUser = mAuth.currentUser
-            if (currentUser != null)
-                startMain()
+            startMain(mAuth.currentUser)
         }
         setContentView(R.layout.activity_login)
         progress_bar.visibility = View.GONE
@@ -95,7 +93,7 @@ class LoginActivity : AppCompatActivity() {
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         google_signin.setOnClickListener {
             progress_bar.visibility = View.VISIBLE
-            startActivityForResult(mGoogleSignInClient.signInIntent, RCSIGNIN)
+            startActivityForResult(mGoogleSignInClient.signInIntent, RC_SIGNIN)
         }
     }
 
@@ -127,7 +125,7 @@ class LoginActivity : AppCompatActivity() {
             editor.putString(NAME, user.displayName).apply()
             if (user.uid == ADMIN_ID) editor.putBoolean(ACCESS, true).apply()
             else editor.putBoolean(ACCESS, false).apply()
-            startMain()
+            startMain(user)
         }
     }
 
@@ -145,7 +143,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == RCSIGNIN) {
+        if (requestCode == RC_SIGNIN) {
             progress_bar.visibility = View.GONE
             val task = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
@@ -173,9 +171,10 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun startMain() {
-        intent = Intent(applicationContext, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+    private fun startMain(currentUser: FirebaseUser?) {
+        if (currentUser != null) {
+            startActivity(Intent(applicationContext, MainActivity::class.java))
+            finish()
+        }
     }
 }

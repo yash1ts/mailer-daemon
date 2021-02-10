@@ -67,7 +67,7 @@ public class AddLNFPost  extends DialogFragment implements ImageUploadCallBack, 
 
         imageButton.setOnClickListener(v -> {
             EasyImage.openChooserWithGallery(this,"Pic image", EasyImage.RequestCodes.PICK_PICTURE_FROM_GALLERY);
-            EasyImage.configuration(Objects.requireNonNull(getContext())).allowsMultiplePickingInGallery();
+            EasyImage.configuration(requireContext()).allowsMultiplePickingInGallery();
         });
 
         send.setOnClickListener(v ->{
@@ -87,7 +87,7 @@ public class AddLNFPost  extends DialogFragment implements ImageUploadCallBack, 
         noticeModel.setHeading(heading.getText().toString());
         noticeModel.setPhoto(downloadUrl);
         noticeModel.setVerified(false);
-        String uid= Objects.requireNonNull(getContext()).getSharedPreferences("MAIN", Context.MODE_PRIVATE).getString("uid","");
+        String uid= requireContext().getSharedPreferences("MAIN", Context.MODE_PRIVATE).getString("uid","");
         noticeModel.setUid(uid);
         FirebaseFirestore.getInstance().collection(ConstantsKt.FB_LOST_FOUND).document().set(noticeModel);
         changeProgressBar();

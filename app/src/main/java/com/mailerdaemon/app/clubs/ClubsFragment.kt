@@ -22,7 +22,7 @@ class ClubsFragment : Fragment(), DialogOptions {
     @SuppressLint("CommitPrefEdits")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_clubs, container, false)
-        val adapter = ClubAdapter((context)!!, this)
+        val adapter = ClubAdapter(this)
         val recyclerView: RecyclerView = view.findViewById(R.id.rv_clubs)
         recyclerView.adapter = adapter
         iconModel = mutableListOf()
