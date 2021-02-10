@@ -90,18 +90,20 @@
   android:layout_height="24dp"
     android:layout_below="@+id/sub_attendance_num"
     android:layout_alignStart="@+id/sub_attendance_num"
-    android:layout_marginStart="20dp"
+    android:layout_marginStart="13dp"
     android:layout_marginTop="0dp"
     android:src="@drawable/ic_green_tick"
     app:elevation="0dp"
   app:fabCustomSize="24dp" />
 
   <com.google.android.material.floatingactionbutton.FloatingActionButton
+      style="@style/WhiteFab"
     android:id="@+id/sub_decrease"
     android:layout_width="24dp"
     android:layout_height="24dp"
     android:layout_below="@+id/sub_attendance_num"
-    android:layout_alignEnd="@+id/sub_attendance_num"
+      android:layout_alignStart="@+id/sub_increase"
+      android:layout_marginStart="29dp"
     android:layout_marginEnd="16dp"
     android:src="@drawable/ic_red_cross"
     app:elevation="0dp"

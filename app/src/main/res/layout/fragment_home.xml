@@ -96,44 +96,41 @@
   </LinearLayout>
   </LinearLayout>
 
-  <LinearLayout
-    android:id="@+id/linearLayout4"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    android:orientation="horizontal"
-    app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-    <TextView
-      android:layout_width="0dp"
+  <TextView
+      android:id="@+id/textView4"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
-      android:layout_weight="1"
+      android:layout_marginTop="16dp"
+      android:background="@android:color/transparent"
       android:paddingStart="@dimen/padding_10"
-      android:text="Important Contacts"
+      android:text="Placement Daemon"
       android:textColor="@color/colorTextBlack"
-      android:textStyle="bold"/>
+      android:textStyle="bold"
+      android:clickable="true"
+      app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+      android:focusable="true" />
 
-    <com.google.android.material.button.MaterialButton
-      android:id="@+id/bt_contact_all"
-      style="@style/Widget.MaterialComponents.Button.TextButton"
-      android:layout_width="wrap_content"
+  <com.google.android.material.card.MaterialCardView
+      android:id="@+id/exp_card"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginEnd="16dp"
-      android:text="See All"/>
-  </LinearLayout>
-
-  <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/rv_contacts"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
-    android:orientation="horizontal"
-    android:paddingStart="8dp"
-    android:requiresFadingEdge="horizontal"
-    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    app:layout_constraintStart_toStartOf="@+id/linearLayout4"
-    app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+      android:layout_margin="16dp"
+      android:background="?android:attr/selectableItemBackground"
+      app:cardCornerRadius="8dp"
+      app:layout_constraintStart_toStartOf="@+id/textView4"
+      app:layout_constraintTop_toBottomOf="@+id/textView4"
+      app:strokeColor="@android:color/white"
+      app:strokeWidth="4dp"
+      >
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/placement_img"
+        />
+  </com.google.android.material.card.MaterialCardView>
 
   <TextView
     android:id="@+id/textView3"
@@ -146,8 +143,8 @@
     android:text="Campus Map"
     android:textColor="@color/colorTextBlack"
     android:textStyle="bold"
-    app:layout_constraintStart_toStartOf="@+id/linearLayout4"
-    app:layout_constraintTop_toBottomOf="@+id/rv_contacts" />
+    app:layout_constraintStart_toStartOf="@+id/textView4"
+    app:layout_constraintTop_toBottomOf="@+id/exp_card" />
 
   <com.google.android.material.card.MaterialCardView
     android:id="@+id/map_card"
@@ -167,6 +164,36 @@
       android:background="@drawable/map"
       />
   </com.google.android.material.card.MaterialCardView>
+
+  <LinearLayout
+      android:id="@+id/parent_portal"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:background="?attr/selectableItemBackground"
+      android:clickable="true"
+      android:orientation="horizontal"
+      android:padding="8dp"
+      app:layout_constraintStart_toStartOf="@+id/map_card"
+      app:layout_constraintTop_toBottomOf="@+id/map_card">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:text="Parent Portal"
+        android:textColor="@color/colorTextBlack"
+        android:textStyle="bold"
+        />
+    <ImageView
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="32dp"
+        android:src="@drawable/ic_next"
+        />
+  </LinearLayout>
+
   <LinearLayout
     android:id="@+id/calendar"
     android:layout_width="match_parent"
@@ -177,8 +204,9 @@
     android:clickable="true"
     android:orientation="horizontal"
     android:padding="8dp"
-    app:layout_constraintStart_toStartOf="@+id/map_card"
-    app:layout_constraintTop_toBottomOf="@+id/map_card">
+    app:layout_constraintStart_toStartOf="@+id/parent_portal"
+    app:layout_constraintTop_toBottomOf="@+id/parent_portal"
+      android:focusable="true">
   <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -251,47 +279,50 @@
       android:src="@drawable/ic_next"
       />
   </LinearLayout>
-  <TextView
-    android:id="@+id/textView4"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="16dp"
-    android:layout_marginTop="16dp"
-    android:background="@android:color/transparent"
-    android:paddingStart="@dimen/padding_10"
-    android:text="Placement Daemon"
-    android:textColor="@color/colorTextBlack"
-    android:textStyle="bold"
-    app:layout_constraintStart_toStartOf="@+id/holidays"
-    app:layout_constraintTop_toBottomOf="@+id/holidays" />
-
-  <com.google.android.material.card.MaterialCardView
-    android:id="@+id/exp_card"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:background="?android:attr/selectableItemBackground"
-    app:cardCornerRadius="8dp"
-    app:layout_constraintStart_toStartOf="@+id/textView4"
-    app:layout_constraintTop_toBottomOf="@+id/textView4"
-    app:strokeColor="@android:color/white"
-    app:strokeWidth="4dp"
-    >
-    <ImageView
+  <LinearLayout
+      android:id="@+id/linearLayout4"
       android:layout_width="match_parent"
-      android:layout_height="220dp"
-      android:scaleType="fitXY"
-      android:src="@drawable/placement_img"
-      />
-  </com.google.android.material.card.MaterialCardView>
+      android:layout_height="wrap_content"
+      android:background="@android:color/transparent"
+      android:orientation="horizontal"
+      app:layout_constraintTop_toBottomOf="@+id/holidays">
 
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_weight="1"
+        android:paddingStart="@dimen/padding_10"
+        android:text="Important Contacts"
+        android:textColor="@color/colorTextBlack"
+        android:textStyle="bold"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bt_contact_all"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="See All"/>
+  </LinearLayout>
+
+  <androidx.recyclerview.widget.RecyclerView
+      android:id="@+id/rv_contacts"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@android:color/transparent"
+      android:orientation="horizontal"
+      android:paddingStart="8dp"
+      android:requiresFadingEdge="horizontal"
+      app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+      app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+      app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
   <View
     android:id="@+id/view2"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    app:layout_constraintStart_toStartOf="@+id/exp_card"
-    app:layout_constraintTop_toBottomOf="@+id/exp_card">
-
+    app:layout_constraintStart_toStartOf="@+id/rv_contacts"
+    app:layout_constraintTop_toBottomOf="@+id/rv_contacts">
   </View>
 
 

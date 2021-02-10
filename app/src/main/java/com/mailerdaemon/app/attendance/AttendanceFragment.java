@@ -66,6 +66,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
   ShimmerFrameLayout shimmerFrameLayout;
   @BindView(R.id.att_req)
           TextView required;
+  @SuppressLint("UseSwitchCompatOrMaterialCode")
   @BindView(R.id.noti_switch)
   Switch notificationSwitch;
   @BindView(R.id.att_notification_time)
@@ -89,7 +90,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-    ApplicationClass applicationClass= (ApplicationClass) Objects.requireNonNull(getActivity()).getApplication();
+    ApplicationClass applicationClass= (ApplicationClass) requireActivity().getApplication();
     database=applicationClass.database;
     View view=inflater.inflate(R.layout.fragment_attandance,container,false);
     ButterKnife.bind(this,view);
@@ -223,7 +224,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
     Calendar calendar=notiTime;
     getContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit().putBoolean("Notification",true).putLong(ConstantsKt.TIME_NOTI,calendar.getTimeInMillis()).apply();
     time=notiTime.getTimeInMillis();
-    AlarmManager alarmMgr = (AlarmManager) Objects.requireNonNull(getContext()).getSystemService(Context.ALARM_SERVICE);
+    AlarmManager alarmMgr = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
     Intent intent = new Intent(getContext(), NotificationReceiver.class);
     PendingIntent alarmIntent = PendingIntent.getBroadcast(getContext(), 123, intent,PendingIntent.FLAG_UPDATE_CURRENT );
     SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");

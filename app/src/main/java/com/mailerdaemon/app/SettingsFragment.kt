@@ -21,9 +21,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
             getString(R.string.pref_key_report) -> {
-                ChromeTab(activity).openTab("https://docs.google.com/forms/d/e/1FAIpQLScrYmD4pCmBc35QkkebFC9AC" +
-                    "-HT45t-r5SAzsYja6-TleSVAQ/viewf̥orm?usp=sf_link")
+                ChromeTab(activity).openTab("https://forms.gle/iLKHXtFjenhgMzB19")
                 true
+                // spreadsheet link for responses https://docs.google.com/spreadsheets/d/1qarqnDnDAU_GE9AUQOtsSFvIrCVi9d-lVgfnEkmRj5k/edit#gid=1376806006
             }
             getString(R.string.pref_key_logout) -> {
                 FirebaseAuth.getInstance().signOut()

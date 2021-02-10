@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -47,12 +48,16 @@ public class HomeFragment extends Fragment implements ContactFunction {
     MaterialCardView bt_map;
     @BindView(R.id.exp_card)
     MaterialCardView bt_experience;
+    @BindView(R.id.textView4)
+        TextView placement;
     @BindView(R.id.calendar)
     LinearLayout bt_calander;
     @BindView(R.id.mess_menu)
     LinearLayout bt_mess;
     @BindView(R.id.holidays)
     LinearLayout bt_holidays;
+    @BindView(R.id.parent_portal)
+    LinearLayout bt_parent_portal;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -79,6 +84,7 @@ public class HomeFragment extends Fragment implements ContactFunction {
             startActivity(new Intent(getActivity(), MapsActivity.class));
         });
 
+        placement.setOnClickListener(v -> OpenPlacement());
         bt_experience.setOnClickListener(v->{
 //            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:Tp9iD7YAcKo"));
 //            Intent webIntent = new Intent(Intent.ACTION_VIEW,
@@ -88,7 +94,11 @@ public class HomeFragment extends Fragment implements ContactFunction {
 //            } catch (ActivityNotFoundException ex) {
 //                Objects.requireNonNull(getContext()).startActivity(webIntent);
 //            }
-            startActivity(new Intent(getActivity(), PlacementActivity.class));
+            OpenPlacement();
+        });
+        bt_parent_portal.setOnClickListener(v->{
+            ChromeTab tab=new ChromeTab(getContext());
+            tab.openTab(ConstantsKt.Parent_Portal_Link);
         });
         bt_calander.setOnClickListener(v->{
             ChromeTab tab=new ChromeTab(getContext());
@@ -148,4 +158,6 @@ public class HomeFragment extends Fragment implements ContactFunction {
         }
         return json;
     }
+    public void OpenPlacement() {
+        startActivity(new Intent(getActivity(), PlacementActivity.class));}
 }
