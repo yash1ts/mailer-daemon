@@ -47,6 +47,7 @@ class NoticeAdapter(var list: List<PostModel>) : RecyclerView.Adapter<NoticeAdap
                 it.notice_viewpager.adapter = adapter
             }
 
+
         }
 
     }

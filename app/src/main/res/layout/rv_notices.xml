@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-          android:padding="8dp"
+        android:padding="8dp"
         android:layout_above="@id/view"
         android:layout_alignParentEnd="true"
         android:textSize="12sp"/>
