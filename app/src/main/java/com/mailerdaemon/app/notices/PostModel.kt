@@ -13,8 +13,8 @@ data class PostModel(
     val id: String,
     val message_tags: List<Tags>,
     val created_time: String,
-    val full_picture: String,
-    val attachments: Attachments
+    val full_picture: String?,
+    val attachments: Attachments?
 ) : Parcelable
 
 @Parcelize

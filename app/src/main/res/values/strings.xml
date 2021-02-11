@@ -12,94 +12,95 @@
     <string name="label_3">Off Campus</string>
 
     <string name="title_activity_placement_daemon">Placement Daemon</string>
+    <string name="title_activity_notices">Notices</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="placement_daemon_adapter">Placement Daemon</string>
     <string name="congrats">Congratulations!</string>
-  <string name="menu_home">Home</string>
-  <string name="menu_gallery">Gallery</string>
-  <string name="menu_slideshow">Slideshow</string>
-  <string name="menu_tools">Tools</string>
-  <string name="menu_share">Share</string>
-  <string name="menu_send">Send</string>
-  <string name="facebook_app_id">384900825472866</string>
-  <string name="fb_login_protocol_scheme">fb384900825472866</string>
-  <string name="campus_map">Campus Map</string>
-  <string name="dialog_title">Location Permission Needed</string>
-  <string name="dialog_message">This app needs the Location permission, please accept to use location functionality</string>
-  <string name="marker_title">Current Position</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_tools">Tools</string>
+    <string name="menu_share">Share</string>
+    <string name="menu_send">Send</string>
+    <string name="facebook_app_id">384900825472866</string>
+    <string name="fb_login_protocol_scheme">fb384900825472866</string>
+    <string name="campus_map">Campus Map</string>
+    <string name="dialog_title">Location Permission Needed</string>
+    <string name="dialog_message">This app needs the Location permission, please accept to use location functionality</string>
+    <string name="marker_title">Current Position</string>
 
-  <string name="marker_jasper">Jasper</string>
-  <string name="marker_ruby">Ruby</string>
-  <string name="marker_heritage">Heritage Building</string>
-  <string name="marker_main_entrance">Main Entrance</string>
-  <string name="marker_penman">Penman Autitorium</string>
-  <string name="marker_sac">SAC</string>
-  <string name="marker_hc">Health Center</string>
+    <string name="marker_jasper">Jasper</string>
+    <string name="marker_ruby">Ruby</string>
+    <string name="marker_heritage">Heritage Building</string>
+    <string name="marker_main_entrance">Main Entrance</string>
+    <string name="marker_penman">Penman Autitorium</string>
+    <string name="marker_sac">SAC</string>
+    <string name="marker_hc">Health Center</string>
 
-  <string name="title_activity_maps">Map</string>
-  <string name="LoginPassError">Password cannot be empty</string>
-  <string name="LoginMailError">Email cannot be empty</string>
-  <string name="Invaild_Password">Invalid password</string>
-  <string name="SignUpError">If you dont have a account please signup.</string>
-  <string name="AuthFailed">Authentication failed.</string>
-  <string name="EmailId">email</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="LoginPassError">Password cannot be empty</string>
+    <string name="LoginMailError">Email cannot be empty</string>
+    <string name="Invaild_Password">Invalid password</string>
+    <string name="SignUpError">If you dont have a account please signup.</string>
+    <string name="AuthFailed">Authentication failed.</string>
+    <string name="EmailId">email</string>
 
-  <string name="email_not_available">Sorry email not available</string>
-  <string name="number_not_available">Sorry number not available</string>
-  <string name="title_activity_imp_contacts">Contacts</string>
-  <string name="Error">Error: </string>
-  <string name="EmailSent">Email has been Sent</string>
+    <string name="email_not_available">Sorry email not available</string>
+    <string name="number_not_available">Sorry number not available</string>
+    <string name="title_activity_imp_contacts">Contacts</string>
+    <string name="Error">Error: </string>
+    <string name="EmailSent">Email has been Sent</string>
 
-  <string-array name="pages">
-    <item>faculty_all</item>
-    <item>ACH</item>
-    <item>AGL</item>
-    <item>AGP</item>
-    <item>AM</item>
-    <item>AP</item>
-    <item>CHE</item>
-    <item>CIV</item>
-    <item>CSE</item>
-    <item>ECE</item>
-    <item>EE</item>
-    <item>ESE</item>
-    <item>FME</item>
-    <item>HSS</item>
-    <item>ME</item>
-    <item>MECH</item>
-    <item>MME</item>
-    <item>MS</item>
-    <item>PE</item>
-  </string-array>
+    <string-array name="pages">
+        <item>faculty_all</item>
+        <item>ACH</item>
+        <item>AGL</item>
+        <item>AGP</item>
+        <item>AM</item>
+        <item>AP</item>
+        <item>CHE</item>
+        <item>CIV</item>
+        <item>CSE</item>
+        <item>ECE</item>
+        <item>EE</item>
+        <item>ESE</item>
+        <item>FME</item>
+        <item>HSS</item>
+        <item>ME</item>
+        <item>MECH</item>
+        <item>MME</item>
+        <item>MS</item>
+        <item>PE</item>
+    </string-array>
 
-  <string-array name="tabs">
-    <item>All</item>
-    <item>ACH</item>
-    <item>AGL</item>
-    <item>AGP</item>
-    <item>MnC</item>
-    <item>AP</item>
-    <item>CHE</item>
-    <item>CIV</item>
-    <item>CSE</item>
-    <item>ECE</item>
-    <item>EE</item>
-    <item>ESE</item>
-    <item>FME</item>
-    <item>HSS</item>
-    <item>ME</item>
-    <item>MECH</item>
-    <item>MME</item>
-    <item>MS</item>
-    <item>PE</item>
-  </string-array>
+    <string-array name="tabs">
+        <item>All</item>
+        <item>ACH</item>
+        <item>AGL</item>
+        <item>AGP</item>
+        <item>MnC</item>
+        <item>AP</item>
+        <item>CHE</item>
+        <item>CIV</item>
+        <item>CSE</item>
+        <item>ECE</item>
+        <item>EE</item>
+        <item>ESE</item>
+        <item>FME</item>
+        <item>HSS</item>
+        <item>ME</item>
+        <item>MECH</item>
+        <item>MME</item>
+        <item>MS</item>
+        <item>PE</item>
+    </string-array>
 
-  <string name="report_bug_summary">Found a bug?\nDo tell us at above contacts. We will be pleased to hear you.</string>
-  <string name="logout_summary">Logout from this account</string>
-  <string name="privacy_policy_summary">This is the privacy policy for the app</string>
-  <string name="pref_key_logout">logout</string>
-  <string name="pref_key_privacy_policy">privacy_policy</string>
-  <string name="pref_key_report">report_bug</string>
+    <string name="report_bug_summary">Found a bug?\nDo tell us at above contacts. We will be pleased to hear you.</string>
+    <string name="logout_summary">Logout from this account</string>
+    <string name="privacy_policy_summary">This is the privacy policy for the app</string>
+    <string name="pref_key_logout">logout</string>
+    <string name="pref_key_privacy_policy">privacy_policy</string>
+    <string name="pref_key_report">report_bug</string>
 
 </resources>

@@ -1,54 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:app="http://schemas.android.com/apk/res-auto"
-  android:id="@+id/container"
-  android:layout_width="match_parent"
-  android:layout_height="wrap_content"
-  android:layout_marginStart="12dp"
-  android:layout_marginTop="8dp"
-  android:layout_marginEnd="12dp"
-  android:layout_marginBottom="8dp"
-  android:focusable="false"
-  app:cardElevation="2dp"
-  app:strokeColor="@color/colorBgLightSilver"
-  app:strokeWidth="1dp">
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:focusable="false"
+    app:cardElevation="8dp"
+    app:cardCornerRadius="16dp"
+    app:strokeColor="@color/colorBgLightSilver"
+    app:strokeWidth="1dp">
 
     <RelativeLayout
-        android:layout_width="match_parent"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-        android:animateLayoutChanges="true">
-    <TextView
-        android:id="@+id/notice_head"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="48dp"
-        android:paddingHorizontal="@dimen/padding_10"
-        android:paddingTop="@dimen/padding_8"
-        android:text="No Data"
-      android:textColor="@color/colorTextBlack"
-        android:textSize="@dimen/text_size_16"/>
+      android:animateLayoutChanges="true">
 
-      <View
-        android:id="@+id/notice_options"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_alignEnd="@+id/view"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/ic_more_horiz_gray_24dp"/>
       <TextView
         android:id="@+id/notice_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/notice_head"
-        android:layout_gravity="bottom"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="16dp"
+        android:textColor="@color/colorPlacementText"
+        android:textSize="@dimen/text_size_14"
         android:autoLink="web"
-        android:padding="2dp"
-        android:textSize="14sp"
         />
+
       <View
         android:id="@+id/view"
         android:layout_width="match_parent"
@@ -56,37 +36,28 @@
         android:layout_below="@+id/notice_detail"
         android:background="@color/colorBgLightSilver"
         />
-      <TextView
-        android:id="@+id/time2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/view"
-        android:gravity="end"
-        android:paddingEnd="@dimen/padding_10"
-        android:text="time"
-        android:textSize="12sp"
-        android:visibility="gone"/>
 
-      <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/notice_photo"
+        <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/notice_viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/notice_detail"
+        android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="2dp"
         android:foreground="@drawable/image_mask"
-        android:minHeight="240dp"
-        app:actualImageScaleType="focusCrop"
-        app:placeholderImage="@drawable/placeholder_image" />
+        android:maxHeight="240dp"
+         />
+
       <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/notice_photo"
-        android:layout_alignBottom="@+id/notice_photo"
-        android:padding="@dimen/padding_10"
-        android:paddingEnd="@dimen/padding_10"
-        android:textColor="@android:color/white"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+          android:padding="8dp"
+        android:layout_above="@id/view"
+        android:layout_alignParentEnd="true"
         android:textSize="12sp"/>
     </RelativeLayout>
 
