@@ -1,7 +1,5 @@
 package com.mailerdaemon.app
 
-import com.mailerdaemon.app.admin.MyResponse
-import com.mailerdaemon.app.admin.RequestNotification
 import com.mailerdaemon.app.notices.PostModel
 import com.mailerdaemon.app.placement.PlacementModel
 import retrofit2.Call

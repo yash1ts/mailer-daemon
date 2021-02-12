@@ -1,4 +1,4 @@
-package com.mailerdaemon.app.admin
+package com.mailerdaemon.app
 
 data class RequestNotification(
     var android: Android,
