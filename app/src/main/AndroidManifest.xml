@@ -109,9 +109,24 @@
         <data android:scheme="@string/fb_login_protocol_scheme" />
       </intent-filter>
     </activity>
-    <activity android:name=".events.EventsActivity"/>
-    <activity android:name=".notices.NoticesActivity"/>
-    <activity android:name=".placement.PlacementActivity"/>
+    <activity android:name=".events.EventsActivity">
+      <intent-filter>
+        <action android:name="EventActivity"></action>
+        <category android:name="android.intent.category.DEFAULT"></category>
+      </intent-filter>
+    </activity>
+    <activity android:name=".notices.NoticesActivity">
+      <intent-filter>
+        <action android:name="NoticeActivity"></action>
+        <category android:name="android.intent.category.DEFAULT"></category>
+      </intent-filter>
+    </activity>
+    <activity android:name=".placement.PlacementActivity">
+      <intent-filter>
+        <action android:name="PlacementActivity"></action>
+        <category android:name="android.intent.category.DEFAULT"></category>
+      </intent-filter>
+    </activity>
     <activity android:name=".SignUpActivity"
       android:theme="@style/AppTheme.TransparentActionBar"/>
     <activity android:name=".ForgotPassActivity"
