@@ -21,7 +21,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
             getString(R.string.pref_key_report) -> {
-                ChromeTab(activity).openTab("https://forms.gle/iLKHXtFjenhgMzB19")
+                ChromeTab(activity).openTab("https://forms.gle/xEwrAMgWaKmy7xoz5")
                 true
                 // spreadsheet link for responses https://docs.google.com/spreadsheets/d/1qarqnDnDAU_GE9AUQOtsSFvIrCVi9d-lVgfnEkmRj5k/edit#gid=1376806006
             }
