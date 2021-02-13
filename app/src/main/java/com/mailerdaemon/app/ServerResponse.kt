@@ -1,5 +1,5 @@
 package com.mailerdaemon.app
 
-class MyResponse {
+class ServerResponse {
     var message: String? = null
 }

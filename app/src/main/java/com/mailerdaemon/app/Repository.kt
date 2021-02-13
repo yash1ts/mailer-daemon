@@ -17,5 +17,5 @@ interface Repository {
 
     @Headers("Content-Type: application/json")
     @POST("/push")
-    fun sendNotification(@Body requestNotificaton: RequestNotification): Call<MyResponse>
+    fun sendNotification(@Body requestNotificaton: RequestNotification): Call<ServerResponse>
 }

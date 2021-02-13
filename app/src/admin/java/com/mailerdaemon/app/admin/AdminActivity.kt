@@ -111,8 +111,8 @@ class AdminActivity : AppCompatActivity(), ImageUploadCallBack {
         val rootModel = RequestNotification(RequestNotification.Android(notification), topic)
 
         (application as ApplicationClass).repository.sendNotification(rootModel)
-                .enqueue(object: retrofit2.Callback<MyResponse> {
-                    override fun onResponse(call:retrofit2.Call<MyResponse>, response:retrofit2.Response<MyResponse>) {
+                .enqueue(object: retrofit2.Callback<ServerResponse> {
+                    override fun onResponse(call:retrofit2.Call<ServerResponse>, response:retrofit2.Response<ServerResponse>) {
                         if(response.isSuccessful) {
                             baseContext.toast(response.message())
                         } else {
@@ -123,7 +123,7 @@ class AdminActivity : AppCompatActivity(), ImageUploadCallBack {
                         onBackPressed()
                     }
 
-                    override fun onFailure(call:retrofit2.Call<MyResponse>, t:Throwable) {
+                    override fun onFailure(call:retrofit2.Call<ServerResponse>, t:Throwable) {
                         baseContext.toast("Failed")
                         progress_bar.visibility = View.GONE
                         t.message?.let { Log.d("Send Notification", it) }
