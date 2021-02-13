@@ -16,7 +16,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mailerdaemon.app.R
 import com.mailerdaemon.app.club_id
 import com.mailerdaemon.app.utils.ChromeTab
-import kotlinx.android.synthetic.admin.fragment_club_details.*
+import kotlinx.android.synthetic.main.fragment_club_details.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException

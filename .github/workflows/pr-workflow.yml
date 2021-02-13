@@ -22,7 +22,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Static Analysis
-        run: ./gradlew ktlintCheck detekt app:lintDebug
+        run: ./gradlew ktlintAdminDebugCheck detekt app:lintAdminDebug && ./gradlew ktlintUserDebugCheck detekt app:lintUserDebug
 
   build:
 
@@ -42,4 +42,4 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build all configurations
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleAdminDebug && ./gradlew assembleUserDebug
