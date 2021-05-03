@@ -1,7 +1,6 @@
 package com.mailerdaemon.app.placement
 
 import android.os.Parcelable
-import com.mailerdaemon.app.notices.Tags
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -14,3 +13,8 @@ data class PlacementModel(
     val created_time: String,
     val id: String
 ) : Parcelable
+
+@Parcelize
+data class Tags(
+    val name : String
+): Parcelable

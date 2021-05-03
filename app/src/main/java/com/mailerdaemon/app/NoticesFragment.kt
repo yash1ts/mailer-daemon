@@ -45,7 +45,7 @@ class NoticesFragment : Fragment(), NoticesActivity.Companion.ShowNotices {
         //val n = DiffUtilCallback(data, list)
         //val diffResult = DiffUtil.calculateDiff(n)
         data = list
-        Log.d("update_list", "okok")
+        //Log.d("update_list", "okok")
         adapter.list = data
         adapter.notifyDataSetChanged()
         //diffResult.dispatchUpdatesTo(adapter)

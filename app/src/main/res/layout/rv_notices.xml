@@ -45,9 +45,21 @@
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="2dp"
-        android:foreground="@drawable/image_mask"
         android:maxHeight="240dp"
          />
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/full_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:layout_below="@id/notice_detail"
+            android:minHeight="240dp"
+            app:actualImageScaleType="fitCenter"
+            app:placeholderImage="@drawable/placeholder_image"
+            tools:ignore="MissingConstraints" />
+
 
       <TextView
         android:id="@+id/time"

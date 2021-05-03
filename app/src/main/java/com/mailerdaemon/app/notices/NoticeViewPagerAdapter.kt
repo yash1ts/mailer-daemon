@@ -5,19 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mailerdaemon.app.R
-import com.mailerdaemon.app.notices.Data
 import com.mailerdaemon.app.notices.NoticeAdapter
 import com.mailerdaemon.app.notices.PostModel
-import com.mailerdaemon.app.notices.SubAttachments
 import kotlinx.android.synthetic.main.notice_viewpager_item.view.*
 
-public class NoticeViewPagerAdapter (var list: List<Data> = emptyList()) : RecyclerView.Adapter<NoticeViewPagerAdapter.Holder>()  {
-
+public class NoticeViewPagerAdapter (var list: List<Photo> = emptyList()) : RecyclerView.Adapter<NoticeViewPagerAdapter.Holder>()  {
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-       return NoticeViewPagerAdapter.Holder(LayoutInflater.from(parent.context).inflate(R.layout.notice_viewpager_item, parent, false))
+       return Holder(LayoutInflater.from(parent.context).inflate(R.layout.notice_viewpager_item, parent, false))
     }
 
     override fun getItemCount(): Int {

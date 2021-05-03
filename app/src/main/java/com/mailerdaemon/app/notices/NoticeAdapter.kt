@@ -12,6 +12,7 @@ import com.mailerdaemon.app.notices.NoticeViewPagerAdapter
 import com.mailerdaemon.app.R
 import com.mailerdaemon.app.placement.PlacementModel
 import kotlinx.android.synthetic.main.item_posts.view.*
+import kotlinx.android.synthetic.main.notice_viewpager_item.view.*
 import kotlinx.android.synthetic.main.rv_notices.view.*
 import org.ocpsoft.prettytime.PrettyTime
 import java.text.SimpleDateFormat
@@ -39,14 +40,26 @@ class NoticeAdapter(var list: List<PostModel>) : RecyclerView.Adapter<NoticeAdap
 
             it.notice_detail.text = list[position].message
             it.time.text = p.format(convertedDate)
-            if(str.attachments!=null && str.attachments.data.size!=0)
+            if(str.full_picture.isNullOrBlank() || str.photo.isNotEmpty())
             {
-                val adapter = NoticeViewPagerAdapter()
-                Log.d("error1",str.attachments.data.toString())
-                //adapter.list = str.attachments.data[0].subAttachments.data
-                it.notice_viewpager.adapter = adapter
+                it.full_image.visibility = View.GONE
             }
-
+            else
+            {
+                it.full_image.visibility = View.VISIBLE
+                it.full_image.setImageURI(str.full_picture)
+            }
+            if(str.photo.isNotEmpty())
+           {
+               val adapter = NoticeViewPagerAdapter()
+               it.notice_viewpager.visibility = View.VISIBLE
+               adapter.list = str.photo
+               it.notice_viewpager.adapter = adapter
+           }
+            else
+            {
+                it.notice_viewpager.visibility = View.GONE
+            }
 
         }
 
