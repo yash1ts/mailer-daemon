@@ -6,6 +6,7 @@ import androidx.room.Room
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.imagepipeline.core.ImagePipelineConfig
 import com.facebook.imagepipeline.decoder.SimpleProgressiveJpegConfig
+import com.google.gson.GsonBuilder
 import com.mailerdaemon.app.attendance.database.AppDatabase
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -28,8 +29,12 @@ class ApplicationClass : Application() {
 
         WebView.setWebContentsDebuggingEnabled(false)
 
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+
         val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
 
         repository = retrofit.create(Repository::class.java)
