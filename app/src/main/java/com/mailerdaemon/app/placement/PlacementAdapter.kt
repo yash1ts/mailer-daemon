@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mailerdaemon.app.R
+import kotlinx.android.synthetic.main.fragment_placement.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlinx.android.synthetic.main.item_posts.view.*

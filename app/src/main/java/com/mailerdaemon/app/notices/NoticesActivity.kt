@@ -2,53 +2,51 @@ package com.mailerdaemon.app.notices
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.mailerdaemon.app.ApplicationClass
-import com.mailerdaemon.app.R
-import com.mailerdaemon.app.toast
+import com.mailerdaemon.app.*
+import com.mailerdaemon.app.placement.PlacementModel
 import kotlinx.android.synthetic.main.activity_notices.*
+import kotlinx.android.synthetic.main.activity_notices.refresh
+import kotlinx.android.synthetic.main.fragment_placement.*
 import kotlinx.android.synthetic.main.shimmer_layout_posts.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class NoticesActivity : AppCompatActivity() {
-    private var access: Boolean = false
+
+    var data = emptyList<PostModel>()
+    val fragmentnotices = NoticesFragment()
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_notices)
+        setContentView(R.layout.activity_placement)
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
-            it.title = "Notices"
+            it.title = resources.getString(R.string.title_activity_notices)
         }
-
-        access = getSharedPreferences("GENERAL", Context.MODE_PRIVATE)
-            .getBoolean("Access", false)
-        rv_notices.adapter = NoticeAdapter
-
-        if (NoticeAdapter.list.isEmpty())
-            getDatabase()
-        refresh.setOnRefreshListener {
-            getDatabase()
-            refresh.isRefreshing = false
-        }
+        supportFragmentManager.beginTransaction().add(R.id.container, fragmentnotices).commit()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelable("data", PostsList(NoticeAdapter.list))
+        outState.putParcelable(noticeData, PostsList(data))
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        NoticeAdapter.list =
-            savedInstanceState.getParcelable<PostsList>("data")?.posts ?: emptyList()
+        data = savedInstanceState.getParcelable<PostsList>(noticeData)?.posts ?: emptyList()
     }
 
-    fun getDatabase() {
-        shimmer_view_container.visibility = View.VISIBLE
+    fun getNotices(showNotices: ShowNotices) {
+        shimmer_view_container.let{
+            it.startShimmer()
+            it.visibility = View.VISIBLE
+        }
+
         (application as ApplicationClass).repository.getPosts()
             ?.enqueue(object : Callback<List<PostModel>?> {
                 override fun onFailure(call: Call<List<PostModel>?>, t: Throwable) {
@@ -61,9 +59,16 @@ class NoticesActivity : AppCompatActivity() {
                 ) {
                     val result = response.body()
                     if (response.isSuccessful && result != null) {
-                        shimmer_view_container.visibility = View.GONE
-                        NoticeAdapter.setData(result)
-                        NoticeAdapter.notifyDataSetChanged()
+                        if(shimmer_view_container.isShimmerVisible)
+                        {
+                            shimmer_view_container.let {
+                                it.stopShimmer()
+                                it.visibility = View.GONE
+                            }
+                        }
+                        refresh.visibility = View.VISIBLE
+                        data = result
+                        showNotices.showNotices(data)
                     } else
                         baseContext.toast("Error")
                 }
@@ -73,5 +78,12 @@ class NoticesActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == android.R.id.home) onBackPressed()
         return true
+    }
+
+    companion object {
+        interface ShowNotices {
+            fun showNotices(list: List<PostModel>)
+        }
+        val noticeData = "notices"
     }
 }

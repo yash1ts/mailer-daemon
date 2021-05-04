@@ -6,7 +6,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface Repository {
-    @GET("/data")
+    @GET("/posts")
     fun getPosts(): Call<List<PostModel>?>?
 
     @GET("/place")

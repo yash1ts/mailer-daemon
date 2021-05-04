@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   xmlns:shimmer="http://schemas.android.com/apk/res-auto"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   >
-
   <com.facebook.shimmer.ShimmerFrameLayout
     android:id="@+id/shimmer_view_container"
     android:layout_width="match_parent"
@@ -13,11 +12,11 @@
     android:layout_gravity="center"
     android:elevation="16dp"
     android:orientation="vertical"
-    shimmer:duration="800"
+    shimmer:duration="2000"
     shimmer:layout_constraintStart_toStartOf="parent"
     shimmer:layout_constraintTop_toTopOf="parent"
     >
-    <!-- Adding 7 rows of placeholders -->
+     <!--Adding 7 rows of placeholders-->
     <LinearLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
@@ -35,4 +34,4 @@
 
   </com.facebook.shimmer.ShimmerFrameLayout>
 
-</merge>
+</RelativeLayout>

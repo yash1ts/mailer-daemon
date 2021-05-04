@@ -38,7 +38,7 @@ class PlacementActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(placementData, PlacementList(data))
-        }
+    }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
@@ -46,7 +46,10 @@ class PlacementActivity : AppCompatActivity() {
     }
 
     fun getData(showData: ShowData) {
-        shimmer_view_container.visibility = View.VISIBLE
+        shimmer_view_container.let {
+        it.startShimmer()
+        it.visibility = View.VISIBLE
+        }
         (application as ApplicationClass).repository.getPlacementPosts()
             ?.enqueue(object : Callback<List<PlacementModel>?> {
                 override fun onFailure(call: Call<List<PlacementModel>?>, t: Throwable) {
@@ -59,7 +62,13 @@ class PlacementActivity : AppCompatActivity() {
                 ) {
                     val result = response.body()
                     if (response.isSuccessful && result != null) {
-                        shimmer_view_container.visibility = View.GONE
+                        if (shimmer_view_container.isShimmerVisible) {
+                            shimmer_view_container.let {
+                                it.stopShimmer()
+                                it.visibility = View.GONE
+                            }
+                        }
+                        refresh.visibility = View.VISIBLE
                         data = result
                         showData.showData(data)
                     } else
