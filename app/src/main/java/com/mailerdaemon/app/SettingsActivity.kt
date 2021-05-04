@@ -8,7 +8,6 @@ import android.view.MenuItem
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
-import com.mailerdaemon.app.admin.NotificationTagAdapter
 import com.mailerdaemon.app.databinding.ActivitySettingsBinding
 import kotlinx.android.synthetic.main.activity_settings.*
 

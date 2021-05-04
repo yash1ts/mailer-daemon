@@ -1,4 +1,4 @@
-package com.mailerdaemon.app.admin
+package com.mailerdaemon.app
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.messaging.FirebaseMessaging
-import com.mailerdaemon.app.*
 import kotlinx.android.synthetic.main.item_notification.view.*
 
 class NotificationTagAdapter(var list: List<String>) : RecyclerView.Adapter<NotificationTagAdapter.Holder>() {
