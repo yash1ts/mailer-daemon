@@ -24,13 +24,14 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login.*
-import java.util.Calendar
+import java.util.*
 
 class LoginActivity : AppCompatActivity() {
 
     private val RC_SIGNIN = 234
     private lateinit var mAuth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
+    private var backPressedCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -175,6 +176,15 @@ class LoginActivity : AppCompatActivity() {
         if (currentUser != null) {
             startActivity(Intent(applicationContext, MainActivity::class.java))
             finish()
+        }
+    }
+
+    override fun onBackPressed() {
+        ++backPressedCount
+        if (backPressedCount < 2) {
+            toast("Press again to exit the app")
+        } else {
+            finishAndRemoveTask()
         }
     }
 }

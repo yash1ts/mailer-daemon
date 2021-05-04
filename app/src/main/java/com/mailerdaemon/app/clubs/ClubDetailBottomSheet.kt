@@ -14,7 +14,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.mailerdaemon.app.R
-import com.mailerdaemon.app.club_id
+import com.mailerdaemon.app.CLUB_ID
 import com.mailerdaemon.app.utils.ChromeTab
 import kotlinx.android.synthetic.main.fragment_club_details.*
 import org.json.JSONException
@@ -32,7 +32,7 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_club_details, container, false)
         chromeTab = ChromeTab(context)
-        selectedclub = requireArguments().getInt(club_id)
+        selectedclub = requireArguments().getInt(CLUB_ID)
         getJson()
         return view
     }

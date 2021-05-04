@@ -16,5 +16,5 @@ data class PlacementModel(
 
 @Parcelize
 data class Tags(
-    val name : String
-): Parcelable
+    val name: String
+) : Parcelable

@@ -1,12 +1,5 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-  <Blacklist></Blacklist>
-  <Whitelist>
-    <ID>ConstructorParameterNaming:PlacementModel.kt$PlacementModel$val created_time: String</ID>
-    <ID>ConstructorParameterNaming:PlacementModel.kt$PlacementModel$val message_tags: List&lt;Tags&gt;</ID>
-    <ID>ConstructorParameterNaming:PostModel.kt$PostModel$val created_time: String</ID>
-    <ID>ConstructorParameterNaming:PostModel.kt$PostModel$val full_picture: String</ID>
-    <ID>ConstructorParameterNaming:PostModel.kt$PostModel$val message_tags: List&lt;Tags&gt;</ID>
-    <ID>ConstructorParameterNaming:PostModel.kt$PostModel$val permalink_url: String</ID>
-  </Whitelist>
+  <Blacklist />
+  <Whitelist />
 </SmellBaseline>

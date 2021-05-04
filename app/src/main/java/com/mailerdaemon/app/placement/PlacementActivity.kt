@@ -127,6 +127,6 @@ class PlacementActivity : AppCompatActivity() {
             fun showData(list: List<PlacementModel>)
         }
 
-        val placementData = "placement"
+        const val placementData = "placement"
     }
 }

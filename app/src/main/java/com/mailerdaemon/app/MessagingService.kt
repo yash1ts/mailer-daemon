@@ -17,7 +17,6 @@ import java.net.HttpURLConnection
 import java.net.URL
 import java.util.*
 
-
 class MessagingService : FirebaseMessagingService() {
     override fun onNewToken(s: String) {
         super.onNewToken(s)
@@ -29,19 +28,19 @@ class MessagingService : FirebaseMessagingService() {
         Log.d("MESSAGE_RECEIVED", remoteMessage.toString())
         val title = remoteMessage.notification!!.title
         val message = remoteMessage.notification!!.body
-        val click_action = remoteMessage.notification!!.clickAction
-        val intent = Intent(click_action)
+        val clickAction = remoteMessage.notification!!.clickAction
+        val intent = Intent(clickAction)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
         val uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
-        val CHANNEL_ID = "id123"
-        val CHANNEL_NAME = "MESSAGE"
+        val channelId = "id123"
+        val channelName = "MESSAGE"
         val manager = NotificationManagerCompat.from(applicationContext)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT)
+            val channel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_DEFAULT)
             manager.createNotificationChannel(channel)
         }
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+        val builder = NotificationCompat.Builder(this, channelId)
             .setContentTitle(title)
             .setSmallIcon(R.drawable.ic_noti)
             .setContentText(message)

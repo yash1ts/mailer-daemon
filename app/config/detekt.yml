@@ -13,7 +13,7 @@ complexity:
     excludes: "**/buildSrc/**"
     threshold: 4
   ComplexMethod:
-    active: true
+    active: false
     excludes: "**/buildSrc/**"
     threshold: 10
     ignoreSingleWhenExpression: true
@@ -31,7 +31,7 @@ complexity:
     threshold: 4
   TooManyFunctions:
     active: true
-    excludes: "**/buildSrc/**"
+    excludes: ["**/buildSrc/**"]
     thresholdInFiles: 15
     thresholdInClasses: 15
     thresholdInInterfaces: 15
@@ -74,7 +74,7 @@ empty-blocks:
 exceptions:
   active: true
   TooGenericExceptionCaught:
-    active: true
+    active: false
     exceptionNames:
       - ArrayIndexOutOfBoundsException
       - Error
@@ -122,10 +122,12 @@ naming:
     privatePropertyPattern: '_?[A-Za-z][_A-Za-z0-9]*'
   VariableNaming:
     active: true
-    variablePattern: '[a-z][A-Za-z0-9]*'
+    variablePattern: '[a-z][_A-Za-z0-9]*'
     privateVariablePattern: '(_)?[A-Za-z][_A-Za-z0-9]*'
     excludeClassPattern: '$^'
     ignoreOverridden: true
+  ConstructorParameterNaming:
+    active: false
 
 performance:
   active: true
@@ -151,13 +153,13 @@ style:
   active: true
   ForbiddenComment:
     active: true
-    values: 'TODO:,FIXME:,STOPSHIP:'
+    values: ['TODO:,FIXME:,STOPSHIP:']
   MagicNumber:
-    active: true
-    excludes: "**/buildSrc/**"
-    ignoreNumbers: '-1,0,1,2,3,4,5,6,7,8,9'
+    active: false
+    excludes: ["**/buildSrc/**"]
+    ignoreNumbers: ['-1','0','1','2','3','4','5','6','7','8','9']
     ignoreHashCodeFunction: true
-    ignorePropertyDeclaration: false
+    ignorePropertyDeclaration: true
     ignoreConstantDeclaration: true
     ignoreCompanionObjectPropertyDeclaration: true
     ignoreAnnotation: false
@@ -183,6 +185,6 @@ style:
     excludes: "**/buildSrc/**"
     max: 2
   WildcardImport:
-    active: true
-    excludes: "**/buildSrc/**"
-    excludeImports: 'java.util.*,kotlinx.android.synthetic.*'
+    active: false
+    excludes: ["**/buildSrc/**"]
+    excludeImports: ['java.util.*','kotlinx.android.synthetic.*']

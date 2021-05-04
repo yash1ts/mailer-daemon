@@ -44,9 +44,9 @@ class ClubsFragment : Fragment(), DialogOptions {
             val jsonObject = JSONObject(json)
 
             for (i in 0 until jsonObject.getJSONArray("modelList").length()) {
-                val `object` = jsonObject.getJSONArray("modelList").getJSONObject(i)
-                val tag = `object`.getInt("tag")
-                val url = `object`.getString("club")
+                val obj = jsonObject.getJSONArray("modelList").getJSONObject(i)
+                val tag = obj.getInt("tag")
+                val url = obj.getString("club")
                 val icon = ClubIconModel()
                 icon.url = url
                 icon.tag = tag

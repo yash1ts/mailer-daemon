@@ -1,16 +1,11 @@
 package com.mailerdaemon.app.notices
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mailerdaemon.app.*
-import com.mailerdaemon.app.placement.PlacementModel
-import kotlinx.android.synthetic.main.activity_notices.*
 import kotlinx.android.synthetic.main.activity_notices.refresh
-import kotlinx.android.synthetic.main.fragment_placement.*
 import kotlinx.android.synthetic.main.shimmer_layout_posts.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,7 +14,7 @@ import retrofit2.Response
 class NoticesActivity : AppCompatActivity() {
 
     var data = emptyList<PostModel>()
-    val fragmentnotices = NoticesFragment()
+    private val fragmentNotices = NoticesFragment()
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +23,7 @@ class NoticesActivity : AppCompatActivity() {
             it.setDisplayHomeAsUpEnabled(true)
             it.title = resources.getString(R.string.title_activity_notices)
         }
-        supportFragmentManager.beginTransaction().add(R.id.container, fragmentnotices).commit()
+        supportFragmentManager.beginTransaction().add(R.id.container, fragmentNotices).commit()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -42,7 +37,7 @@ class NoticesActivity : AppCompatActivity() {
     }
 
     fun getNotices(showNotices: ShowNotices) {
-        shimmer_view_container.let{
+        shimmer_view_container.let {
             it.startShimmer()
             it.visibility = View.VISIBLE
         }
@@ -59,8 +54,7 @@ class NoticesActivity : AppCompatActivity() {
                 ) {
                     val result = response.body()
                     if (response.isSuccessful && result != null) {
-                        if(shimmer_view_container.isShimmerVisible)
-                        {
+                        if (shimmer_view_container.isShimmerVisible) {
                             shimmer_view_container.let {
                                 it.stopShimmer()
                                 it.visibility = View.GONE
@@ -84,6 +78,7 @@ class NoticesActivity : AppCompatActivity() {
         interface ShowNotices {
             fun showNotices(list: List<PostModel>)
         }
-        val noticeData = "notices"
+
+        const val noticeData = "notices"
     }
 }

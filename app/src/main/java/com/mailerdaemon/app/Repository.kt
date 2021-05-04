@@ -1,5 +1,6 @@
 package com.mailerdaemon.app
 
+import com.mailerdaemon.app.admin.NotificationModel
 import com.mailerdaemon.app.notices.PostModel
 import com.mailerdaemon.app.placement.PlacementModel
 import retrofit2.Call
@@ -17,5 +18,5 @@ interface Repository {
 
     @Headers("Content-Type: application/json")
     @POST("/push")
-    fun sendNotification(@Body requestNotificaton: RequestNotification): Call<ServerResponse>
+    fun sendNotification(@Body notificatonModel: NotificationModel): Call<ServerResponse>
 }

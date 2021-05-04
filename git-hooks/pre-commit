@@ -2,7 +2,8 @@
 
 echo "Running lint..."
 
-./gradlew ktlintAdminCheck detekt app:lintAdminDebug && ./gradlew ktlintUserDebugCheck detekt app:lintUserDebug
+chmod +x ./gradlew
+./gradlew ktlintAdminDebugCheck detekt app:lintAdminDebug && ./gradlew ktlintUserDebugCheck detekt app:lintUserDebug
 
 status=$?
 

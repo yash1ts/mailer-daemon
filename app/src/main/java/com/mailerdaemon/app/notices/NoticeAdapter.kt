@@ -1,16 +1,12 @@
 package com.mailerdaemon.app.notices
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.google.gson.JsonObject
-import com.mailerdaemon.app.notices.NoticeViewPagerAdapter
-//import com.mailerdaemon.app.Notices.NoticeViewPagerAdapter
+// import com.mailerdaemon.app.Notices.NoticeViewPagerAdapter
 
 import com.mailerdaemon.app.R
-import com.mailerdaemon.app.placement.PlacementModel
 import kotlinx.android.synthetic.main.item_posts.view.*
 import kotlinx.android.synthetic.main.notice_viewpager_item.view.*
 import kotlinx.android.synthetic.main.rv_notices.view.*
@@ -19,8 +15,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class NoticeAdapter(var list: List<PostModel>) : RecyclerView.Adapter<NoticeAdapter.Holder>() {
-    val p = PrettyTime()
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)
+    private val p = PrettyTime()
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -31,41 +27,28 @@ class NoticeAdapter(var list: List<PostModel>) : RecyclerView.Adapter<NoticeAdap
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
 
-        val datestring = list[position].created_time
-        val convertedDate = dateFormat.parse(datestring)
+        val dateString = list[position].created_time
+        val convertedDate = dateFormat.parse(dateString)
         val str = list[position]
-
 
         holder.itemView.let {
 
             it.notice_detail.text = list[position].message
             it.time.text = p.format(convertedDate)
-            if(str.full_picture.isNullOrBlank() || str.photo.isNotEmpty())
-            {
+            if (str.full_picture.isNullOrBlank() || str.photo.isNotEmpty()) {
                 it.full_image.visibility = View.GONE
-            }
-            else
-            {
+            } else {
                 it.full_image.visibility = View.VISIBLE
                 it.full_image.setImageURI(str.full_picture)
             }
-            if(str.photo.isNotEmpty())
-           {
-               val adapter = NoticeViewPagerAdapter()
-               it.notice_viewpager.visibility = View.VISIBLE
-               adapter.list = str.photo
-               it.notice_viewpager.adapter = adapter
-           }
-            else
-            {
+            if (str.photo.isNotEmpty()) {
+                val adapter = NoticeViewPagerAdapter()
+                it.notice_viewpager.visibility = View.VISIBLE
+                adapter.list = str.photo
+                it.notice_viewpager.adapter = adapter
+            } else {
                 it.notice_viewpager.visibility = View.GONE
             }
-
         }
-
     }
-
-    /*fun setData(data: List<PostModel>) {
-        list = data
-    }*/
 }
