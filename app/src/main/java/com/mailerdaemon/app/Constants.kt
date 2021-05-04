@@ -1,6 +1,7 @@
 package com.mailerdaemon.app
 
 const val INTRO = "intro"
+const val CLUB_ID = "club_id"
 const val NAME = "Name"
 const val U_ID = "uid"
 const val GENERAL = "GENERAL"

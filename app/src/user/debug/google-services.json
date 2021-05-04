@@ -1,0 +1,96 @@
+{
+  "project_info": {
+    "project_number": "825878219090",
+    "firebase_url": "https://mailer-daemon-a2608.firebaseio.com",
+    "project_id": "mailer-daemon-a2608",
+    "storage_bucket": "mailer-daemon-a2608.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:825878219090:android:7d20e77c88062f70",
+        "android_client_info": {
+          "package_name": "com.mailerdaemon.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "825878219090-2aloi4tb68oplpepdgrj6snpad2lp6ke.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mailerdaemon.app",
+            "certificate_hash": "e4f48a1e4633d0e19f07e25e623ac2d6922161bc"
+          }
+        },
+        {
+          "client_id": "825878219090-7m0l54kocobm40eukiviekkrtag5rn48.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mailerdaemon.app",
+            "certificate_hash": "86b3bb0e335518a0699c6a008afceddf937cc7d4"
+          }
+        },
+        {
+          "client_id": "825878219090-8dapn27bqdlk2olv577iqi5h6sgrtrmg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mailerdaemon.app",
+            "certificate_hash": "f265591856b087dc8e0ea5432a5e2c7f5fab3760"
+          }
+        },
+        {
+          "client_id": "825878219090-esr9fkhnjll2pk3hi3h4u3m4t16fhr98.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mailerdaemon.app",
+            "certificate_hash": "5d5a6bb16ddf32e8c5ca4276dd5e29eec85aef24"
+          }
+        },
+        {
+          "client_id": "825878219090-h9hss5ct30edas9o668cemd6faua803j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mailerdaemon.app",
+            "certificate_hash": "4897b794e7c3c92ee42345eb7973828c9f3660eb"
+          }
+        },
+        {
+          "client_id": "825878219090-rns41p57mjqpbb3m7vtk4i2crdge666l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mailerdaemon.app",
+            "certificate_hash": "60556b210288ac6242a9bcec8813e312374aa6e3"
+          }
+        },
+        {
+          "client_id": "825878219090-t4hlot6c258dsmtv9mkp2pa4e7k6hhjr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mailerdaemon.app",
+            "certificate_hash": "8b1bff19467826825a821ff66fe70f10b953f95f"
+          }
+        },
+        {
+          "client_id": "825878219090-5orraqfp314sgrf7fn0lb9d7bj2h74l1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDHrtCYeYNjOQAz4rsHhzdZ_ywCX7WAsO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "825878219090-5orraqfp314sgrf7fn0lb9d7bj2h74l1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

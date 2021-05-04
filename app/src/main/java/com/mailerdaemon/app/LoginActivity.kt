@@ -24,13 +24,14 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login.*
-import java.util.Calendar
+import java.util.*
 
 class LoginActivity : AppCompatActivity() {
 
     private val RC_SIGNIN = 234
     private lateinit var mAuth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
+    private var backPressedCount = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,9 +41,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(Intent(this, IntroActivity::class.java))
             finish()
         } else {
-            val currentUser = mAuth.currentUser
-            if (currentUser != null)
-                startMain(currentUser)
+            startMain(mAuth.currentUser)
         }
         setContentView(R.layout.activity_login)
         progress_bar.visibility = View.GONE
@@ -84,14 +83,14 @@ class LoginActivity : AppCompatActivity() {
         login_facebook.setOnClickListener {
             progress_bar.visibility = View.VISIBLE
             LoginManager.getInstance().logInWithReadPermissions(
-                    this@LoginActivity,
-                    listOf(getString(R.string.EmailId))
+                this@LoginActivity,
+                listOf(getString(R.string.EmailId))
             )
         }
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build()
+            .requestIdToken(getString(R.string.default_web_client_id))
+            .requestEmail()
+            .build()
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         google_signin.setOnClickListener {
             progress_bar.visibility = View.VISIBLE
@@ -103,12 +102,12 @@ class LoginActivity : AppCompatActivity() {
         if (accessToken != null) {
             val credential = FacebookAuthProvider.getCredential(accessToken.token)
             mAuth.signInWithCredential(credential)
-                    .addOnCompleteListener(this) { task ->
-                        if (task.isSuccessful)
-                            saveUser(mAuth.currentUser)
-                        else
-                            this.toast(getString(R.string.AuthFailed) + task.exception)
-                    }
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful)
+                        saveUser(mAuth.currentUser)
+                    else
+                        this.toast(getString(R.string.AuthFailed) + task.exception)
+                }
         } else
             this.toast(getString(R.string.AuthFailed))
     }
@@ -164,18 +163,28 @@ class LoginActivity : AppCompatActivity() {
 
         // Now using firebase we are signing in the user here
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isSuccessful)
-                        saveUser(mAuth.currentUser)
-                    else
-                    // If sign in fails, display a message to the user.
-                        this.toast(getString(R.string.AuthFailed))
-                }
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful)
+                    saveUser(mAuth.currentUser)
+                else
+                // If sign in fails, display a message to the user.
+                    this.toast(getString(R.string.AuthFailed))
+            }
     }
 
-    private fun startMain(currentUser: FirebaseUser) {
-        intent = Intent(applicationContext, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+    private fun startMain(currentUser: FirebaseUser?) {
+        if (currentUser != null) {
+            startActivity(Intent(applicationContext, MainActivity::class.java))
+            finish()
+        }
+    }
+
+    override fun onBackPressed() {
+        ++backPressedCount
+        if (backPressedCount < 2) {
+            toast("Press again to exit the app")
+        } else {
+            finishAndRemoveTask()
+        }
     }
 }

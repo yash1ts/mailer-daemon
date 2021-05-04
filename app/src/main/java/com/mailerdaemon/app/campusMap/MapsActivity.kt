@@ -22,7 +22,6 @@ import com.google.android.gms.maps.model.* // ktlint-disable no-wildcard-imports
 import com.mailerdaemon.app.R
 import com.mailerdaemon.app.toast
 import java.lang.ref.WeakReference
-import java.util.* // ktlint-disable no-wildcard-imports
 
 const val MY_PERMISSIONS_REQUEST_LOCATION = 99
 private const val COLOR_BLACK_ARGB = -0x1000000
@@ -39,10 +38,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
-        Objects.requireNonNull(supportActionBar)?.setDisplayShowHomeEnabled(true)
+        (supportActionBar)!!.setDisplayShowHomeEnabled(true)
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = (supportFragmentManager
-                .findFragmentById(R.id.map) as? SupportMapFragment?)
+            .findFragmentById(R.id.map) as? SupportMapFragment?)
         mapFragment?.getMapAsync(this)
 
         supportActionBar?.let {
@@ -57,6 +56,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         // stop location updates when Activity is no longer active
         mFusedLocationClient.removeLocationUpdates(mLocationCallback)
     }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -83,28 +83,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val hc = LatLng(23.811926, 86.439028)
         mMap.addMarker(MarkerOptions().position(hc).title(resources.getString(R.string.marker_hc)))
         val polyline1 = googleMap.addPolyline(PolylineOptions()
-                .clickable(true)
-                .add(
-                        LatLng(23.821271, 86.435213),
-                        LatLng(23.819827, 86.434614),
-                        LatLng(23.818309, 86.436635),
-                        LatLng(23.817824, 86.436289),
-                        LatLng(23.815959, 86.439142),
-                        LatLng(23.811823, 86.436986),
-                        LatLng(23.810356, 86.437202),
-                        LatLng(23.809208, 86.441401),
-                        LatLng(23.808920, 86.442469),
-                        LatLng(23.811918, 86.444478),
-                        LatLng(23.811966, 86.447407),
-                        LatLng(23.814787, 86.447845),
-                        LatLng(23.816345, 86.442538),
-                        LatLng(23.817181, 86.442852),
-                        LatLng(23.818064, 86.440134),
-                        LatLng(23.819137, 86.440809),
-                        LatLng(23.819931, 86.439832),
-                        LatLng(23.818626, 86.438828),
-                        LatLng(23.821271, 86.435213)
-                ))
+            .clickable(true)
+            .add(
+                LatLng(23.821271, 86.435213),
+                LatLng(23.819827, 86.434614),
+                LatLng(23.818309, 86.436635),
+                LatLng(23.817824, 86.436289),
+                LatLng(23.815959, 86.439142),
+                LatLng(23.811823, 86.436986),
+                LatLng(23.810356, 86.437202),
+                LatLng(23.809208, 86.441401),
+                LatLng(23.808920, 86.442469),
+                LatLng(23.811918, 86.444478),
+                LatLng(23.811966, 86.447407),
+                LatLng(23.814787, 86.447845),
+                LatLng(23.816345, 86.442538),
+                LatLng(23.817181, 86.442852),
+                LatLng(23.818064, 86.440134),
+                LatLng(23.819137, 86.440809),
+                LatLng(23.819931, 86.439832),
+                LatLng(23.818626, 86.438828),
+                LatLng(23.821271, 86.435213)
+            ))
         stylePolyline(polyline1)
         val width1 = resources.displayMetrics.widthPixels
         val height = resources.displayMetrics.heightPixels
@@ -132,7 +132,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     // The last location in the list is the newest
                     val location = locationList[locationList.size - 1]
                     mLastLocation = location
-                    mCurrLocationMarker.remove()
+                    if (::mCurrLocationMarker.isInitialized)
+                        mCurrLocationMarker.remove()
 
                     // Place current location marker
                     val latLng = LatLng(location.latitude, location.longitude)
@@ -149,8 +150,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)
-                    == PackageManager.PERMISSION_GRANTED) {
+                    Manifest.permission.ACCESS_FINE_LOCATION)
+                == PackageManager.PERMISSION_GRANTED) {
                 // Location Permission already granted
                 mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
                 mMap.isMyLocationEnabled = true
@@ -166,11 +167,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private fun checkLocationPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
+            != PackageManager.PERMISSION_GRANTED) {
 
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                            Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
 
                 // Show an explanation to the user *asynchronously* -- don't block
                 // this thread waiting for the user's response! After the user
@@ -180,15 +181,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 with(AlertDialog.Builder(this)) {
                     setTitle(resources.getString(R.string.dialog_title))
                     setMessage(resources.getString(R.string.dialog_message))
-                    setPositiveButton("OK") { dialogInterface: DialogInterface?, i: Int ->
+                    setPositiveButton("OK") { _: DialogInterface?, _: Int ->
                         ActivityCompat.requestPermissions(this@MapsActivity, permission,
-                                MY_PERMISSIONS_REQUEST_LOCATION)
+                            MY_PERMISSIONS_REQUEST_LOCATION)
                     }
                 }.show()
             } else {
                 // No explanation needed, we can request the permission.
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                        MY_PERMISSIONS_REQUEST_LOCATION)
+                    MY_PERMISSIONS_REQUEST_LOCATION)
             }
         }
     }

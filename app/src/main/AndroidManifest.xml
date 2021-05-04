@@ -1,127 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.mailerdaemon.app">
+    package="com.mailerdaemon.app">
 
-  <!--
-         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
-         Google Maps Android API v2, but you must specify either coarse or fine
-         location permissions for the 'MyLocation' functionality.
-    -->
-  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-  <uses-permission android:name="android.permission.INTERNET" />
-  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.CAMERA" />
-  <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-  <uses-permission android:name="android.permission.CALL_PHONE" />
-  <uses-permission android:name="android.permission.SET_ALARM"/>
-  <uses-permission android:name="android.permission.WAKE_LOCK"/>
-  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!--
+           The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+           Google Maps Android API v2, but you must specify either coarse or fine
+           location permissions for the 'MyLocation' functionality.
+      -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SET_ALARM" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-  <application
-    android:name=".ApplicationClass"
-    android:allowBackup="true"
-    android:icon="@mipmap/ic_launcher"
-    android:label="@string/app_name"
-    android:roundIcon="@mipmap/ic_launcher_round"
-    android:supportsRtl="true"
-    android:theme="@style/AppTheme">
-    <service android:name=".attendance.NotificationService"
-      android:enabled="true"
-      android:exported="false"
-      android:permission="android.permission.BIND_JOB_SERVICE"
-      />
+    <queries>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.SENDTO" />
+            <data android:scheme="mailto" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
 
-    <service android:name=".MessagingService">
-      <intent-filter>
-        <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-      </intent-filter>
-      <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
-        android:resource="@drawable/ic_noti"/>
-      <meta-data
-        android:name="com.google.firebase.messaging.default_notification_channel_id"
-        android:value="id123" />
-    </service>
+    <application
+        android:name=".ApplicationClass"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <service
+            android:name=".attendance.NotificationService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
 
-    <receiver android:name=".attendance.OnBootReciever">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED" />
-      </intent-filter>
-    </receiver>
+        <service
+            android:name=".MessagingService"
+            android:enabled="true"
+            android:exported="true"
+            android:stopWithTask="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
 
-    <receiver android:name=".attendance.NotificationReceiver"
-      android:enabled="true"
-      android:exported="false"/>
-    <meta-data
-      android:name="com.google.android.geo.API_KEY"
-      android:value="@string/google_maps_key" />
+            <meta-data
+                android:name="com.google.firebase.messaging.default_notification_icon"
+                android:resource="@drawable/ic_noti" />
+            <meta-data
+                android:name="com.google.firebase.messaging.default_notification_channel_id"
+                android:value="id123" />
+        </service>
 
-    <activity
-      android:name=".campusMap.MapsActivity"
-      android:label="@string/title_activity_maps"
-      android:theme="@style/AppTheme.TransparentActionBar" />
+        <receiver android:name=".attendance.OnBootReciever">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
 
-    <activity
-      android:name=".LoginActivity"
-      android:theme="@style/AppTheme.Icon" >
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.LAUNCHER" />
-      </intent-filter>
-      <intent-filter>
-        <action android:name="com.ttnd.fcmtest.OPEN_ACTIVITY_1"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-      </intent-filter>
+        <receiver
+            android:name=".attendance.NotificationReceiver"
+            android:enabled="true"
+            android:exported="false" />
 
-    </activity>
-    <activity android:name=".impContacts.ImpContactActivity"
-      android:theme="@style/AppTheme.NoActionBar">
-      <meta-data android:name="android.app.searchable"
-        android:resource="@xml/searchable" />
-    </activity>
-    <activity
-      android:name=".MainActivity"
-      android:hardwareAccelerated="true"
-      android:screenOrientation="portrait"
-      android:theme="@style/AppTheme.NoActionBar" />
-    <activity android:name=".lostAndFound.LostAndFound"
-      android:theme="@style/AppTheme"
-      />
-    <meta-data
-      android:name="com.facebook.sdk.ApplicationId"
-      android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
 
-    <activity
-      android:name="com.facebook.FacebookActivity"
-      android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-      android:label="@string/app_name" />
-    <activity
-      android:name="com.facebook.CustomTabActivity"
-      android:exported="true">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
+        <activity
+            android:name=".campusMap.MapsActivity"
+            android:label="@string/title_activity_maps"
+            android:theme="@style/AppTheme.TransparentActionBar" />
 
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
+        <activity
+            android:name=".LoginActivity"
+            android:theme="@style/AppTheme.Icon">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="com.ttnd.fcmtest.OPEN_ACTIVITY_1" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
 
-        <data android:scheme="@string/fb_login_protocol_scheme" />
-      </intent-filter>
-    </activity>
-    <activity android:name=".events.EventsActivity"/>
-    <activity android:name=".notices.NoticesActivity"/>
-    <activity android:name=".placement.PlacementActivity"/>
-    <activity android:name=".SignUpActivity"
-      android:theme="@style/AppTheme.TransparentActionBar"/>
-    <activity android:name=".ForgotPassActivity"
-      android:theme="@style/AppTheme.TransparentActionBar"/>
-    <activity android:name=".ContactUsActivity"
-      android:theme="@style/AppTheme.NoActionBar"/>
-      <activity android:name=".SettingsActivity"
-          android:theme="@style/AppTheme.NoActionBar" />
-      <activity android:name=".IntroActivity"
+        </activity>
+        <activity
+            android:name=".impContacts.ImpContactActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".lostAndFound.LostAndFound"
+            android:theme="@style/AppTheme" />
 
-      android:theme="@style/AppTheme.NoActionBar.NoStatusColor"/>
-    <activity android:name=".UpdateActivity"
-      android:theme="@style/AppTheme.NoActionBar"/>
-  </application>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".events.EventsActivity">
+            <intent-filter>
+                <action android:name="EventActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".notices.NoticesActivity">
+            <intent-filter>
+                <action android:name="NoticeActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".placement.PlacementActivity">
+            <intent-filter>
+                <action android:name="PlacementActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:theme="@style/AppTheme.TransparentActionBar" />
+        <activity
+            android:name=".ForgotPassActivity"
+            android:theme="@style/AppTheme.TransparentActionBar" />
+        <activity
+            android:name=".ContactUsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SettingsActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".IntroActivity"
+
+            android:theme="@style/AppTheme.NoActionBar.NoStatusColor" />
+        <activity
+            android:name=".UpdateActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+    </application>
 
 </manifest>

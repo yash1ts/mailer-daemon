@@ -64,7 +64,7 @@ public class AddEventPostFragment extends DialogFragment implements ViewUtils.sh
 
     imageButton.setOnClickListener(v -> {
       EasyImage.openChooserWithGallery(fragment,"Pic image", EasyImage.RequestCodes.PICK_PICTURE_FROM_GALLERY);
-      EasyImage.configuration(Objects.requireNonNull(getContext())).allowsMultiplePickingInGallery();
+      EasyImage.configuration(requireContext()).allowsMultiplePickingInGallery();
     });
 
     send.setOnClickListener(v -> {
