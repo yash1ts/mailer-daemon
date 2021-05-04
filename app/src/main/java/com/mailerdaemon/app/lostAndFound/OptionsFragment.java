@@ -53,10 +53,9 @@ public class OptionsFragment extends BottomSheetDialogFragment {
         model=new GsonBuilder().create().fromJson(getArguments().getString("model"),LostAndFoundModel.class);
         ButterKnife.bind(this,view);
         reference=FirebaseFirestore.getInstance().document(path);
-        ClipboardManager clipboard = (ClipboardManager) Objects.requireNonNull(getActivity()).getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
 
-        DownloadManager manager = (DownloadManager) Objects.requireNonNull(getContext())
-                .getSystemService(Context.DOWNLOAD_SERVICE);
+        DownloadManager manager = (DownloadManager) requireContext().getSystemService(Context.DOWNLOAD_SERVICE);
         access= getActivity().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getBoolean("Access",false);
 
         if(access){

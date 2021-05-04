@@ -1,0 +1,18 @@
+#!/bin/sh
+
+echo "Running lint..."
+
+./gradlew ktlintAdminCheck detekt app:lintAdminDebug && ./gradlew ktlintUserDebugCheck detekt app:lintUserDebug
+
+status=$?
+
+if [ "$status" = 0 ] ; then
+    echo "Static analysis found no problems."
+    exit 0
+else
+    ./gradlew ktlintFormat --daemon
+    echo 1>&2 "Static analysis found violations and attempted to autofix, please commit these autoformat changes"
+    echo ""
+
+    exit 1
+fi

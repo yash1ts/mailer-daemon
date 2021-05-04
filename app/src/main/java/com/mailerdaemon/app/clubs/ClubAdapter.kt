@@ -1,22 +1,18 @@
 package com.mailerdaemon.app.clubs
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.facebook.drawee.view.SimpleDraweeView
 import com.mailerdaemon.app.R
 import com.mailerdaemon.app.utils.DialogOptions
 import java.util.*
 
-@Suppress("DEPRECATION")
-class ClubAdapter internal constructor(context: Context, options: DialogOptions) :
+class ClubAdapter internal constructor(options: DialogOptions) :
     RecyclerView.Adapter<ClubAdapter.Holder>() {
     private var iconModel: List<ClubIconModel> = ArrayList()
-    private var drawable: CircularProgressDrawable
-    private val options: DialogOptions
+    private val options = options
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_club, parent, false)
         return Holder(view)
@@ -25,7 +21,7 @@ class ClubAdapter internal constructor(context: Context, options: DialogOptions)
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val (url, tag) = iconModel[position]
         if (url == null) {
-            holder.icon.setImageResource(R.drawable.ic_account_circle_black_24dp)
+            holder.icon.setActualImageResource(R.drawable.ic_account_circle_black_24dp)
         } else {
             var id = 0
             when (tag) {
@@ -51,7 +47,7 @@ class ClubAdapter internal constructor(context: Context, options: DialogOptions)
                 20 -> id = R.drawable.adc_logo
                 21 -> id = R.drawable.art_logo
             }
-            holder.icon.setImageResource(id)
+            holder.icon.setActualImageResource(id)
         }
         holder.icon.setOnClickListener { options.showDialog(Objects.requireNonNull(tag).toString()) }
     }
@@ -66,15 +62,5 @@ class ClubAdapter internal constructor(context: Context, options: DialogOptions)
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var icon: SimpleDraweeView = itemView.findViewById(R.id.club_icon)
-
-        init {
-            drawable = CircularProgressDrawable(itemView.context)
-            icon.hierarchy.setProgressBarImage(drawable)
-        }
-    }
-
-    init {
-        drawable = CircularProgressDrawable(context)
-        this.options = options
     }
 }

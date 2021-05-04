@@ -31,12 +31,15 @@
       android:permission="android.permission.BIND_JOB_SERVICE"
       />
 
-    <service android:name=".MessagingService">
+    <service android:name=".MessagingService"
+        android:enabled="true"
+        android:exported="true"
+        android:stopWithTask="false">
       <intent-filter>
         <action android:name="com.google.firebase.MESSAGING_EVENT"/>
       </intent-filter>
       <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
-        android:resource="@drawable/ic_noti"/>
+        android:resource="@drawable/ic_noti" />
       <meta-data
         android:name="com.google.firebase.messaging.default_notification_channel_id"
         android:value="id123" />
@@ -122,6 +125,7 @@
       android:theme="@style/AppTheme.NoActionBar.NoStatusColor"/>
     <activity android:name=".UpdateActivity"
       android:theme="@style/AppTheme.NoActionBar"/>
+
   </application>
 
 </manifest>

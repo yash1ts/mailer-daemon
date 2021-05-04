@@ -21,14 +21,15 @@ jobs:
       - name: Decode google-services.json
         shell: bash
         env:
-          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: 'echo "$FIREBASE_CONFIG" > app/google-services.json'
+          FIREBASE_CONFIG_ADMIN: ${{ secrets.FIREBASE_CONFIG_ADMIN }}
+          FIREBASE_CONFIG_USER: ${{ secrets.FIREBASE_CONFIG_USER }}
+        run: 'echo "$FIREBASE_CONFIG_ADMIN" | tee app/src/admin/debug/google-services.json app/src/admin/release/google-services.json && echo "$FIREBASE_CONFIG_USER" | tee app/src/user/debug/google-services.json app/src/user/release/google-services.json '
         
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
       - name: Static Analysis
-        run: ./gradlew ktlintCheck detekt app:lintDebug
+        run: ./gradlew ktlintAdminDebugCheck detekt app:lintAdminDebug && ./gradlew ktlintUserDebugCheck detekt app:lintUserDebug
 
   build:
 
@@ -47,11 +48,12 @@ jobs:
       - name: Decode google-services.json
         shell: bash
         env:
-          FIREBASE_CONFIG: ${{ secrets.FIREBASE_CONFIG }}
-        run: 'echo "$FIREBASE_CONFIG" > app/google-services.json'
-        
+          FIREBASE_CONFIG_ADMIN: ${{ secrets.FIREBASE_CONFIG_ADMIN }}
+          FIREBASE_CONFIG_USER: ${{ secrets.FIREBASE_CONFIG_USER }}
+        run: 'echo "$FIREBASE_CONFIG_ADMIN" | tee app/src/admin/debug/google-services.json app/src/admin/release/google-services.json && echo "$FIREBASE_CONFIG_USER" | tee app/src/user/debug/google-services.json app/src/user/release/google-services.json '
+
       - name: Change wrapper permissions
         run: chmod +x ./gradlew
 
       - name: Build all configurations
-        run: ./gradlew assembleDebug
+        run: ./gradlew assembleAdminDebug && ./gradlew assembleUserDebug

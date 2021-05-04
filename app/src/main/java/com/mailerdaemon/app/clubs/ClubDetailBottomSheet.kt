@@ -1,33 +1,27 @@
 package com.mailerdaemon.app.clubs
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
-import android.view.MotionEvent.ACTION_BUTTON_PRESS
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.mailerdaemon.app.BuildConfig
 import com.mailerdaemon.app.R
 import com.mailerdaemon.app.club_id
 import com.mailerdaemon.app.utils.ChromeTab
-import kotlinx.android.synthetic.main.fragment_club_detail.view.club_des
-import kotlinx.android.synthetic.main.fragment_club_detail.view.club_fb
-import kotlinx.android.synthetic.main.fragment_club_detail.view.club_icon
-import kotlinx.android.synthetic.main.fragment_club_detail.view.club_insta
-import kotlinx.android.synthetic.main.fragment_club_detail.view.club_members
-import kotlinx.android.synthetic.main.fragment_club_detail.view.club_name
-import kotlinx.android.synthetic.main.fragment_club_detail.view.club_web
-import kotlinx.android.synthetic.main.fragment_club_detail.view.club_youtube
-import kotlinx.android.synthetic.main.fragment_club_detail.view.web
+import kotlinx.android.synthetic.main.fragment_club_details.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.io.IOException
 import java.nio.charset.StandardCharsets
 
-@Suppress("DEPRECATION")
 class ClubDetailBottomSheet : BottomSheetDialogFragment() {
 
     private var selectedclub = 0
@@ -36,38 +30,62 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
     private lateinit var ob: JSONObject
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_club_detail, container, false)
+        val view = inflater.inflate(R.layout.fragment_club_details, container, false)
         chromeTab = ChromeTab(context)
-        view.web.isHorizontalScrollBarEnabled = true
-        view.club_icon.hierarchy.setProgressBarImage(CircularProgressDrawable((context)!!))
-        if (BuildConfig.DEBUG && arguments == null) {
-            error("Assertion failed")
-        }
         selectedclub = requireArguments().getInt(club_id)
         getJson()
-        setView(view)
         return view
     }
 
-    private fun setView(view: View) {
-        view.club_des.text = ob.getString("description")
-        view.club_name.text = ob.getString("name")
-        view.club_icon.setImageResource(selectedtag)
-        view.club_members.text = ob.getString("members")
-        view.club_fb.setOnClickListener { chromeTab.openTab(ob.getString("fb")) }
+    override fun getTheme(): Int = R.style.BottomSheetDialogTheme
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog = BottomSheetDialog(requireContext(), theme)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        web.isHorizontalScrollBarEnabled = true
+        club_icon.hierarchy.setProgressBarImage(CircularProgressDrawable((context)!!))
+        club_name.text = ob.getString("name")
+        club_icon.setActualImageResource(selectedtag)
+        club_members.text = ob.getString("members")
+        club_fb.setOnClickListener { chromeTab.openTab(ob.getString("fb")) }
+        club_description.setOnClickListener {
+            if (ic_open.visibility == VISIBLE) {
+                ic_open.visibility = GONE
+                ic_close.visibility = VISIBLE
+                club_des.visibility = VISIBLE
+                club_des.text = ob.getString("description")
+            } else {
+                ic_open.visibility = VISIBLE
+                ic_close.visibility = GONE
+                club_des.visibility = GONE
+            }
+        }
+        ic_open.setOnClickListener {
+            ic_open.visibility = GONE
+            ic_close.visibility = VISIBLE
+            club_des.visibility = VISIBLE
+            club_des.text = ob.getString("description")
+        }
+        ic_close.setOnClickListener {
+            ic_open.visibility = VISIBLE
+            ic_close.visibility = GONE
+            club_des.visibility = GONE
+        }
+
         if (ob.getString("insta").isNotEmpty()) {
-            view.club_insta.visibility = View.VISIBLE
-            view.club_insta.setOnClickListener { chromeTab.openTab(ob.getString("insta")) }
+            club_insta.visibility = VISIBLE
+            club_insta.setOnClickListener { chromeTab.openTab(ob.getString("insta")) }
         }
         if (ob.getString("youtube").isNotEmpty()) {
-            view.club_youtube.visibility = View.VISIBLE
-            view.club_youtube.setOnClickListener { chromeTab.openTab(ob.getString("youtube")) }
+            club_youtube.visibility = VISIBLE
+            club_youtube.setOnClickListener { chromeTab.openTab(ob.getString("youtube")) }
         }
         if (ob.getString("web").isNotEmpty()) {
-            view.club_web.visibility = View.VISIBLE
-            view.club_web.setOnClickListener { chromeTab.openTab(ob.getString("web")) }
+            club_web.visibility = VISIBLE
+            club_web.setOnClickListener { chromeTab.openTab(ob.getString("web")) }
         }
-        setposts(page = ob.getString("fb"), view = view)
+        setposts(ob.getString("fb"))
     }
 
     private fun getJson() {
@@ -82,7 +100,7 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
             val jsonObject = JSONObject(json)
             ob = jsonObject.getJSONArray("modelList").getJSONObject(selectedclub - 1)
             val logo = resources.obtainTypedArray(R.array.clubs_logo)
-            selectedtag = logo.getResourceId(ob.getInt("tag"), 0)
+            selectedtag = logo.getResourceId(ob.getInt("tag") - 1, 0)
             logo.recycle()
         } catch (jsonException: JSONException) {
             jsonException.printStackTrace()
@@ -92,17 +110,17 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    private fun setposts(page: String?, view: View) {
+    private fun setposts(page: String?) {
         if (page!!.isEmpty()) return
         var site = page
         if (page.length > 25) site = site.substring(25)
+        Log.d("Width", Resources.getSystem().displayMetrics.toString())
         val s = "<iframe src=\"https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2F" +
-            "$site&tabs=timeline&width=350&height=700&small_header=true&adapt_container_width=true&hide_cover=true&" +
+            "$site&tabs=timeline&width=${Resources.getSystem().displayMetrics.xdpi.toInt() - 20}" +
+            "&height=1024&small_header=true&adapt_container_width=true&hide_cover=true&" +
             "show_facepile=false&appId=384900825472866\" width=\"100%\" height=\"100%\" style=\"border:none;" +
             "overflow:hidden\" scrolling=\"no\" frameborder=\"0\" allowTransparency=\"true\"" +
             " allow=\"encrypted-media\"></iframe>"
-        view.web.loadHtml(s)
-        view.web.setOnTouchListener { _: View?, event: MotionEvent ->
-                event.action == ACTION_BUTTON_PRESS }
+        web.loadHtml(s)
     }
 }
