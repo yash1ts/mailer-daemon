@@ -43,7 +43,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -65,17 +64,18 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
   @BindView(R.id.shimmer_view_container)
   ShimmerFrameLayout shimmerFrameLayout;
   @BindView(R.id.att_req)
-          TextView required;
+  TextView required;
+  @SuppressLint("UseSwitchCompatOrMaterialCode")
   @BindView(R.id.noti_switch)
   Switch notificationSwitch;
   @BindView(R.id.att_notification_time)
-          TextView noti_time;
+  TextView noti_time;
   @BindView(R.id.att_date)
-          TextView tv__date;
+  TextView tv__date;
   @BindView(R.id.att_month)
-          TextView tv_month;
+  TextView tv_month;
   @BindView(R.id.att_year)
-          TextView tv_year;
+  TextView tv_year;
   private RecyclerView recyclerView;
   private AttendanceAdapter adapter;
   private NestedScrollView scrollView;
@@ -98,7 +98,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     adapter=new AttendanceAdapter(this,getContext());
     recyclerView.setAdapter(adapter);
-    time= getActivity().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getLong(ConstantsKt.TIME_NOTI,0);
+    time= requireActivity().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getLong(ConstantsKt.TIME_NOTI,0);
     Calendar current_date=Calendar.getInstance();
     tv__date.setText(String.format("%d", current_date.get(Calendar.DAY_OF_MONTH)));
     DateFormatSymbols dfs = new DateFormatSymbols();
@@ -108,7 +108,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
     notiTime= Calendar.getInstance();
     notiTime.setTimeInMillis(time);
     updateTimeTv();
-    boolean x= getContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getBoolean("Notification",false);
+    boolean x= requireContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getBoolean("Notification",false);
     notificationSwitch.setChecked(x);
 
     notificationSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -121,7 +121,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
       }
     });
 
-    scrollView=getActivity().findViewById(R.id.fragment_container);
+    scrollView= requireActivity().findViewById(R.id.fragment_container);
     shimmerFrameLayout.setVisibility(View.VISIBLE);
     scrollView.getViewTreeObserver().addOnScrollChangedListener(() -> {
       int scrollY = scrollView.getScrollY(); // For ScrollView
@@ -130,7 +130,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
           card.setVisibility(View.VISIBLE);
       }else{
         if(card.getVisibility()==View.VISIBLE)
-      scrollView.smoothScrollBy(0,100);
+          scrollView.smoothScrollBy(0,100);
         card.setVisibility(View.INVISIBLE);}
     });
 
@@ -153,7 +153,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
 
   @Override
   public void update(Subject subject) {
-  new Update().execute(subject);
+    new Update().execute(subject);
     adapter.notifyDataSetChanged();
 
   }
@@ -188,13 +188,11 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
       }
     });
     view.findViewById(R.id.bt_ok).setOnClickListener(v->{
-      getContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit().putInt("attendance",x[0]).apply();
+      requireContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit().putInt("attendance",x[0]).apply();
       new DataBase().execute();
       dialog.dismiss();
     });
-    view.findViewById(R.id.bt_cancel).setOnClickListener(v->{
-      dialog.dismiss();
-    });
+    view.findViewById(R.id.bt_cancel).setOnClickListener(v-> dialog.dismiss());
     dialog.show();
   }
 
@@ -213,15 +211,13 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
       new DataBase().execute();
       dialog.dismiss();
     });
-    view.findViewById(R.id.bt_cancel).setOnClickListener(v->{
-      dialog.dismiss();
-    });
+    view.findViewById(R.id.bt_cancel).setOnClickListener(v-> dialog.dismiss());
     dialog.show();
   }
 
   private void setUpNotification(){
     Calendar calendar=notiTime;
-    getContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit().putBoolean("Notification",true).putLong(ConstantsKt.TIME_NOTI,calendar.getTimeInMillis()).apply();
+    requireContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit().putBoolean("Notification",true).putLong(ConstantsKt.TIME_NOTI,calendar.getTimeInMillis()).apply();
     time=notiTime.getTimeInMillis();
     AlarmManager alarmMgr = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
     Intent intent = new Intent(getContext(), NotificationReceiver.class);
@@ -272,8 +268,8 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
   }
 
   private void cancelNotification(){
-    getContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit().putBoolean("Notification",false).apply();
-    AlarmManager alarmMgr = (AlarmManager)getContext().getSystemService(Context.ALARM_SERVICE);
+    requireContext().getSharedPreferences("GENERAL", Context.MODE_PRIVATE).edit().putBoolean("Notification",false).apply();
+    AlarmManager alarmMgr = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
     Intent intent = new Intent(getContext(), NotificationReceiver.class);
     PendingIntent alarmIntent = PendingIntent.getBroadcast(getContext(), 123, intent, PendingIntent.FLAG_UPDATE_CURRENT);
     if (alarmMgr!= null) {
@@ -303,24 +299,24 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
     mTimePicker.updateTime(hour,minute);
     mTimePicker.setTitle("Select Notification Time");
     mTimePicker.show();
-    }
+  }
 
-    @SuppressLint("DefaultLocale")
-    private void updateTimeTv() {
-      int hour = notiTime.get(Calendar.HOUR);
-      int minute = notiTime.get(Calendar.MINUTE);
-      if (hour == 0)
-        hour = 12;
-      if (minute < 10) {
-        if (notiTime.get(Calendar.AM_PM) == Calendar.AM)
-          noti_time.setText(String.format("%d:0%d AM", hour, minute));
-        else noti_time.setText(String.format("%d:0%d PM", hour, minute));
-      } else {
-        if (notiTime.get(Calendar.AM_PM) == Calendar.AM)
-          noti_time.setText(String.format("%d:%d AM", hour, minute));
-        else noti_time.setText(String.format("%d:%d PM", hour, minute));
-      }
+  @SuppressLint("DefaultLocale")
+  private void updateTimeTv() {
+    int hour = notiTime.get(Calendar.HOUR);
+    int minute = notiTime.get(Calendar.MINUTE);
+    if (hour == 0)
+      hour = 12;
+    if (minute < 10) {
+      if (notiTime.get(Calendar.AM_PM) == Calendar.AM)
+        noti_time.setText(String.format("%d:0%d AM", hour, minute));
+      else noti_time.setText(String.format("%d:0%d PM", hour, minute));
+    } else {
+      if (notiTime.get(Calendar.AM_PM) == Calendar.AM)
+        noti_time.setText(String.format("%d:%d AM", hour, minute));
+      else noti_time.setText(String.format("%d:%d PM", hour, minute));
     }
+  }
 
   private static class InsertDatabse extends AsyncTask<String,Void,Void>{
 
@@ -375,7 +371,7 @@ public class AttendanceFragment extends Fragment implements UpdateDatabse {
     protected void onPostExecute(Void aVoid) {
       super.onPostExecute(aVoid);
       if(context!=null)
-      requiredAtt=context.getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getInt("attendance",75);
+        requiredAtt=context.getSharedPreferences("GENERAL", Context.MODE_PRIVATE).getInt("attendance",75);
       adapter.setData(list,requiredAtt);
       required.setText(String.format("%d%%", requiredAtt));
       adapter.notifyDataSetChanged();
