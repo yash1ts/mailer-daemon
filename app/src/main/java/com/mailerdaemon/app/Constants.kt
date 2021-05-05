@@ -26,4 +26,4 @@ const val MESS_LINK = "https://drive.google.com/file/d/1C4fAedg5sJ78xzjMvGi46AJA
 const val HOLIDAY_LINK = "https://drive.google.com/file/d/1CCFCfdhEJFHHg3TS_Y3d23haSdOk1YNg/view?usp=sharing"
 const val CALENDER_LINK = "https://drive.google.com/file/d/1t2fTRz18dJcokEO0rFrctqs3kzQQuNDD/view?usp=sharing"
 const val WARDEN_LINK = "https://drive.google.com/file/d/1zV0BDKMvTxhdpTKKK_wTpFRmlQ3FXrVx/view?usp=sharing"
-const val Parent_Portal_Link = "https://parent.iitism.ac.in/index.php/parent_portal/portal0"
+const val PARENT_PORTAL_LINK = "https://parent.iitism.ac.in/index.php/parent_portal/portal0"

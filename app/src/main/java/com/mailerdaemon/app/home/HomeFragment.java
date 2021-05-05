@@ -97,7 +97,7 @@ public class HomeFragment extends Fragment implements ContactFunction {
         });
         bt_parent_portal.setOnClickListener(v->{
             ChromeTab tab=new ChromeTab(getContext());
-            tab.openTab(ConstantsKt.Parent_Portal_Link);
+            tab.openTab(ConstantsKt.PARENT_PORTAL_LINK);
         });
         bt_calander.setOnClickListener(v->{
             ChromeTab tab=new ChromeTab(getContext());
