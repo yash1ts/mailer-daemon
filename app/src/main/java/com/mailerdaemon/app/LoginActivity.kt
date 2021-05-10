@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_login.*
 import java.util.*
 
@@ -32,7 +33,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
     private lateinit var callbackManager: CallbackManager
     private var backPressedCount = 0
-
+    val list: List<String> = listOf("event", "campus", "placement")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar_NoStatusColor)
@@ -174,8 +175,19 @@ class LoginActivity : AppCompatActivity() {
 
     private fun startMain(currentUser: FirebaseUser?) {
         if (currentUser != null) {
+            subscribeAllTopics()
             startActivity(Intent(applicationContext, MainActivity::class.java))
             finish()
+        }
+    }
+
+    private fun subscribeAllTopics() {
+        for (title in list) {
+            if (getSharedPreferences(MAIN, Context.MODE_PRIVATE).getBoolean(title, true)) {
+                FirebaseMessaging.getInstance().subscribeToTopic(title)
+                getSharedPreferences(MAIN, Context.MODE_PRIVATE)
+                    .edit().putBoolean(title, true).apply()
+            }
         }
     }
 
