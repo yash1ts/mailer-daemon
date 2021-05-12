@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <integer-array name="clubs_logo">
+    <integer-array name="clubslogo">
 
         <item>@drawable/md_logo</item>
         <item>@drawable/litc_logo</item>
@@ -23,6 +23,9 @@
         <item>@drawable/manthan_logo</item>
         <item>@drawable/adc_logo</item>
         <item>@drawable/art_logo</item>
+        <item>@drawable/livetalksism_logo</item>
+        <item>@drawable/bookclubiitism_logo</item>
+        <item>@drawable/comclub_logo</item>
 
     </integer-array>
 </resources>

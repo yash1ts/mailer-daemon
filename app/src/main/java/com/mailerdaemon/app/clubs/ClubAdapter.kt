@@ -9,10 +9,9 @@ import com.mailerdaemon.app.R
 import com.mailerdaemon.app.utils.DialogOptions
 import java.util.*
 
-class ClubAdapter internal constructor(options: DialogOptions) :
+class ClubAdapter internal constructor(private val options: DialogOptions) :
     RecyclerView.Adapter<ClubAdapter.Holder>() {
     private var iconModel: List<ClubIconModel> = ArrayList()
-    private val options = options
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_club, parent, false)
         return Holder(view)
@@ -46,6 +45,9 @@ class ClubAdapter internal constructor(options: DialogOptions) :
                 19 -> id = R.drawable.manthan_logo
                 20 -> id = R.drawable.adc_logo
                 21 -> id = R.drawable.art_logo
+                22 -> id = R.drawable.livetalksism_logo
+                23 -> id = R.drawable.bookclubiitism_logo
+                24 -> id = R.drawable.comclub_logo
             }
             holder.icon.setActualImageResource(id)
         }
