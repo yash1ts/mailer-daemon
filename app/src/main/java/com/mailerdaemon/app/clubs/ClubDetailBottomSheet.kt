@@ -99,8 +99,10 @@ class ClubDetailBottomSheet : BottomSheetDialogFragment() {
             json = String(buffer, StandardCharsets.UTF_8)
             val jsonObject = JSONObject(json)
             ob = jsonObject.getJSONArray("modelList").getJSONObject(selectedclub - 1)
-            val logo = resources.obtainTypedArray(R.array.clubs_logo)
+            val logo = resources.obtainTypedArray(R.array.clubslogo)
+            Log.d(CLUB_ID, logo.hasValue(ob.getInt("tag") - 1).toString())
             selectedtag = logo.getResourceId(ob.getInt("tag") - 1, 0)
+            Log.d(CLUB_ID, selectedtag.toString())
             logo.recycle()
         } catch (jsonException: JSONException) {
             jsonException.printStackTrace()

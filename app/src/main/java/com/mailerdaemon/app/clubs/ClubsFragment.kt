@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.mailerdaemon.app.CLUB_ID
 import com.mailerdaemon.app.R
 import com.mailerdaemon.app.events.PostModel
 import com.mailerdaemon.app.utils.DialogOptions
@@ -62,7 +63,7 @@ class ClubsFragment : Fragment(), DialogOptions {
     override fun showOptions(model: PostModel, path: String) {}
     override fun showDialog(path: String) {
         val bundle = Bundle()
-        bundle.putInt("club_id", path.toInt())
+        bundle.putInt(CLUB_ID, path.toInt())
         val fragment = ClubDetailBottomSheet()
         fragment.arguments = bundle
         fragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.bottomSheetTransparent)
