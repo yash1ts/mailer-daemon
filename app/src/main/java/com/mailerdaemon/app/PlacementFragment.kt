@@ -1,5 +1,6 @@
 package com.mailerdaemon.app
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -29,7 +30,14 @@ class PlacementFragment : Fragment(), PlacementActivity.Companion.ShowData {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = PlacementAdapter(data)
+        adapter = PlacementAdapter(data) { it ->
+            val intent = Intent(activity, PostDetailActivity::class.java)
+            val bundle = Bundle()
+            bundle.putParcelable("post", it)
+            intent.putExtras(bundle)
+            intent.putExtra("type", "Placement")
+            startActivity(intent)
+        }
         (activity as PlacementActivity).getData(this)
         view.refresh.setOnRefreshListener {
                 refresh.visibility = View.GONE

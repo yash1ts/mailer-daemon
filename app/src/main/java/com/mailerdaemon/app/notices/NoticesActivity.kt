@@ -26,16 +26,6 @@ class NoticesActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(R.id.container, fragmentNotices).commit()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelable(noticeData, PostsList(data))
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        data = savedInstanceState.getParcelable<PostsList>(noticeData)?.posts ?: emptyList()
-    }
-
     fun getNotices(showNotices: ShowNotices) {
         shimmer_view_container.let {
             it.startShimmer()

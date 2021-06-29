@@ -12,65 +12,137 @@
     app:strokeColor="@color/colorBgLightSilver"
     app:strokeWidth="1dp">
 
-    <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:animateLayoutChanges="true">
-
-      <TextView
-        android:id="@+id/notice_detail"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:padding="16dp"
-        android:textColor="@color/colorPlacementText"
-        android:textSize="@dimen/text_size_14"
-        android:autoLink="web"
-        />
+        android:layout_height="wrap_content">
 
-      <View
-        android:id="@+id/view"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/notice_detail"
-        android:background="@color/colorBgLightSilver"
-        />
 
-        <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/notice_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/notice_detail"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="2dp"
-        android:maxHeight="240dp"
-         />
-
-        <com.facebook.drawee.view.SimpleDraweeView
-            android:id="@+id/full_image"
-            android:layout_width="match_parent"
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="2dp"
-            android:layout_below="@id/notice_detail"
-            android:minHeight="240dp"
-            app:actualImageScaleType="fitCenter"
-            app:placeholderImage="@drawable/placeholder_image"
-            tools:ignore="MissingConstraints" />
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.85"/>
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/notice_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:autoLink="web"
+                android:padding="16dp"
+                android:textColor="@color/colorPlacementText"
+                android:textSize="@dimen/text_size_14" />
+
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/notice_detail"
+                android:background="@color/colorBgLightSilver" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/notice_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/notice_detail"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:maxHeight="240dp"
+                android:orientation="horizontal" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/full_image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/notice_detail"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="2dp"
+                android:minHeight="240dp"
+                app:actualImageScaleType="fitCenter"
+                app:placeholderImage="@drawable/placeholder_image"
+                tools:ignore="MissingConstraints" />
 
 
-      <TextView
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:padding="8dp"
-        android:layout_above="@id/view"
-        android:layout_alignParentEnd="true"
-        android:textSize="12sp"/>
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/view"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:padding="8dp"
+                android:textSize="12sp" />
+        </RelativeLayout>
+
+        <androidx.constraintlayout.widget.Group
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:constraint_referenced_ids="background,ivFacebook,ivShare" />
+
+        <View
+            android:id="@+id/background"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/placementView"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/ivBookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:padding="4dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/ivFacebook"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_outline_bookmark_border_24" />
+
+        <ImageView
+            android:id="@+id/ivFacebook"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/ivShare"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/ivBookmark"
+            app:srcCompat="@drawable/iconsfacebook" />
+
+        <ImageView
+            android:id="@+id/ivShare"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:padding="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guideline2"
+            app:layout_constraintTop_toBottomOf="@+id/ivFacebook"
+            app:srcCompat="@drawable/ic_outline_share_24" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>

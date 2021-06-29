@@ -11,7 +11,8 @@ import java.util.*
 import kotlinx.android.synthetic.main.item_posts.view.*
 import org.ocpsoft.prettytime.PrettyTime
 
-class PlacementAdapter(var list: List<PlacementModel>) : RecyclerView.Adapter<PlacementAdapter.Holder>() {
+class PlacementAdapter(var list: List<PlacementModel>, val mListener: (PlacementModel) -> Unit) :
+    RecyclerView.Adapter<PlacementAdapter.Holder>() {
     val p = PrettyTime()
     val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)
     lateinit var title: String
@@ -36,6 +37,10 @@ class PlacementAdapter(var list: List<PlacementModel>) : RecyclerView.Adapter<Pl
             it.time_created.text = p.format(convertedDate)
             it.daemon.text = "Placement Daemon"
             it.congrats.visibility = View.VISIBLE
+        }
+
+        holder.itemView.setOnClickListener {
+            list.get(position).let { it1 -> mListener.invoke(it1) }
         }
     }
 }
