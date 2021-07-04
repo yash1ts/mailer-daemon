@@ -42,6 +42,8 @@
                 android:layout_marginEnd="8dp"
                 android:autoLink="web"
                 android:padding="16dp"
+                android:maxLines="10"
+                android:ellipsize="end"
                 android:textColor="@color/colorPlacementText"
                 android:textSize="@dimen/text_size_14" />
 
@@ -49,14 +51,14 @@
                 android:id="@+id/view"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
-                android:layout_below="@+id/notice_detail"
+                android:layout_below="@+id/time"
                 android:background="@color/colorBgLightSilver" />
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/notice_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/notice_detail"
+                android:layout_below="@+id/time"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="2dp"
                 android:maxHeight="240dp"
@@ -66,7 +68,7 @@
                 android:id="@+id/full_image"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/notice_detail"
+                android:layout_below="@id/time"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="2dp"
                 android:minHeight="240dp"
@@ -79,7 +81,7 @@
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@id/view"
+                android:layout_below="@id/notice_detail"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
