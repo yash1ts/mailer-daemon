@@ -35,16 +35,6 @@ class PlacementActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(R.id.container, fragment).commit()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelable(placementData, PlacementList(data))
-    }
-
-    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
-        data = savedInstanceState.getParcelable<PlacementList>(placementData)?.list ?: emptyList()
-    }
-
     fun getData(showData: ShowData) {
         shimmer_view_container.let {
         it.startShimmer()

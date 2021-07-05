@@ -39,6 +39,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".PostDetailActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+
         <service
             android:name=".attendance.NotificationService"
             android:enabled="true"
@@ -137,13 +140,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".notices.NoticesActivity">
+        <activity android:name=".notices.NoticesActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="NoticeActivity" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".placement.PlacementActivity">
+        <activity android:name=".placement.PlacementActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="PlacementActivity" />
                 <category android:name="android.intent.category.DEFAULT" />

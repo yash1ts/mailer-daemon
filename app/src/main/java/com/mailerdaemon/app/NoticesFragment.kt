@@ -1,5 +1,6 @@
 package com.mailerdaemon.app
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,7 +30,16 @@ class NoticesFragment : Fragment(), NoticesActivity.Companion.ShowNotices {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = NoticeAdapter(data)
+        adapter = activity?.let {
+            NoticeAdapter(data, it) { it ->
+                val intent = Intent(activity, PostDetailActivity::class.java)
+                val bundle = Bundle()
+                bundle.putParcelable("post", it)
+                intent.putExtras(bundle)
+                intent.putExtra("type", "Notice")
+                startActivity(intent)
+            }
+        }!!
         (activity as NoticesActivity).getNotices(this)
         view.refresh.setOnRefreshListener {
             refresh.visibility = View.GONE

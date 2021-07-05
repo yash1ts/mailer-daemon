@@ -1,5 +1,8 @@
 package com.mailerdaemon.app.notices
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +17,8 @@ import org.ocpsoft.prettytime.PrettyTime
 import java.text.SimpleDateFormat
 import java.util.*
 
-class NoticeAdapter(var list: List<PostModel>) : RecyclerView.Adapter<NoticeAdapter.Holder>() {
+class NoticeAdapter(var list: List<PostModel>, val context: Context, val mListener: (PostModel) -> Unit) :
+    RecyclerView.Adapter<NoticeAdapter.Holder>() {
     private val p = PrettyTime()
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ", Locale.US)
 
@@ -49,6 +53,22 @@ class NoticeAdapter(var list: List<PostModel>) : RecyclerView.Adapter<NoticeAdap
             } else {
                 it.notice_viewpager.visibility = View.GONE
             }
+
+            it.ivFacebook.setOnClickListener {
+                val facebookIntent = Intent(Intent.ACTION_VIEW)
+                facebookIntent.data = Uri.parse(str.permalink_url)
+                context.startActivity(facebookIntent)
+            }
+            it.ivShare.setOnClickListener {
+                val shareIntent = Intent(Intent.ACTION_SEND)
+                shareIntent.type = "text/plain"
+                shareIntent.putExtra(Intent.EXTRA_TEXT, str.permalink_url)
+                context.startActivity(Intent.createChooser(shareIntent, "Share..."))
+            }
+        }
+
+        holder.itemView.relativeLayout.setOnClickListener {
+            list.get(position).let { it1 -> mListener.invoke(it1) }
         }
     }
 }
