@@ -15,6 +15,7 @@ import android.widget.Spinner
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.auth.FirebaseAuth
 import com.mailerdaemon.app.*
 import com.mailerdaemon.app.utils.ImageUploadCallBack
 import com.mailerdaemon.app.utils.UploadData
@@ -26,7 +27,7 @@ class AdminActivity : AppCompatActivity(), ImageUploadCallBack {
     private val topics = arrayOf("event", "campus", "placement")
     private val mTitle = mapOf("event" to "Event", "placement" to "PlacementDeamon", "campus" to "CampusDeamon")
     private val mClickAction = mapOf(
-        "event" to "EventActivity", "placement" to "PlacementActivity", "campus" to "CampusActivity"
+        "event" to "EventsActivity", "placement" to "PlacementActivity", "campus" to "NoticesActivity"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +91,7 @@ class AdminActivity : AppCompatActivity(), ImageUploadCallBack {
         }
     }
 
-    private fun getPath(context: Context, uri: Uri?): String? {
+    private fun getPath(context: Context, uri: Uri?): String {
         var result: String? = null
         val proj = arrayOf(MediaStore.Images.Media.DATA)
         val cursor: Cursor? = uri?.let {
@@ -117,30 +118,40 @@ class AdminActivity : AppCompatActivity(), ImageUploadCallBack {
         image: String?
     ) {
         val notification = NotificationModel.Android.Notification(title, body, click_Action, image)
-        val rootModel = NotificationModel(NotificationModel.Android(notification), topic)
+        val mUser = FirebaseAuth.getInstance().currentUser ?: return
+        mUser.getIdToken(true)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val idToken = task.result.token ?: ""
+                    val data = mapOf(Pair("token", idToken))
+                    val rootModel = NotificationModel(NotificationModel.Android(notification), data, topic)
 
-        (application as ApplicationClass).repository.sendNotification(rootModel)
-            .enqueue(object : retrofit2.Callback<ServerResponse> {
-                override fun onResponse(
-                    call: retrofit2.Call<ServerResponse>,
-                    response: retrofit2.Response<ServerResponse>
-                ) {
-                    if (response.isSuccessful) {
-                        baseContext.toast(response.message())
-                    } else {
-                        baseContext.toast(response.message())
-                    }
-                    progress_bar.visibility = View.GONE
-                    Log.d("Send Notification", response.toString())
-                    onBackPressed()
-                }
+                    (application as ApplicationClass).repository.sendNotification(rootModel)
+                        .enqueue(object : retrofit2.Callback<ServerResponse> {
+                            override fun onResponse(
+                                call: retrofit2.Call<ServerResponse>,
+                                response: retrofit2.Response<ServerResponse>
+                            ) {
+                                if (response.isSuccessful) {
+                                    baseContext.toast(response.message())
+                                } else {
+                                    baseContext.toast(response.message())
+                                }
+                                progress_bar.visibility = View.GONE
+                                Log.d("Send Notification", response.toString())
+                                onBackPressed()
+                            }
 
-                override fun onFailure(call: retrofit2.Call<ServerResponse>, t: Throwable) {
-                    baseContext.toast("Failed")
-                    progress_bar.visibility = View.GONE
-                    t.message?.let { Log.d("Send Notification", it) }
+                            override fun onFailure(call: retrofit2.Call<ServerResponse>, t: Throwable) {
+                                baseContext.toast("Failed")
+                                progress_bar.visibility = View.GONE
+                                t.message?.let { Log.d("Send Notification", it) }
+                            }
+                        })
+                } else {
+                    this.toast(getString(R.string.AuthFailed))
                 }
-            })
+            }
     }
 
     override fun onSuccess(downloadUrl: String?) {

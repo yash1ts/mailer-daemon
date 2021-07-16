@@ -6,13 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.mailerdaemon.app.databinding.RvNoticesBinding
 import com.mailerdaemon.app.notices.NoticeAdapter
 import com.mailerdaemon.app.notices.NoticesActivity
 import com.mailerdaemon.app.notices.PostModel
-import kotlinx.android.synthetic.main.activity_notices.*
 import kotlinx.android.synthetic.main.fragment_placement.*
 import kotlinx.android.synthetic.main.fragment_placement.refresh
-import kotlinx.android.synthetic.main.fragment_placement.view.*
 import kotlinx.android.synthetic.main.fragment_placement.view.refresh
 
 class NoticesFragment : Fragment(), NoticesActivity.Companion.ShowNotices {
@@ -24,22 +23,24 @@ class NoticesFragment : Fragment(), NoticesActivity.Companion.ShowNotices {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_placement, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        adapter = activity?.let {
-            NoticeAdapter(data, it) { it ->
-                val intent = Intent(activity, PostDetailActivity::class.java)
-                val bundle = Bundle()
-                bundle.putParcelable("post", it)
-                intent.putExtras(bundle)
-                intent.putExtra("type", "Notice")
-                startActivity(intent)
-            }
-        }!!
+        val listener: (PostModel) -> Unit = { it ->
+            val intent = Intent(activity, PostDetailActivity::class.java)
+            val bundle = Bundle()
+            bundle.putParcelable("post", it)
+            intent.putExtras(bundle)
+            startActivity(intent)
+        }
+        val bind: (RvNoticesBinding) -> Unit = {
+            it.noticeDetail.maxLines = 10
+        }
+        activity?.let {
+            adapter = NoticeAdapter(data, listener, bind)
+        }
         (activity as NoticesActivity).getNotices(this)
         view.refresh.setOnRefreshListener {
             refresh.visibility = View.GONE

@@ -1,7 +1,6 @@
 package com.mailerdaemon.app
 
 import com.mailerdaemon.app.notices.PostModel
-import com.mailerdaemon.app.placement.PlacementModel
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -13,9 +12,9 @@ interface Repository {
     fun getPosts(): Call<List<PostModel>?>?
 
     @GET("/place")
-    fun getPlacementPosts(): Call<List<PlacementModel>?>?
+    fun getPlacementPosts(): Call<List<PostModel>?>?
 
     @Headers("Content-Type: application/json")
     @POST("/push")
-    fun sendNotification(@Body notificatonModel: NotificationModel): Call<ServerResponse>
+    fun sendNotification(@Body notificationModel: NotificationModel): Call<ServerResponse>
 }

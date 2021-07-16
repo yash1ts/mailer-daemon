@@ -5,18 +5,16 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="16dp"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
     android:focusable="false"
     app:cardElevation="8dp"
     app:cardCornerRadius="16dp"
-    app:strokeColor="@color/colorBgLightSilver"
-    app:strokeWidth="1dp">
+    app:strokeColor="@color/colorBgLightSilver">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline2"
             android:layout_width="wrap_content"
@@ -34,68 +32,57 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/multi_image_list"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="horizontal" />
+
+            <com.facebook.drawee.view.SimpleDraweeView
+                android:id="@+id/full_image"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/multi_image_list"
+                app:roundedCornerRadius="8dp"
+                app:actualImageScaleType="centerCrop"
+                app:placeholderImage="@drawable/placeholder_image"
+                tools:ignore="MissingConstraints" />
+
             <TextView
                 android:id="@+id/notice_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:layout_below="@id/full_image"
                 android:autoLink="web"
-                android:padding="16dp"
-                android:maxLines="10"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:paddingTop="16dp"
                 android:ellipsize="end"
                 android:textColor="@color/colorPlacementText"
                 android:textSize="@dimen/text_size_14" />
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_below="@+id/time"
-                android:background="@color/colorBgLightSilver" />
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/notice_viewpager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/time"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="2dp"
-                android:maxHeight="240dp"
-                android:orientation="horizontal" />
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/full_image"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/time"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="2dp"
-                android:minHeight="240dp"
-                app:actualImageScaleType="fitCenter"
-                app:placeholderImage="@drawable/placeholder_image"
-                tools:ignore="MissingConstraints" />
-
 
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/notice_detail"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="8dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginStart="8dp"
                 android:layout_marginBottom="8dp"
                 android:padding="8dp"
                 android:textSize="12sp" />
         </RelativeLayout>
 
-        <androidx.constraintlayout.widget.Group
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible"
-            app:constraint_referenced_ids="background,ivFacebook,ivShare" />
-
-        <View
+        <LinearLayout
             android:id="@+id/background"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -103,47 +90,48 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/ivBookmark"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:padding="4dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/ivFacebook"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_outline_bookmark_border_24" />
-
-        <ImageView
-            android:id="@+id/ivFacebook"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/ivShare"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/ivBookmark"
-            app:srcCompat="@drawable/iconsfacebook" />
-
-        <ImageView
-            android:id="@+id/ivShare"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:padding="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline2"
-            app:layout_constraintTop_toBottomOf="@+id/ivFacebook"
-            app:srcCompat="@drawable/ic_outline_share_24" />
-
+            android:orientation="vertical"
+            app:layout_constraintTop_toTopOf="parent" >
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/ivBookmark"
+                android:gravity="center"
+                android:visibility="gone"
+                >
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/ic_outline_bookmark_border_24"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/ivFacebook"
+                android:gravity="center"
+                >
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/iconsfacebook"
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/ivShare"
+                android:gravity="center"
+                >
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:srcCompat="@drawable/ic_outline_share_24"
+                    />
+            </LinearLayout>
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

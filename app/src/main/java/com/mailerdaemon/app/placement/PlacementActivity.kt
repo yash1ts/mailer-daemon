@@ -12,6 +12,7 @@ import androidx.appcompat.widget.SearchView
 import com.mailerdaemon.app.ApplicationClass
 import com.mailerdaemon.app.PlacementFragment
 import com.mailerdaemon.app.R
+import com.mailerdaemon.app.notices.PostModel
 import com.mailerdaemon.app.toast
 import kotlinx.android.synthetic.main.fragment_placement.*
 import kotlinx.android.synthetic.main.shimmer_layout_posts.*
@@ -21,7 +22,7 @@ import retrofit2.Response
 
 class PlacementActivity : AppCompatActivity() {
 
-    var data = emptyList<PlacementModel>()
+    var data = emptyList<PostModel>()
     val fragment = PlacementFragment()
 
     public override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,14 +42,14 @@ class PlacementActivity : AppCompatActivity() {
         it.visibility = View.VISIBLE
         }
         (application as ApplicationClass).repository.getPlacementPosts()
-            ?.enqueue(object : Callback<List<PlacementModel>?> {
-                override fun onFailure(call: Call<List<PlacementModel>?>, t: Throwable) {
+            ?.enqueue(object : Callback<List<PostModel>?> {
+                override fun onFailure(call: Call<List<PostModel>?>, t: Throwable) {
                     baseContext.toast("Error")
                 }
 
                 override fun onResponse(
-                    call: Call<List<PlacementModel>?>,
-                    response: Response<List<PlacementModel>?>
+                    call: Call<List<PostModel>?>,
+                    response: Response<List<PostModel>?>
                 ) {
                     val result = response.body()
                     if (response.isSuccessful && result != null) {
@@ -88,12 +89,12 @@ class PlacementActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 if (newText == "" || newText == null) {
-                    fragment.showData(data as MutableList<PlacementModel>)
+                    fragment.showData(data as MutableList<PostModel>)
                 } else {
                     val list = data.filter {
                         it.message.contains(newText, true)
                     }
-                    fragment.showData(list as MutableList<PlacementModel>)
+                    fragment.showData(list as MutableList<PostModel>)
                 }
                 return true
             }
@@ -114,7 +115,7 @@ class PlacementActivity : AppCompatActivity() {
 
     companion object {
         interface ShowData {
-            fun showData(list: List<PlacementModel>)
+            fun showData(list: List<PostModel>)
         }
 
         const val placementData = "placement"

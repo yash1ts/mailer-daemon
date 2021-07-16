@@ -7,8 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mailerdaemon.app.R
 import kotlinx.android.synthetic.main.notice_viewpager_item.view.*
 
-class NoticeViewPagerAdapter(var list: List<Photo> = emptyList()) :
-    RecyclerView.Adapter<NoticeViewPagerAdapter.Holder>() {
+class SingleViewAdapter(var list: List<Photo> = emptyList()) :
+    RecyclerView.Adapter<SingleViewAdapter.Holder>() {
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView)
 

@@ -30,7 +30,7 @@ private const val POLYLINE_STROKE_WIDTH_PX = 2
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var mLocationRequest: LocationRequest
     private lateinit var mLastLocation: Location
-    private lateinit var mCurrLocationMarker: Marker
+    private var mCurrLocationMarker: Marker? = null
     private lateinit var mFusedLocationClient: FusedLocationProviderClient
     private lateinit var mLocationCallback: LocationCallback
     private var ref = WeakReference<Activity>(this)
@@ -117,7 +117,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun locationRequest() {
-        mLocationRequest = LocationRequest()
+        mLocationRequest = LocationRequest.create()
 
         mLocationRequest.let {
             it.interval = 60000 // two minute interval
@@ -132,8 +132,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     // The last location in the list is the newest
                     val location = locationList[locationList.size - 1]
                     mLastLocation = location
-                    if (::mCurrLocationMarker.isInitialized)
-                        mCurrLocationMarker.remove()
+                    mCurrLocationMarker?.remove()
 
                     // Place current location marker
                     val latLng = LatLng(location.latitude, location.longitude)
@@ -153,14 +152,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
                 // Location Permission already granted
-                mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
+                mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper()!!)
                 mMap.isMyLocationEnabled = true
             } else {
                 // Request Location Permission
                 checkLocationPermission()
             }
         } else {
-            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
+            mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper()!!)
             mMap.isMyLocationEnabled = true
         }
     }
@@ -201,7 +200,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                 // location-related task you need to do.
                 val permission = Manifest.permission.ACCESS_FINE_LOCATION
                 if (ContextCompat.checkSelfPermission(this, permission) == PackageManager.PERMISSION_GRANTED) {
-                    mFusedLocationClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper())
+                    mFusedLocationClient
+                        .requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.myLooper()!!)
                     mMap.isMyLocationEnabled = true
                 }
             } else {

@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.android.synthetic.main.activity_forgot_pass.email
-import kotlinx.android.synthetic.main.fragment_add_placement.send
+import kotlinx.android.synthetic.main.activity_forgot_pass.*
 
 class ForgotPassActivity : AppCompatActivity() {
 

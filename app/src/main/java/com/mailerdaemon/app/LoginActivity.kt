@@ -37,7 +37,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(R.style.AppTheme_NoActionBar_NoStatusColor)
-        val mAuth = FirebaseAuth.getInstance()
+        mAuth = FirebaseAuth.getInstance()
         if (getSharedPreferences(MAIN, Context.MODE_PRIVATE).getBoolean(INTRO, true)) {
             startActivity(Intent(this, IntroActivity::class.java))
             finish()
@@ -115,6 +115,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun saveUser(user: FirebaseUser?) {
         if (user != null) {
+            subscribeAllTopics()
             val model = UserModel(user.uid, user.displayName, user.email, false)
             FirebaseFirestore.getInstance().collection(FB_USER).document(user.uid).set(model)
             getSharedPreferences(MAIN, Context.MODE_PRIVATE).edit().putString(U_ID, user.uid).apply()
@@ -175,7 +176,6 @@ class LoginActivity : AppCompatActivity() {
 
     private fun startMain(currentUser: FirebaseUser?) {
         if (currentUser != null) {
-            subscribeAllTopics()
             startActivity(Intent(applicationContext, MainActivity::class.java))
             finish()
         }

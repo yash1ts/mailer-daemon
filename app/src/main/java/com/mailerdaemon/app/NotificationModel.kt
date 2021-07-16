@@ -2,6 +2,7 @@ package com.mailerdaemon.app
 
 data class NotificationModel(
     var android: Android,
+    var data: Map<String, String>?,
     var topic: String
 ) {
     data class Android(

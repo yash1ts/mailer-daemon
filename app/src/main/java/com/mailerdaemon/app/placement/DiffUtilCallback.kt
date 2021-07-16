@@ -1,10 +1,11 @@
 package com.mailerdaemon.app.placement
 
 import androidx.recyclerview.widget.DiffUtil
+import com.mailerdaemon.app.notices.PostModel
 
 class DiffUtilCallback(
-    private val oldList: List<PlacementModel>,
-    private val newList: List<PlacementModel>
+    private val oldList: List<PostModel>,
+    private val newList: List<PostModel>
 ) : DiffUtil.Callback() {
     override fun getOldListSize(): Int = oldList.size
 

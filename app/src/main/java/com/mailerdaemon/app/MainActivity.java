@@ -13,14 +13,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.facebook.login.LoginManager;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 import com.mailerdaemon.app.attendance.AttendanceFragment;
 import com.mailerdaemon.app.clubs.ClubsFragment;
 import com.mailerdaemon.app.events.EventsActivity;
@@ -92,7 +86,6 @@ public class MainActivity extends AppCompatActivity {
         notices.setOnClickListener(v-> startActivity(new Intent(this, NoticesActivity.class)));
         events.setOnClickListener(v-> startActivity(new Intent(this, EventsActivity.class)));
         lost_found.setOnClickListener(v-> startActivity(new Intent(this, LostAndFound.class)));
-
     }
 
     @Override
@@ -133,31 +126,4 @@ public class MainActivity extends AppCompatActivity {
             fragmentManager.beginTransaction().replace(R.id.fragment_container,fragment).commit();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        FirebaseRemoteConfig mFirebaseRemoteConfig;
-        mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
-        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
-                .setMinimumFetchIntervalInSeconds(3600)
-                .build();
-        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
-        Intent intent=new Intent(this,UpdateActivity.class);
-        mFirebaseRemoteConfig.reset().addOnCompleteListener(task-> mFirebaseRemoteConfig.fetchAndActivate().addOnCompleteListener(new OnCompleteListener<Boolean>() {
-            @Override
-            public void onComplete(@NonNull Task<Boolean> task) {
-                if(task.isSuccessful()) {
-                    long l_version = mFirebaseRemoteConfig.getLong("critical_update");
-                    Log.d("VERSION", l_version + "");
-                    int version = BuildConfig.VERSION_CODE;
-                    if (version < l_version){
-                        finish();
-                        startActivity(intent);}
-
-                }
-            }
-        }));
-
-
-    }
 }

@@ -6,9 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.mailerdaemon.app.databinding.ActivityPostDetailBinding
-import com.mailerdaemon.app.notices.NoticeViewPagerAdapter
 import com.mailerdaemon.app.notices.PostModel
-import com.mailerdaemon.app.placement.PlacementModel
+import com.mailerdaemon.app.notices.SingleViewAdapter
 
 class PostDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPostDetailBinding
@@ -18,20 +17,14 @@ class PostDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.let {
             it.btBack.setOnClickListener { onBackPressed() }
-            val bundle = intent.extras
-            if (intent.getStringExtra("type").equals("Placement")) {
-                val postModel: PlacementModel = bundle?.getParcelable("post")!!
-                it.postMessage.text = postModel?.message
-                it.postTag.text = postModel?.message_tags[0].name
-                it.viewPostFbLayout.visibility = View.GONE
-                it.sharePost.visibility = View.GONE
-                it.postImageLayout.visibility = View.GONE
-            } else {
-                val postModel: PostModel = bundle?.getParcelable("post")!!
-                it.postMessage.text = postModel?.message
-                it.postTag.text = postModel?.message_tags[0]
+            val postModel: PostModel = intent.extras?.getParcelable("post") ?: return
+            it.postMessage.text = postModel.message
+                val tag = postModel.message_tags?.get(0)
+                if (tag != null) {
+                    it.postTag.text = tag
+                }
 
-                if (!postModel.permalink_url.isNullOrEmpty()) {
+                if (postModel.permalink_url.isNotEmpty()) {
                     it.fbPostButton.setOnClickListener {
                         val facebookIntent = Intent(Intent.ACTION_VIEW)
                         facebookIntent.data = Uri.parse(postModel.permalink_url)
@@ -45,21 +38,20 @@ class PostDetailActivity : AppCompatActivity() {
                     }
                 }
 
-                if (postModel.full_picture.isNullOrBlank() || postModel.photo.isNotEmpty()) {
+                if (postModel.full_picture.isNullOrBlank() || postModel.photo?.isNotEmpty() == true) {
                     it.postFullImage.visibility = View.GONE
                 } else {
                     it.postFullImage.visibility = View.VISIBLE
                     it.postFullImage.setImageURI(postModel.full_picture)
                 }
-                if (postModel.photo.isNotEmpty()) {
-                    val adapter = NoticeViewPagerAdapter()
+                if (postModel.photo?.isNotEmpty() == true) {
+                    val adapter = SingleViewAdapter()
                     it.postViewpager.visibility = View.VISIBLE
                     adapter.list = postModel.photo
                     it.postViewpager.adapter = adapter
                 } else {
                     it.postViewpager.visibility = View.GONE
                 }
-            }
         }
     }
 }

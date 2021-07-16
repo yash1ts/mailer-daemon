@@ -85,14 +85,6 @@ public class HomeFragment extends Fragment implements ContactFunction {
 
         placement.setOnClickListener(v -> OpenPlacement());
         bt_experience.setOnClickListener(v->{
-//            Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:Tp9iD7YAcKo"));
-//            Intent webIntent = new Intent(Intent.ACTION_VIEW,
-//                    Uri.parse("https://www.youtube.com/watch?v=Tp9iD7YAcKo"));
-//            try {
-//                Objects.requireNonNull(getContext()).startActivity(appIntent);
-//            } catch (ActivityNotFoundException ex) {
-//                Objects.requireNonNull(getContext()).startActivity(webIntent);
-//            }
             OpenPlacement();
         });
         bt_parent_portal.setOnClickListener(v->{

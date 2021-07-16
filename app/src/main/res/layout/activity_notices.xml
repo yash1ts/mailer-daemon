@@ -12,6 +12,7 @@
     android:layout_height="wrap_content">
     <androidx.recyclerview.widget.RecyclerView
       android:id="@+id/rv_notices"
+        android:paddingVertical="8dp"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:layout_below="@+id/shimmer_view_container"

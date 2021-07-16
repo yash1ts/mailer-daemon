@@ -9,15 +9,15 @@ data class PostsList(var posts: List<PostModel>) : Parcelable
 @Parcelize
 data class PostModel(
     val _id: String,
-    val attachment: List<Photo>,
+    val attachment: List<Photo>?,
     val created_time: String,
     val full_picture: String?,
     val id: String,
     val message: String,
-    val message_tags: List<String>,
+    val message_tags: List<String>?,
     val permalink_url: String,
-    val photo: List<Photo>,
-    val video: List<Photo>
+    val photo: List<Photo>?,
+    val video: List<Photo>?
 ) : Parcelable
 
 @Parcelize
