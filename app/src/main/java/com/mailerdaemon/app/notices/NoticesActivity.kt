@@ -53,7 +53,7 @@ class NoticesActivity : AppCompatActivity() {
                         refresh.visibility = View.VISIBLE
                         var list = mutableListOf<PostModel>()
                         for(element in result){
-                            if(element._id!=null && element.created_time!=null && element.id!=null && element.message!=null && element.permalink_url!=null){
+                            if(!isSomethingNull(element)){
                                 list.add(element)
                             }
                         }
@@ -76,5 +76,9 @@ class NoticesActivity : AppCompatActivity() {
         }
 
         const val noticeData = "notices"
+    }
+
+    fun isSomethingNull(element : PostModel) : Boolean{
+        return element._id==null || element.created_time==null || element.id==null || element.message==null || element.permalink_url==null
     }
 }
