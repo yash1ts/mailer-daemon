@@ -79,7 +79,7 @@ class NoticesActivity : AppCompatActivity() {
     }
 
     fun isSomethingNull(element: PostModel): Boolean {
-        return element._id == null || element.created_time == null
-                || element.id == null || element.message == null || element.permalink_url == null
+        return element._id == null || element.created_time == null ||
+                element.id == null || element.message == null || element.permalink_url == null
     }
 }
