@@ -84,7 +84,7 @@ class ContactDetailFragment : Fragment(), ContactFunction {
                     } else {
                         val list = ArrayList<Contact>()
                         for (c in contactList) {
-                            if (c.name?.contains(newText.toLowerCase()) == true)
+                            if (c.name?.toLowerCase()?.contains(newText.toLowerCase()) == true)
                                 list.add(c)
                         }
                         updateRV(list)
