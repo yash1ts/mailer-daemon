@@ -51,7 +51,13 @@ class NoticesActivity : AppCompatActivity() {
                             }
                         }
                         refresh.visibility = View.VISIBLE
-                        data = result
+                        var list = mutableListOf<PostModel>()
+                        for (element in result) {
+                            if (!isSomethingNull(element)) {
+                                list.add(element)
+                            }
+                        }
+                        data = list
                         showNotices.showNotices(data)
                     } else
                         baseContext.toast("Error")
@@ -70,5 +76,10 @@ class NoticesActivity : AppCompatActivity() {
         }
 
         const val noticeData = "notices"
+    }
+
+    fun isSomethingNull(element: PostModel): Boolean {
+        return element._id == null || element.created_time == null ||
+                element.id == null || element.message == null || element.permalink_url == null
     }
 }
