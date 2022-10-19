@@ -1,10 +1,12 @@
 {"contact":[
-  {"name": "Prof. G. Udayabhanu", "image": "https://www.iitism.ac.in/assets/img/admin/dac.jpg", "dept": " Dean, Academic", "email": "dean_acad@iitism.ac.in", "phone": "+91-326-223-5213", "url": ""},
-  {"name": "Prof. D D Pathak", "image": "https://www.iitism.ac.in/assets/img/admin/dadmin.jpg", "dept": " Dean, Administration", "email": "dean_admin@iitism.ac.in", "phone": "+91-326-223-", "url": ""},
-  {"name": "Prof. Jairam Manam", "image": "https://www.iitism.ac.in/assets/img/admin/dfp.jpg", "dept": " Dean, Faculty", "email": "dean_fac@iitism.ac.in", "phone": "+91-326-223-5204", "url": ""},
-  {"name": "Prof. Chiranjeev Kumar", "image": "https://www.iitism.ac.in/assets/img/admin/dean_is.jpg", "dept": " Dean, Information Systems", "email": "dean_is@iitism.ac.in", "phone": "+91-326-223-5286", "url": ""},
-  {"name": "Prof. J.K. Pattanayak", "image": "https://www.iitism.ac.in/assets/img/admin/dinfra.jpg", "dept": " Dean, Infrastructure", "email": "dean_infra@iitism.ac.in", "phone": "+91-326-223-5437", "url": ""},
-  {"name": "Prof. Dheeraj Kumar", "image": "https://www.iitism.ac.in/assets/img/admin/diraa.jpg", "dept": " Dean, IRAA", "email": "dean_iraa@iitism.ac.in", "phone": "+91-326-223-5445", "url": ""},
-  {"name": "Prof. Shalivahan", "image": "https://www.iitism.ac.in/assets/img/admin/dard.jpg", "dept": " Dean, R & D", "email": "dean_rnd@iitism.ac.in", "phone": "+91-326-223-5203", "url": ""},
-  {"name": "Prof. M.K. Singh", "image": "https://www.iitism.ac.in/~mritunjay/images/mksigh.jpg", "dept": " Dean, Students Welfare", "email": "dean_sw@iitism.ac.in", "phone": "+91-326-223-5205", "url": ""}
+  {"name": "Prof. Chiranjeev Kumar", "image": "https://www.iitism.ac.in/assets/img/admin/dac.jpg", "dept": " Dean, Academic", "email": "dacad@iitism.ac.in", "phone": "+91-326-223-5213", "url": ""},
+  {"name": "Prof. Kalyan Kumar Singh", "image": "https://www.iitism.ac.in/assets/img/admin/dadmin.jpg", "dept": " Acting Dean, Administration", "email": "dadmin@iitism.ac.in", "phone": "+91-326-223-5257", "url": ""},
+  {"name": "Prof. Subhashis Chatterjee", "image": "https://www.iitism.ac.in/assets/img/admin/dfp.jpg", "dept": " Dean, Faculty", "email": "dfac@iitism.ac.in", "phone": "+91-326-223-5204", "url": ""},
+  {"name": "Prof. Abhishek Kumar Singh", "image": "https://www.iitism.ac.in/assets/img/admin/dean_is.jpg", "dept": " Acting Dean, Information Systems", "email": "dis@iitism.ac.in", "phone": "+91-326-223-5286", "url": ""},
+  {"name": "Prof. Alok Sinha", "image": "https://www.iitism.ac.in/assets/img/admin/dinfra.jpg", "dept": " Dean, Infrastructure", "email": "dinfra@iitism.ac.in", "phone": "+91-326-223-5437", "url": ""},
+  {"name": "Prof. R M Bhattacharjee", "image": "https://www.iitism.ac.in/assets/img/admin/diraa.jpg", "dept": " Dean, IRAA", "email": "diraa@iitism.ac.in", "phone": "+91-326-223-5445", "url": ""},
+  {"name": "Prof. Sagar Pal", "image": "https://www.iitism.ac.in/assets/img/admin/dard.jpg", "dept": " Dean, R & D", "email": "drnd@iitism.ac.in", "phone": "+91-326-223-5203", "url": ""},
+  {"name": "Prof. Pankaj Mishra", "image": "https://www.iitism.ac.in/assets/employee/878/878.jpg", "dept": " Acting Dean, Innovation, Incubation & Entrepreneurship", "email": "diie@iitism.ac.in", "phone": "+91-326-223-5211", "url": ""},
+  {"name": "Prof. Rajni Singh", "image": "https://www.iitism.ac.in/assets/employee/837/837.jpg", "dept": " Dean, Innovation, Media & Branding", "email": "dmbc@iitism.ac.in", "phone": "+91-326-223-", "url": ""},
+  {"name": "Prof. M.K. Singh", "image": "https://www.iitism.ac.in/assets/employee/808/photo808_2022-04-13_11:42:28.jpg", "dept": " Dean, Students Welfare", "email": "dsw@iitism.ac.in", "phone": "+91-326-223-5205", "url": ""}
 ]}
