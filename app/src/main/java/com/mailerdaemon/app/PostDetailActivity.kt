@@ -19,10 +19,13 @@ class PostDetailActivity : AppCompatActivity() {
             it.btBack.setOnClickListener { onBackPressed() }
             val postModel: PostModel = intent.extras?.getParcelable("post") ?: return
             it.postMessage.text = postModel.message
+            if(postModel.message_tags?.isEmpty() == false) {
                 val tag = postModel.message_tags?.get(0)
                 if (tag != null) {
                     it.postTag.text = tag
                 }
+
+            }
 
                 if (postModel.permalink_url.isNotEmpty()) {
                     it.fbPostButton.setOnClickListener {
