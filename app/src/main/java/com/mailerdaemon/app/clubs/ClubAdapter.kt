@@ -29,7 +29,7 @@ class ClubAdapter internal constructor(private val options: DialogOptions) :
                 3 -> id = R.drawable.mechismu_logo
                 4 -> id = R.drawable.cyberlabs_logo
                 5 -> id = R.drawable.chayanika_logo
-                6 -> id = R.drawable.ecell_logo
+                6 -> id = R.drawable.fintech_logo
                 7 -> id = R.drawable.arka_logo
                 8 -> id = R.drawable.quiz_logo
                 9 -> id = R.drawable.udaan_logo
@@ -48,6 +48,10 @@ class ClubAdapter internal constructor(private val options: DialogOptions) :
                 22 -> id = R.drawable.livetalksism_logo
                 23 -> id = R.drawable.bookclubiitism_logo
                 24 -> id = R.drawable.comclub_logo
+                25 -> id = R.drawable.electronicsclub_logo
+                26 -> id = R.drawable.smfclub_logo
+                27 -> id = R.drawable.animationandgamedesignclub_logo
+                28 -> id = R.drawable.kalpitam_logo
             }
             holder.icon.setActualImageResource(id)
         }
