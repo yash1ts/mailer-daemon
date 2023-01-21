@@ -7,9 +7,9 @@
         <item>@drawable/mechismu_logo</item>
         <item>@drawable/cyberlabs_logo</item>
         <item>@drawable/chayanika_logo</item>
-        <item>@drawable/ecell_logo</item>
+        <item>@drawable/fintech_logo</item>
         <item>@drawable/arka_logo</item>
-        <item>@drawable/quiz_logo</item>
+        <item>@drawable/quiz_logo</item>e
         <item>@drawable/udaan_logo</item>
         <item>@drawable/toastmaster_logo</item>
         <item>@drawable/ffi_logo</item>
@@ -20,12 +20,16 @@
         <item>@drawable/lci_logo</item>
         <item>@drawable/ff_logo</item>
         <item>@drawable/roboism_logo</item>
-        <item>@drawable/manthan_logo</item>
+        <item>@drawable/manthan_logo</item>h
         <item>@drawable/adc_logo</item>
         <item>@drawable/art_logo</item>
         <item>@drawable/livetalksism_logo</item>
         <item>@drawable/bookclubiitism_logo</item>
         <item>@drawable/comclub_logo</item>
+        <item>@drawable/electronicsclub_logo</item>
+        <item>@drawable/smfclub_logo</item>
+        <item>@drawable/animationandgamedesignclub_logo</item>
+        <item>@drawable/kalpitam_logo</item>
 
     </integer-array>
 </resources>
